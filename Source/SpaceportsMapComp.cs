@@ -40,11 +40,8 @@ namespace Spaceports
 			{
 				return;
 			}
-			if (incident == null)
-			{
-				Log.Error("Trying to tick ScenPart_CreateIncident but the incident is null");
-			}
-			else if ((float)Find.TickManager.TicksGame >= occurTick)
+
+			else if ((float)Find.TickManager.TicksGame >= occurTick && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors) //Fires if interval has elapsed and regVis enabled
 			{
 				IncidentParms parms = StorytellerUtility.DefaultParmsNow(incident.category, Find.Maps.Where((Map x) => x.IsPlayerHome).RandomElement());
 				if (!incident.Worker.TryExecute(parms))
@@ -52,6 +49,17 @@ namespace Spaceports
 					return;
 				}
 				else if (intervalDays > 0f)
+				{
+					occurTick += IntervalTicks;
+				}
+				else
+				{
+					return;
+				}
+			}
+
+			else if ((float)Find.TickManager.TicksGame >= occurTick && !LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors) { //stops backlog from piling up
+				if (intervalDays > 0f)
 				{
 					occurTick += IntervalTicks;
 				}

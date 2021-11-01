@@ -12,5 +12,6 @@ namespace Spaceports
 
     public static class Spaceports_Harmony
     {
+        //TODO - patches for Hospitality that hijack visitor arrival methods
     }
 }

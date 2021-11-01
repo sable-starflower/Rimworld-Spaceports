@@ -36,12 +36,12 @@ namespace Spaceports.Incidents
 			{
 				return false;
 			}
-			List<Pawn> list = SpawnPawns(parms);
-			if (list.Count == 0)
+			if (!Utils.CheckIfClearForLanding(map))
 			{
 				return false;
 			}
-			if (!Utils.CheckIfClearForLanding(map))
+			List<Pawn> list = SpawnPawns(parms);
+			if (list.Count == 0)
 			{
 				return false;
 			}
@@ -63,7 +63,8 @@ namespace Spaceports.Incidents
 
 		protected virtual void SendLetter(IncidentParms parms, List<Pawn> pawns, Pawn leader, bool traderExists)
 		{
-			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorNotifications) {
+			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorNotifications && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors)
+			{
 				TaggedString notificationText;
 				if (pawns.Count == 1)
 				{
@@ -80,6 +81,27 @@ namespace Spaceports.Incidents
 				//PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
 				//SendStandardLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, parms, pawns[0]);
 				Messages.Message(notificationText, MessageTypeDefOf.NeutralEvent, false);
+			}
+			else
+			{
+				TaggedString letterLabel;
+				TaggedString letterText;
+				if (pawns.Count == 1)
+				{
+					TaggedString taggedString = (traderExists ? ("\n\n" + "Spaceports_SingleVisitorTrader".Translate(pawns[0].Named("PAWN")).AdjustedFor(pawns[0])) : ((TaggedString)""));
+					TaggedString taggedString2 = ((leader != null) ? ("\n\n" + "Spaceports_SingleVisitorLeader".Translate(pawns[0].Named("PAWN")).AdjustedFor(pawns[0])) : ((TaggedString)""));
+					letterLabel = "LetterLabelSingleVisitorArrives".Translate();
+					letterText = "Spaceports_SingleVisitorLanding".Translate(pawns[0].story.Title, parms.faction.NameColored, pawns[0].Name.ToStringFull, taggedString, taggedString2, pawns[0].Named("PAWN")).AdjustedFor(pawns[0]);
+				}
+				else
+				{
+					TaggedString taggedString3 = (traderExists ? ("\n\n" + "Spaceports_GroupVisitorsTraders".Translate()) : TaggedString.Empty);
+					TaggedString taggedString4 = ((leader != null) ? ("\n\n" + "Spaceports_GroupVisitorsLeader".Translate(leader.LabelShort, leader)) : TaggedString.Empty);
+					letterLabel = "LetterLabelGroupVisitorsArrive".Translate();
+					letterText = "Spaceports_GroupVisitorsLanding".Translate(parms.faction.NameColored, taggedString3, taggedString4);
+				}
+				PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
+				SendStandardLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, parms, pawns[0]);
 			}
 		}
 

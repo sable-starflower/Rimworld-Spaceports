@@ -19,6 +19,7 @@ namespace Spaceports
         public bool enableShuttleLimit;
         public int shuttleLimit;
         public string limitBuffer;
+        //TODO - chance to use shuttle as Hospitality arrival mode (+ other Hospitality settings?)
 
         public override void ExposeData()
         {
@@ -45,6 +46,7 @@ namespace Spaceports
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
+            base.DoSettingsWindowContents(inRect);
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
             listingStandard.CheckboxLabeled("Spaceports_Spaceports_RegularVisitorsToggle".Translate(), ref settings.regularVisitors, "Spaceports_RegularVisitorsTooltip".Translate());
@@ -61,7 +63,7 @@ namespace Spaceports
                 listingStandard.Label("Spaceports_ShuttleLimitLabel".Translate() + settings.shuttleLimit);
                 settings.shuttleLimit = (int)Math.Round(listingStandard.Slider(settings.shuttleLimit, 1f, 20f));
             }
-            base.DoSettingsWindowContents(inRect);
+            listingStandard.End();
         }
 
         public override string SettingsCategory()
