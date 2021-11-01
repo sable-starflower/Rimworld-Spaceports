@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Verse;
 using UnityEngine;
+using HarmonyLib;
+using System.Reflection;
 
 namespace Spaceports
 {
@@ -31,6 +33,9 @@ namespace Spaceports
         public SpaceportsMod(ModContentPack content) : base(content)
         {
             this.settings = GetSettings<SpaceportsSettings>();
+            Log.Message("[Spaceports] Okay, showtime!");
+            Harmony har = new Harmony("Spaceports");
+            har.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         public override void DoSettingsWindowContents(Rect inRect)
@@ -52,5 +57,6 @@ namespace Spaceports
         {
             return "SpaceportsModName".Translate();
         }
+
     }
 }

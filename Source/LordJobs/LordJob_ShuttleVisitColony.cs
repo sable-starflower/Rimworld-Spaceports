@@ -99,7 +99,7 @@ namespace Spaceports.LordJobs
 			transition7.AddTrigger(new Trigger_TicksPassed(tickLimit));
 			if (faction != null)
 			{
-				transition7.AddPreAction(new TransitionAction_Message("VisitorsLeaving".Translate(faction.Name)));
+				transition7.AddPreAction(new TransitionAction_Message("Spaceports_VisitorsLeaving".Translate(faction.Name)));
 			}
 			if (gifts != null)
 			{
@@ -123,7 +123,7 @@ namespace Spaceports.LordJobs
 			Scribe_References.Look(ref faction, "faction");
 			Scribe_Values.Look(ref chillSpot, "chillSpot");
 			Scribe_Values.Look(ref durationTicks, "durationTicks");
-			Scribe_Values.Look(ref shuttle, "shuttle");
+			Scribe_References.Look(ref shuttle, "shuttle");
 			Scribe_Collections.Look(ref gifts, "gifts", LookMode.Deep);
 			if (Scribe.mode == LoadSaveMode.PostLoadInit)
 			{

@@ -115,8 +115,8 @@ namespace Spaceports.LordJobs
         {
             Scribe_References.Look(ref faction, "faction");
             Scribe_Values.Look(ref chillSpot, "chillSpot");
-            Scribe_Values.Look(ref shuttle, "shuttle");
-        }
+			Scribe_References.Look(ref shuttle, "shuttle");
+		}
 
     }
 }
