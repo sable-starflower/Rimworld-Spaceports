@@ -17,13 +17,15 @@
   	<!--Trader Letters-->
 
 	<!--Settings-->
-	<Spaceports_VisitorHeader>Settings pertaining to visitor (NOT trader) shuttles.</Spaceports_VisitorHeader>
+	<Spaceports_Spaceports_RegularVisitorsToggle>Enable fixed-interval visitors?</Spaceports_Spaceports_RegularVisitorsToggle>
+	<Spaceports_RegularVisitorsTooltip>When enabled, a visitor shuttle will try to land at your colony on a fixed interval. Default on.\n\nIf disabled, visitor shuttles will instead have the potential to fire as events.</Spaceports_RegularVisitorsTooltip>
 	<Spaceports_VisitorNotificationsToggle>Receive notifications pertaining to visitor shuttles?</Spaceports_VisitorNotificationsToggle>
-	<Spaceports_VisitorNotificationsTooltip>When enabled, pushes notifications to the top-left feed whenever a visitor (NOT trader) shuttle arrives or leaves.</Spaceports_VisitorNotificationsTooltip>
-	<Spaceports_VisitorFreqSlider>How frequently visitor shuttles (NOT trader shuttles) will land at your colony, in days. Currently: </Spaceports_VisitorFreqSlider>
+	<Spaceports_VisitorNotificationsTooltip>When enabled, pushes notifications to the top-left feed whenever a visitor (NOT trader) shuttle arrives or leaves. Default off.</Spaceports_VisitorNotificationsTooltip>
+	<Spaceports_VisitorFreqSlider>How frequently visitor shuttles will attempt to land at your colony, in days. Currently: </Spaceports_VisitorFreqSlider>
 
-	<Spaceports_TrafficControlHeader>Settings pertaining to shuttle limits and traffic control.</Spaceports_TrafficControlHeader>
 	<Spaceports_AllowRoughLandingToggle>Allow shuttles to land rough when no pads are available?</Spaceports_AllowRoughLandingToggle>
-	<Spaceports_AllowRoughLandingTooltip>Toggling this setting on will allow shuttles to land rough - i.e. out in the open wherever there is space - when there are no free pads.</Spaceports_AllowRoughLandingTooltip>
+	<Spaceports_AllowRoughLandingTooltip>Toggling this setting on will allow shuttles to land rough - i.e. out in the open wherever there is space - when there are no free pads. Default off.</Spaceports_AllowRoughLandingTooltip>
+	<Spaceports_EnableShuttleLimitToggle>Enable shuttle limit?</Spaceports_EnableShuttleLimitToggle>
+	<Spaceports_ShuttleLimitLabel>How many shuttles can be landed at your colony simultaneously. Currently: </Spaceports_ShuttleLimitLabel>
 
 </LanguageData>

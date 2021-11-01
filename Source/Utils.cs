@@ -8,11 +8,35 @@ namespace Spaceports
 {
     public class Utils
     {
-        public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms) {
+		public class ShuttleVariant
+		{
+			public ThingDef shipThing;
+			public ThingDef arrivingSkyfaller;
+			public ThingDef leavingSkyfaller;
+
+			public ShuttleVariant(ThingDef ship, ThingDef arriver, ThingDef leaver)
+			{
+				shipThing = ship;
+				arrivingSkyfaller = arriver;
+				leavingSkyfaller = leaver;
+			}
+
+			public List<ThingDef> GetShuttle()
+			{
+				List<ThingDef> shuttle = new List<ThingDef>();
+				shuttle.Add(shipThing);
+				shuttle.Add(arrivingSkyfaller);
+				shuttle.Add(leavingSkyfaller);
+				return shuttle;
+			}
+		}
+
+		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms) {
 			TransportShipDef shuttleDef = new TransportShipDef();
-			shuttleDef.shipThing = ThingDefOf.Shuttle;
-			shuttleDef.arrivingSkyfaller = ThingDefOf.ShuttleIncoming;
-			shuttleDef.leavingSkyfaller = ThingDefOf.ShuttleLeaving;
+			ShuttleVariant variantToUse = SpaceportsShuttleVariants.AllShuttleVariants.RandomElement();
+			shuttleDef.shipThing = variantToUse.shipThing;
+			shuttleDef.arrivingSkyfaller = variantToUse.arrivingSkyfaller;
+			shuttleDef.leavingSkyfaller = variantToUse.leavingSkyfaller;
 			TransportShip shuttle = TransportShipMaker.MakeTransportShip(shuttleDef, null);
 			foreach (Pawn p in pawns)
 			{
@@ -41,5 +65,48 @@ namespace Spaceports
 			}
 			return DropCellFinder.GetBestShuttleLandingSpot(Find.CurrentMap, faction);
 		}
+
+		public static bool AnyValidSpaceportPads(Map map) {
+			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsThingDefOf.Spaceports_ShuttleLandingSpot))
+			{
+				if (!pad.Position.Roofed(pad.Map) && pad.Position.Standable(map))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool AtShuttleCapacity(Map map) {
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().enableShuttleLimit) 
+			{ 
+				return false;
+			}
+			if (map.listerBuildings.AllBuildingsNonColonistOfDef(ThingDefOf.Shuttle).Count() >= LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().shuttleLimit) 
+			{
+				return true;
+			}
+			return false;
+		}
+
+		public static bool CheckIfClearForLanding(Map map) {
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPads(map))
+			{
+				return false;
+			}
+			if (AtShuttleCapacity(map)) {
+				return false;
+			}
+			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))
+			{
+				return true; //remember to correct these to false
+			}
+			if (map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole && !b.GetComp<CompPowerTrader>().PowerOn))
+			{
+				return true;
+			}
+			return true;
+		}
+
     }
 }

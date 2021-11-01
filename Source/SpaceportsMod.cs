@@ -3,26 +3,31 @@ using Verse;
 using UnityEngine;
 using HarmonyLib;
 using System.Reflection;
+using System;
+using RimWorld;
 
 namespace Spaceports
 {
+
+    
     public class SpaceportsSettings : ModSettings
     {
-        /// <summary>
-        /// The three settings our mod has.
-        /// </summary>
+        public bool regularVisitors;
         public bool visitorNotifications;
         public float visitorFrequencyDays;
         public bool allowLandingRough;
+        public bool enableShuttleLimit;
+        public int shuttleLimit;
+        public string limitBuffer;
 
-        /// <summary>
-        /// The part that writes our settings to file. Note that saving is by ref.
-        /// </summary>
         public override void ExposeData()
         {
+            Scribe_Values.Look(ref regularVisitors, "regularVisitors", true);
             Scribe_Values.Look(ref visitorNotifications, "visitorNotifications", false);
             Scribe_Values.Look(ref visitorFrequencyDays, "visitorFrequencyDays", 1.0f);
             Scribe_Values.Look(ref allowLandingRough, "allowLandingRough", false);
+            Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", true);
+            Scribe_Values.Look(ref shuttleLimit, "shuttleLimit", 5);
             base.ExposeData();
         }
     }
@@ -42,14 +47,20 @@ namespace Spaceports
         {
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
-            listingStandard.Label("Spaceports_VisitorHeader".Translate());
-            listingStandard.CheckboxLabeled("Spaceports_VisitorNotificationsToggle".Translate(), ref settings.visitorNotifications, "Spaceports_VisitorNotificationsTooltip".Translate());
-            listingStandard.Label("Spaceports_VisitorFreqSlider".Translate() + +settings.visitorFrequencyDays);
-            settings.visitorFrequencyDays = listingStandard.Slider(settings.visitorFrequencyDays, 0.1f, 5f);
+            listingStandard.CheckboxLabeled("Spaceports_Spaceports_RegularVisitorsToggle".Translate(), ref settings.regularVisitors, "Spaceports_RegularVisitorsTooltip".Translate());
+            if (settings.regularVisitors) {
+                listingStandard.CheckboxLabeled("Spaceports_VisitorNotificationsToggle".Translate(), ref settings.visitorNotifications, "Spaceports_VisitorNotificationsTooltip".Translate());
+                listingStandard.Label("Spaceports_VisitorFreqSlider".Translate() + settings.visitorFrequencyDays);
+                settings.visitorFrequencyDays = (float)Math.Round(listingStandard.Slider(settings.visitorFrequencyDays, 0.10f, 5f) * 10, MidpointRounding.ToEven) / 10;
+            }
             listingStandard.GapLine();
-            listingStandard.Label("Spaceports_TrafficControlHeader".Translate());
             listingStandard.CheckboxLabeled("Spaceports_AllowRoughLandingToggle".Translate(), ref settings.allowLandingRough, "Spaceports_AllowRoughLandingTooltip".Translate());
-            listingStandard.End();
+            listingStandard.CheckboxLabeled("Spaceports_EnableShuttleLimitToggle".Translate(), ref settings.enableShuttleLimit);
+            if (settings.enableShuttleLimit) 
+            {
+                listingStandard.Label("Spaceports_ShuttleLimitLabel".Translate() + settings.shuttleLimit);
+                settings.shuttleLimit = (int)Math.Round(listingStandard.Slider(settings.shuttleLimit, 1f, 20f));
+            }
             base.DoSettingsWindowContents(inRect);
         }
 

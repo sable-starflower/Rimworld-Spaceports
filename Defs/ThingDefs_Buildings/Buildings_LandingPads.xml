@@ -10,6 +10,7 @@
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(7,5)</drawSize>
     </graphicData>
+    <rotatable>false</rotatable>
     <altitudeLayer>FloorEmplacement</altitudeLayer>
     <statBases>
       <WorkToBuild>0</WorkToBuild>

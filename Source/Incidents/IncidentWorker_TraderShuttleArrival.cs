@@ -12,6 +12,15 @@ namespace Spaceports.Incidents
 	{
 		protected override PawnGroupKindDef PawnGroupKindDef => PawnGroupKindDefOf.Trader;
 
+		protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+		{
+			if (!base.FactionCanBeGroupSource(f, map, desperate) || f.def.caravanTraderKinds.Count == 0 || f.def.techLevel.ToString() == "Neolithic")
+			{
+				return false;
+			}
+			return f.def.caravanTraderKinds.Any((TraderKindDef t) => TraderKindCommonality(t, map, f) > 0f);
+		}
+
 		protected override bool TryExecuteWorker(IncidentParms parms)
 		{
 			Map map = (Map)parms.target;
@@ -21,6 +30,9 @@ namespace Spaceports.Incidents
 			}
 			if (parms.faction.HostileTo(Faction.OfPlayer))
 			{
+				return false;
+			}
+			if (!Utils.CheckIfClearForLanding(map)) {
 				return false;
 			}
 			List<Pawn> pawns = SpawnPawns(parms);
