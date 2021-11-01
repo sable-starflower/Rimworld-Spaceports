@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+	<SpaceportsModName>Spaceports</SpaceportsModName>
+
+	<!--Visitor Notifications-->
+  	<Spaceports_SingleVisitorLanding>A shuttle from {1} is landing to visit. {PAWN_titleIndef} named {PAWN_nameFull} is onboard.{3}{4}</Spaceports_SingleVisitorLanding>
+  	<Spaceports_SingleVisitorTrader>{PAWN_pronoun} seems to have a few items to trade.</Spaceports_SingleVisitorTrader>
+  	<Spaceports_SingleVisitorLeader>{PAWN_pronoun} is the leader of the faction.</Spaceports_SingleVisitorLeader>
+
+  	<Spaceports_GroupVisitorsLanding>A shuttle from {0} is landing to visit.{1}{2}</Spaceports_GroupVisitorsLanding>
+  	<Spaceports_GroupVisitorsTraders>They seem to have a few items to trade.</Spaceports_GroupVisitorsTraders>
+  	<Spaceports_GroupVisitorsLeader>One of the visitors - {1_labelShort}, is the leader of the faction.</Spaceports_GroupVisitorsLeader>
+
+  	<Spaceports_VisitorsLeaving>Visitors from {0} are taking off.</Spaceports_VisitorsLeaving>
+
+  	<!--Trader Letters-->
+
+	<!--Settings-->
+	<Spaceports_VisitorHeader>Settings pertaining to visitor (NOT trader) shuttles.</Spaceports_VisitorHeader>
+	<Spaceports_VisitorNotificationsToggle>Receive notifications pertaining to visitor shuttles?</Spaceports_VisitorNotificationsToggle>
+	<Spaceports_VisitorNotificationsTooltip>When enabled, pushes notifications to the top-left feed whenever a visitor (NOT trader) shuttle arrives or leaves.</Spaceports_VisitorNotificationsTooltip>
+	<Spaceports_VisitorFreqSlider>How frequently visitor shuttles (NOT trader shuttles) will land at your colony, in days. Currently: </Spaceports_VisitorFreqSlider>
+
+	<Spaceports_TrafficControlHeader>Settings pertaining to shuttle limits and traffic control.</Spaceports_TrafficControlHeader>
+	<Spaceports_AllowRoughLandingToggle>Allow shuttles to land rough when no pads are available?</Spaceports_AllowRoughLandingToggle>
+	<Spaceports_AllowRoughLandingTooltip>Toggling this setting on will allow shuttles to land rough - i.e. out in the open wherever there is space - when there are no free pads.</Spaceports_AllowRoughLandingTooltip>
+
+</LanguageData>

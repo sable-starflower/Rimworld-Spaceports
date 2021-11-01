@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Spaceports</name>
+	<author>SomewhereOutInSpace</author>
+	<packageId>SomewhereOutInSpace.Spaceports</packageId>
+	<supportedVersions>
+	  <li>1.3</li>
+  </supportedVersions>
+  <description>TBD</description>
+</ModMetaData>
