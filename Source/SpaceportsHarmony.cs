@@ -10,7 +10,7 @@ using HarmonyLib;
 namespace Spaceports
 {
 
-    public static class Spaceports_Harmony
+    public static class SpaceportsHarmony
     {
         //TODO - patches for Hospitality that hijack visitor arrival methods
     }

@@ -73,7 +73,7 @@
     <Compile Include="SpaceportsMapComp.cs" />
     <Compile Include="SpaceportsMod.cs" />
     <Compile Include="SpaceportsThingDefOf.cs" />
-    <Compile Include="Spaceports_Harmony.cs" />
+    <Compile Include="SpaceportsHarmony.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

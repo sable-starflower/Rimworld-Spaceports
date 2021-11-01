@@ -1,6 +1,7 @@
 <Defs>
 
-  <ThingDef Name="ShuttleBase" ParentName="BuildingBase" Abstrace="True">
+  <ThingDef Name="Spaceports_ShuttleBase" ParentName="BuildingBase" Abstrace="True">
+    <defName>Spaceports_ShuttleBase</defName>
     <label>shuttle</label>
     <description>A spacer-tech shuttle designed for transit between surface and orbit, or between moons of a planetary system.</description>
     <altitudeLayer>Building</altitudeLayer>
