@@ -1,15 +1,19 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using Verse;
+using Verse.AI;
 using static Spaceports.Utils;
 
 namespace Spaceports
 {
     [DefOf]
-    public static class SpaceportsThingDefOf
+    public static class SpaceportsDefOf
     {
         public static ThingDef Spaceports_ShuttleLandingSpot;
         public static IncidentDef Spaceports_VisitorShuttleArrival;
+        public static DutyDef Spaceports_TryShuttleWoundedGuest;
+        public static DutyDef Spaceports_EnterTransporterAndDefendSelf;
+        public static JobDef Spaceports_Kidnap;
     }
 
     [StaticConstructorOnStartup]

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RimWorld;
+using Spaceports.LordToils;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -38,7 +39,7 @@ namespace Spaceports.LordJobs
 			LordToil lordToil = (stateGraph.StartingToil = stateGraph.AttachSubgraph(new LordJob_Travel(chillSpot).CreateGraph()).StartingToil);
 			LordToil_DefendPoint lordToil_DefendPoint = new LordToil_DefendPoint(chillSpot);
 			stateGraph.AddToil(lordToil_DefendPoint);
-			LordToil_TakeWoundedGuest lordToil_TakeWoundedGuest = new LordToil_TakeWoundedGuest();
+			LordToil_TryShuttleWoundedGuest lordToil_TakeWoundedGuest = new LordToil_TryShuttleWoundedGuest(shuttle, LocomotionUrgency.Sprint, canDig: false);
 			stateGraph.AddToil(lordToil_TakeWoundedGuest);
 			exitSubgraph = new LordJob_SpaceportDepart(shuttle).CreateGraph();			
 			LordToil target = exitSubgraph.lordToils[1];

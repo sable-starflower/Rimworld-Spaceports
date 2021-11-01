@@ -11,7 +11,7 @@ namespace Spaceports
     public class SpaceportsMapComp : MapComponent
     {
 
-		private IncidentDef incident = SpaceportsThingDefOf.Spaceports_VisitorShuttleArrival;
+		private IncidentDef incident = SpaceportsDefOf.Spaceports_VisitorShuttleArrival;
 
 		private float IntervalTicks => 60000f * intervalDays;
 

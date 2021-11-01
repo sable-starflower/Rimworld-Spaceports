@@ -65,14 +65,17 @@
   <ItemGroup>
     <Compile Include="Incidents\IncidentWorker_TraderShuttleArrival.cs" />
     <Compile Include="Incidents\IncidentWorker_VisitorShuttleArrival.cs" />
+    <Compile Include="JobDrivers\JobDriver_SpaceportsKidnap.cs" />
+    <Compile Include="JobGivers\JobGiver_TryShuttleWoundedGuest.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleTradeWithColony.cs" />
     <Compile Include="LordJobs\LordJob_SpaceportDepart.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleVisitColony.cs" />
-    <Compile Include="LordJobs\LordToil_DefendTraderCaravan.cs" />
+    <Compile Include="LordToils\LordToil_DefendTraderCaravan.cs" />
+    <Compile Include="LordToils\LordToil_TryShuttleWoundedGuest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpaceportsMapComp.cs" />
     <Compile Include="SpaceportsMod.cs" />
-    <Compile Include="SpaceportsThingDefOf.cs" />
+    <Compile Include="SpaceportsDefOf.cs" />
     <Compile Include="SpaceportsHarmony.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
