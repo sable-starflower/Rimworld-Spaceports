@@ -37,7 +37,7 @@ namespace Spaceports
 			shuttleDef.shipThing = variantToUse.shipThing;
 			shuttleDef.arrivingSkyfaller = variantToUse.arrivingSkyfaller;
 			shuttleDef.leavingSkyfaller = variantToUse.leavingSkyfaller;
-			TransportShip shuttle = TransportShipMaker.MakeTransportShip(shuttleDef, null);
+			TransportShip shuttle = TransportShipMaker.MakeTransportShip(TransportShipDefOf.Ship_Shuttle, null);
 			foreach (Pawn p in pawns)
 			{
 				shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));

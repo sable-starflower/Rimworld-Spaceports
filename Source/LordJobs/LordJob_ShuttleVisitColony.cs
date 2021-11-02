@@ -13,7 +13,7 @@ namespace Spaceports.LordJobs
 
 		private IntVec3 chillSpot;
 
-		public Thing shuttle;
+		private Thing shuttle;
 
 		private int? durationTicks;
 
