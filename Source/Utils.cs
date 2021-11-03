@@ -53,7 +53,7 @@ namespace Spaceports
 		}
 
 		public static IntVec3 FindValidSpaceportPad(Map map, Faction faction) {
-			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingSpot)) 
+			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad)) 
 			{
 				if (pad.Position.Roofed(pad.Map))
 				{
@@ -67,7 +67,7 @@ namespace Spaceports
 		}
 
 		public static bool AnyValidSpaceportPads(Map map) {
-			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingSpot))
+			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad))
 			{
 				if (!pad.Position.Roofed(pad.Map) && pad.Position.Standable(map))
 				{

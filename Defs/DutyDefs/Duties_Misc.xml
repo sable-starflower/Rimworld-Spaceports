@@ -15,7 +15,7 @@
     </thinkNode>
   </DutyDef>
 
-  <DutyDef>
+  <!--<DutyDef>
     <defName>Spaceports_EnterTransporterAndDefendSelf</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
@@ -26,6 +26,6 @@
         <li Class="JobGiver_EnterTransporter" />
       </subNodes>
     </thinkNode>
-  </DutyDef>
+  </DutyDef>-->
 
 </Defs>

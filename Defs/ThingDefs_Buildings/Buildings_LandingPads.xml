@@ -1,27 +1,28 @@
 <Defs>
 
   <ThingDef ParentName="BuildingBase">
-    <defName>Spaceports_ShuttleLandingSpot</defName>
-    <label>shuttle landing zone</label>
+    <defName>Spaceports_ShuttleLandingPad</defName>
+    <label>shuttle landing pad</label>
     <description>A primitive spray-painted landing zone for shuttles.</description>
-    <thingClass>Building</thingClass>
+    <thingClass>Spaceports.Buildings.Building_ShuttlePad</thingClass>
+    <category>Building</category>
     <graphicData>
-      <texPath>Buildings/ShuttleLandingSpot/ShuttleLandingSpot</texPath>
+      <texPath>Buildings/ShuttleLandingPad/ShuttleLandingPad</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(7,5)</drawSize>
     </graphicData>
-    <rotatable>false</rotatable>
+    <drawerType>RealtimeOnly</drawerType>
     <altitudeLayer>FloorEmplacement</altitudeLayer>
     <statBases>
       <WorkToBuild>0</WorkToBuild>
     </statBases>
+    <rotatable>false</rotatable>
     <scatterableOnMapGen>false</scatterableOnMapGen>
     <useHitPoints>False</useHitPoints>
     <size>(7,5)</size>
     <designationCategory>Misc</designationCategory>
     <passability>Standable</passability>
     <building>
-      <isInert>true</isInert>
       <isEdifice>false</isEdifice>
       <ai_chillDestination>false</ai_chillDestination>
     </building>

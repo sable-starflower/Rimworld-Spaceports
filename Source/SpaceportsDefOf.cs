@@ -9,10 +9,9 @@ namespace Spaceports
     [DefOf]
     public static class SpaceportsDefOf
     {
-        public static ThingDef Spaceports_ShuttleLandingSpot;
+        public static ThingDef Spaceports_ShuttleLandingPad;
         public static IncidentDef Spaceports_VisitorShuttleArrival;
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
-        public static DutyDef Spaceports_EnterTransporterAndDefendSelf;
         public static JobDef Spaceports_Kidnap;
     }
 

@@ -12,7 +12,7 @@
   	<Spaceports_GroupVisitorsTraders>They seem to have a few items to trade.</Spaceports_GroupVisitorsTraders>
   	<Spaceports_GroupVisitorsLeader>One of the visitors - {1_labelShort}, is the leader of the faction.</Spaceports_GroupVisitorsLeader>
 
-  	<Spaceports_VisitorsLeaving>Visitors from {0} are taking off.</Spaceports_VisitorsLeaving>
+  	<Spaceports_VisitorsLeaving>Visitors from {0} are departing.</Spaceports_VisitorsLeaving>
 
   	<!--Trader Letters-->
 
