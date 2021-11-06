@@ -11,59 +11,146 @@ namespace Spaceports.Buildings
 {
     public class Building_ShuttlePad : Building
     {
-        private int currentFrame = 0;
-        private int currentFrameRim = 0;
-        private int ticksPerFrame = 30;
-        private int ticksPrev = 0;
+        private bool ShuttleInbound = false;
 
-        private static readonly Material HoldingPatternGraphic = MaterialPool.MatFrom("Animations/HoldingPattern", ShaderDatabase.TransparentPostLight, Color.white);
-        private static readonly Material LandingPatternAlpha = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsA", ShaderDatabase.TransparentPostLight, Color.white);
-        private static readonly Material LandingPatternBeta = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsB", ShaderDatabase.TransparentPostLight, Color.white);
-        private static readonly Material LandingPatternGamma = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsC", ShaderDatabase.TransparentPostLight, Color.white);
-        private static readonly Material RimPatternOn = MaterialPool.MatFrom("Animations/RimLights/RimLights_On", ShaderDatabase.TransparentPostLight, Color.white);
-        private static readonly Material RimPatternOff = MaterialPool.MatFrom("Animations/RimLights/RimLights_Off", ShaderDatabase.TransparentPostLight, Color.white);
+        private int AccessState = 0; //0 for all, 1 for visitors, 2 for traders, 3 for hospitality guests
 
-        private List<Material> LandingPattern = new List<Material>();
-        private List<Material> RimPattern = new List<Material>();
+        private Utils.AnimateOver landingPatternAnimation;
+        private Utils.AnimateOver rimLightAnimation;
+        private Utils.DrawOver holdingPattern;
+        private Utils.DrawOver blockedPattern;
+
+        public override string GetInspectString()
+        {
+            string text = base.GetInspectString();
+            if (IsUnroofed() == false) 
+            {
+                text += "Pad blocked by roofing.";
+            }
+            return text;
+        }
 
         public override void PostMake()
         {
+            landingPatternAnimation = new Utils.AnimateOver(SpaceportsFramesLists.LandingPatternFrames, 30, this, 7f, 5f);
+            rimLightAnimation = new Utils.AnimateOver(SpaceportsFramesLists.RimPatternFrames, 30, this, 7f, 5f);
+            holdingPattern = new Utils.DrawOver(SpaceportsFrames.HoldingPatternGraphic, 30, this, 7f, 5f);
+            blockedPattern = new Utils.DrawOver(SpaceportsFrames.BlockedPatternGraphic, 30, this, 7f, 5f);
             base.PostMake();
-            LandingPattern.Add(LandingPatternAlpha);
-            LandingPattern.Add(LandingPatternBeta);
-            LandingPattern.Add(LandingPatternGamma);
-            RimPattern.Add(RimPatternOn);
-            RimPattern.Add(RimPatternOff);
+        }
+
+        public override void ExposeData()
+        {
+            base.ExposeData();
+            Scribe_Values.Look(ref AccessState, "accessState", 0);
         }
 
         public override void Draw()
         {
-            int ticksCurrent = Find.TickManager.TicksGame;
-            if (ticksCurrent >= ticksPrev + ticksPerFrame)
+            if (ShuttleInbound) 
             {
-                ticksPrev = ticksCurrent;
-                currentFrame++;
-                currentFrameRim++;
+                landingPatternAnimation.FrameStep();
             }
-            if (currentFrame >= 3)
+            if (IsShuttleOnPad()) 
             {
-                currentFrame = 0;
+                holdingPattern.FrameStep();
             }
-            if (currentFrameRim >= 2) 
-            { 
-                currentFrameRim = 0;
+            if (IsShuttleOnPad() == false && IsUnroofed() == false)
+            {
+                blockedPattern.FrameStep();
             }
-            DrawOverlayTex(LandingPattern[currentFrame]);
-            DrawOverlayTex(RimPattern[currentFrameRim]);
+            rimLightAnimation.FrameStep();
             base.Draw();
         }
 
-        private void DrawOverlayTex(Material mat) {
-            Matrix4x4 matrix = default(Matrix4x4);
-            Vector3 pos = this.TrueCenter();
-            Vector3 s = new Vector3(7f, 1f, 5f); //x and z should correspond to the DrawSize values of the base building
-            matrix.SetTRS(pos, this.Rotation.AsQuat, s);
-            Graphics.DrawMesh(MeshPool.plane10, matrix, mat, 0);
+        public override void Tick()
+        {
+            if (IsShuttleOnPad()) {
+                Log.Message("Shuttle down.");
+                ShuttleInbound = false;
+            }
+            base.Tick();
         }
+
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            foreach (Gizmo gizmo in base.GetGizmos())
+            {
+                yield return gizmo;
+            }
+
+            yield return new Command_Action()
+            {
+
+                defaultLabel = "AccessControlButton".Translate(),
+                defaultDesc = "AccessControlDesc".Translate(),
+                //icon = getMealIcon(),
+                order = -100,
+                action = delegate ()
+                {
+                    List<FloatMenuOption> options = new List<FloatMenuOption>();
+
+                    foreach (Utils.AccessControlState state in SpaceportsMisc.AccessStates)
+                    {
+                        string label = state.GetLabel();
+                        FloatMenuOption option = new FloatMenuOption(label, delegate ()
+                        {
+                            SetAccessState(state.getValue());
+                        });
+                        options.Add(option);
+                    }
+
+                    if (options.Count > 0)
+                    {
+                        Find.WindowStack.Add(new FloatMenu(options));
+                    }
+                }
+            };
+
+        }
+
+        public void NotifyIncoming() 
+        {
+            ShuttleInbound = true;
+        }
+
+        public bool IsAvailable() 
+        {
+            if (IsUnroofed() == false || IsShuttleOnPad() == true) {
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsUnroofed() 
+        {
+            foreach (IntVec3 cell in this.OccupiedRect().Cells) {
+                if (cell.Roofed(this.Map)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool IsShuttleOnPad()
+        {
+            if (this.Position.GetFirstThingWithComp<CompShuttle>(this.Map) != null) {
+                return true;
+            }
+            return false;
+        }
+
+        private void SetAccessState(int val) {
+            AccessState = val;
+        }
+
+        public bool CheckAccessGranted(int val) {
+            if (AccessState == 0 || val == 0)
+            {
+                return true;
+            }
+            else return AccessState == val;
+        }
+
     }
 }

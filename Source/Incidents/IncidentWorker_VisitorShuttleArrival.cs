@@ -20,6 +20,19 @@ namespace Spaceports.Incidents
 		new CurvePoint(500f, 0f)
 	};
 
+		protected override bool CanFireNowSub(IncidentParms parms)
+		{
+			if (!base.CanFireNowSub(parms))
+			{
+				return false;
+			}
+			if (!Utils.CheckIfClearForLanding((Map)parms.target))
+			{
+				return false;
+			}
+			return true;
+		}
+
 		protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
 		{
 			if (base.FactionCanBeGroupSource(f, map, desperate) && !f.Hidden && !f.HostileTo(Faction.OfPlayer) && f.def.pawnGroupMakers != null && f.def.pawnGroupMakers.Any((PawnGroupMaker x) => x.kindDef == PawnGroupKindDef) && f.def.techLevel.ToString() != "Neolithic")
@@ -36,10 +49,6 @@ namespace Spaceports.Incidents
 			{
 				return false;
 			}
-			if (!Utils.CheckIfClearForLanding(map))
-			{
-				return false;
-			}
 			List<Pawn> list = SpawnPawns(parms);
 			if (list.Count == 0)
 			{
@@ -53,7 +62,7 @@ namespace Spaceports.Incidents
 			Pawn leader = list.Find((Pawn x) => parms.faction.leader == x);
 
 			RCellFinder.TryFindRandomSpotJustOutsideColony(list[0], out var result);
-			TransportShip shuttle = Utils.GenerateInboundShuttle(list, parms);
+			TransportShip shuttle = Utils.GenerateInboundShuttle(list, parms, 1);
 			LordJob lordJob = new LordJobs.LordJob_ShuttleVisitColony(parms.faction, result, shuttle: shuttle.shipThing);
 			LordMaker.MakeNewLord(parms.faction, lordJob, map, list);
 			SendLetter(parms, list, leader, traderExists);

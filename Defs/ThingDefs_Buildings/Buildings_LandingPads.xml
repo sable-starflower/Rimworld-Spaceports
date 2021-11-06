@@ -3,7 +3,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>Spaceports_ShuttleLandingPad</defName>
     <label>shuttle landing pad</label>
-    <description>A primitive spray-painted landing zone for shuttles.</description>
+    <description>An automated landing pad for shuttlecraft. An integrated deep-field transmitter broadcasts the pad's availability and status across the local solar system, bringing in visitors from across the world and beyond.</description>
     <thingClass>Spaceports.Buildings.Building_ShuttlePad</thingClass>
     <category>Building</category>
     <graphicData>
@@ -11,10 +11,12 @@
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(7,5)</drawSize>
     </graphicData>
+    <tickerType>Normal</tickerType>
     <drawerType>RealtimeOnly</drawerType>
     <altitudeLayer>FloorEmplacement</altitudeLayer>
     <statBases>
-      <WorkToBuild>0</WorkToBuild>
+      <WorkToBuild>1000</WorkToBuild>
+      <MaxHitPoints>500</MaxHitPoints>
     </statBases>
     <rotatable>false</rotatable>
     <scatterableOnMapGen>false</scatterableOnMapGen>
@@ -22,10 +24,29 @@
     <size>(7,5)</size>
     <designationCategory>Misc</designationCategory>
     <passability>Standable</passability>
+    <clearBuildingArea>true</clearBuildingArea>
+    <costList>
+      <Steel>50</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
     <building>
-      <isEdifice>false</isEdifice>
       <ai_chillDestination>false</ai_chillDestination>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
     </building>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <researchPrerequisites>
+      <li>MicroelectronicsBasics</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(150,100,255,0)</glowColor>
+      </li>
+    </comps>
   </ThingDef>
 
 </Defs>

@@ -14,5 +14,8 @@
             <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
         </li>
   </modDependencies>
-  <description>TBD</description>
+  <description><![CDATA[<i>"For I dipped into the future, far as human eye could see, Saw the Vision of the world, and all the wonder that would be.
+  Saw the heavens fill with commerce, argosies of magic sails, Pilots of the purple twilight dropping down with costly bales..."</i>
+
+A mod for filling the heavens above your colony with commerce. Build landing pads and welcome a steady stream of shuttles carrying visitors, traders and guests. Be warned, however, for not everyone who picks up your signal will be friendly...]]></description>
 </ModMetaData>

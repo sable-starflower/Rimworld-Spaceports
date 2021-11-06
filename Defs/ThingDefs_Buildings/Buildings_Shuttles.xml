@@ -8,7 +8,7 @@
     <pathCost>50</pathCost>
     <blockWind>true</blockWind>
     <passability>Impassable</passability>
-    <fillPercent>1.0</fillPercent>
+    <!--<fillPercent>1.0</fillPercent>-->
     <size>(5,3)</size>
     <graphicData>
       <texPath>Things/Building/Misc/Shuttle</texPath>
@@ -46,9 +46,6 @@
       <soundAmbient MayRequire="Ludeon.RimWorld.Ideology">ShuttleIdle_Ambience</soundAmbient>
       <destroySound MayRequire="Ludeon.RimWorld.Ideology">BuildingDestroyed_Metal_Big</destroySound>
     </building>
-    <inspectorTabs>
-      <li>ITab_ContentsTransporter</li>
-    </inspectorTabs>
     <comps>
       <li Class="CompProperties_Shuttle" />
       <li Class="CompProperties_Transporter">

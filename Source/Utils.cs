@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using RimWorld;
+using UnityEngine;
 using Verse;
 using Verse.AI.Group;
 
@@ -31,7 +34,99 @@ namespace Spaceports
 			}
 		}
 
-		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms) {
+		public class AnimateOver
+		{
+			private List<Material> frames;
+			private int currentFrame = 0;
+			private int ticksPerFrame = 30;
+			private int ticksPrev;
+			private Thing thing;
+			private float xSize;
+			private float ySize;
+
+			public AnimateOver(List<Material> frames, int ticksPerFrame, Thing thing, float xSize, float ySize) {
+				this.frames = frames;
+				this.ticksPerFrame = ticksPerFrame;
+				this.thing = thing;
+				this.xSize = xSize;
+				this.ySize = ySize;
+			}
+
+			public void FrameStep() {
+				int ticksCurrent = Find.TickManager.TicksGame;
+				if (ticksCurrent >= this.ticksPrev + ticksPerFrame)
+				{
+					this.ticksPrev = ticksCurrent;
+					currentFrame++;
+				}
+				if (currentFrame >= frames.Count)
+				{
+					currentFrame = 0;
+				}
+				DrawOverlayTex(currentFrame);
+			}
+
+			private void DrawOverlayTex(int currFrame)
+			{
+				Matrix4x4 matrix = default(Matrix4x4);
+				Vector3 pos = thing.TrueCenter();
+				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
+				matrix.SetTRS(pos, thing.Rotation.AsQuat, s);
+				Graphics.DrawMesh(MeshPool.plane10, matrix, frames[currFrame], 0);
+			}
+		}
+
+		public class DrawOver
+		{
+			private Material frame;
+			private Thing thing;
+			private float xSize;
+			private float ySize;
+
+			public DrawOver(Material frame, int ticksPerFrame, Thing thing, float xSize, float ySize)
+			{
+				this.frame = frame;
+				this.thing = thing;
+				this.xSize = xSize;
+				this.ySize = ySize;
+			}
+
+			public void FrameStep()
+			{
+				DrawOverlayTex();
+			}
+
+			private void DrawOverlayTex()
+			{
+				Matrix4x4 matrix = default(Matrix4x4);
+				Vector3 pos = thing.TrueCenter();
+				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
+				matrix.SetTRS(pos, thing.Rotation.AsQuat, s);
+				Graphics.DrawMesh(MeshPool.plane10, matrix, frame, 0);
+			}
+		}
+
+		public class AccessControlState
+        {
+			private string label;
+			private int value;
+
+			public AccessControlState(String key, int value)
+            {
+				label = key.Translate();
+				this.value = value;
+            }
+
+			public string GetLabel() {
+				return label;
+			}
+
+			public int getValue() {
+				return value;
+			}
+        }
+
+		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms, int typeVal) {
 			TransportShipDef shuttleDef = new TransportShipDef();
 			ShuttleVariant variantToUse = SpaceportsShuttleVariants.AllShuttleVariants.RandomElement();
 			shuttleDef.shipThing = variantToUse.shipThing;
@@ -42,7 +137,7 @@ namespace Spaceports
 			{
 				shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));
 			}
-			shuttle.ArriveAt(FindValidSpaceportPad(Find.CurrentMap, parms.faction), Find.CurrentMap.Parent);
+			shuttle.ArriveAt(FindValidSpaceportPad(Find.CurrentMap, parms.faction, typeVal), Find.CurrentMap.Parent);
 			shuttle.AddJob(new ShipJob_Unload());
 			shuttle.ShuttleComp.requiredPawns = pawns;
 			ShipJob_WaitForever wait = new ShipJob_WaitForever();
@@ -52,14 +147,15 @@ namespace Spaceports
 			return shuttle;
 		}
 
-		public static IntVec3 FindValidSpaceportPad(Map map, Faction faction) {
-			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad)) 
+		public static IntVec3 FindValidSpaceportPad(Map map, Faction faction, int typeVal) {
+			foreach (Spaceports.Buildings.Building_ShuttlePad pad in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttlePad>())
 			{
-				if (pad.Position.Roofed(pad.Map))
+				if (!pad.IsAvailable())
 				{
 					continue;
 				}
-				if (pad.Position.Standable(map)) {
+				if (pad.IsAvailable() && pad.CheckAccessGranted(typeVal)) {
+					pad.NotifyIncoming();
 					return pad.Position;
 				}
 			}
@@ -99,11 +195,11 @@ namespace Spaceports
 			}
 			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))
 			{
-				return true; //remember to correct these to false
+				return false;
 			}
 			if (map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole && !b.GetComp<CompPowerTrader>().PowerOn))
 			{
-				return true;
+				return false;
 			}
 			return true;
 		}

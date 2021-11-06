@@ -12,7 +12,19 @@ namespace Spaceports.Incidents
 	{
 		protected override PawnGroupKindDef PawnGroupKindDef => PawnGroupKindDefOf.Trader;
 
-		protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+        protected override bool CanFireNowSub(IncidentParms parms)
+        {
+			if (!base.CanFireNowSub(parms))
+			{
+				return false;
+			}
+			if (!Utils.CheckIfClearForLanding((Map)parms.target)) {
+				return false;
+			}
+			return true;
+		}
+
+        protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
 		{
 			if (!base.FactionCanBeGroupSource(f, map, desperate) || f.def.caravanTraderKinds.Count == 0 || f.def.techLevel.ToString() == "Neolithic")
 			{
@@ -30,9 +42,6 @@ namespace Spaceports.Incidents
 			}
 			if (parms.faction.HostileTo(Faction.OfPlayer))
 			{
-				return false;
-			}
-			if (!Utils.CheckIfClearForLanding(map)) {
 				return false;
 			}
 			List<Pawn> pawns = SpawnPawns(parms);
@@ -69,7 +78,7 @@ namespace Spaceports.Incidents
 				}
 				return true;
 			});
-			TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, parms);
+			TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, parms, 2);
 			LordJobs.LordJob_ShuttleTradeWithColony lordJob = new LordJobs.LordJob_ShuttleTradeWithColony(parms.faction, result, shuttle.shipThing);
 			LordMaker.MakeNewLord(parms.faction, lordJob, map, pawns);
 			return true;

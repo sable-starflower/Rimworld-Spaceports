@@ -40,5 +40,23 @@ namespace Spaceports
                 return false;
             }
         }
+
+        [HarmonyPatch(typeof(CompShuttle), nameof(CompShuttle.CompTick))]
+        private static class Harmony_CompShuttle_CompTick
+        {
+            static void Postfix(List<Pawn> ___requiredPawns, TransportShip ___shipParent)
+            {
+                List<Pawn> pawnsToMurk = new List<Pawn>();
+                foreach (Pawn pawn in ___requiredPawns) {
+                    if (!pawn.Spawned && !___shipParent.TransporterComp.innerContainer.Contains(pawn)) {
+                        pawnsToMurk.Add(pawn);
+                    }
+                }
+                foreach (Pawn pawn in pawnsToMurk)
+                {
+                    ___requiredPawns.Remove(pawn);
+                }
+            }
+        }
     }
 }

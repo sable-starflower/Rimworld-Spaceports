@@ -11,24 +11,31 @@ namespace Spaceports
 
     
     public class SpaceportsSettings : ModSettings
-    {
-        public bool regularVisitors;
-        public bool visitorNotifications;
-        public float visitorFrequencyDays;
+    {   
         public bool allowLandingRough;
         public bool enableShuttleLimit;
         public int shuttleLimit;
         public string limitBuffer;
+
+        public bool regularVisitors;
+        public bool visitorNotifications;
+        public float visitorFrequencyDays;
+        public float visitorMaxTime;
+
         //TODO - chance to use shuttle as Hospitality arrival mode (+ other Hospitality settings?)
 
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref regularVisitors, "regularVisitors", true);
-            Scribe_Values.Look(ref visitorNotifications, "visitorNotifications", false);
-            Scribe_Values.Look(ref visitorFrequencyDays, "visitorFrequencyDays", 1.0f);
             Scribe_Values.Look(ref allowLandingRough, "allowLandingRough", false);
             Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", true);
             Scribe_Values.Look(ref shuttleLimit, "shuttleLimit", 5);
+
+            Scribe_Values.Look(ref regularVisitors, "regularVisitors", true);
+            Scribe_Values.Look(ref visitorNotifications, "visitorNotifications", false);
+            Scribe_Values.Look(ref visitorFrequencyDays, "visitorFrequencyDays", 1.0f);
+            Scribe_Values.Look(ref visitorMaxTime, "visitorMaxTime", 1.0f);
+
+
             base.ExposeData();
         }
     }
@@ -49,20 +56,52 @@ namespace Spaceports
             base.DoSettingsWindowContents(inRect);
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
+
+            listingStandard.Label("Spaceports_TCHeader".Translate());
+            listingStandard.CheckboxLabeled("Spaceports_AllowRoughLandingToggle".Translate(), ref settings.allowLandingRough, "Spaceports_AllowRoughLandingTooltip".Translate());
+            listingStandard.CheckboxLabeled("Spaceports_EnableShuttleLimitToggle".Translate(), ref settings.enableShuttleLimit);
+            if (settings.enableShuttleLimit)
+            {
+                listingStandard.Label("Spaceports_VisitorFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.shuttleLimit);
+                settings.shuttleLimit = (int)Math.Round(listingStandard.Slider(settings.shuttleLimit, 1f, 20f));
+            }
+
+            listingStandard.GapLine();
+
+            listingStandard.Label("Spaceports_VisitorHeader".Translate());
             listingStandard.CheckboxLabeled("Spaceports_Spaceports_RegularVisitorsToggle".Translate(), ref settings.regularVisitors, "Spaceports_RegularVisitorsTooltip".Translate());
             if (settings.regularVisitors) {
                 listingStandard.CheckboxLabeled("Spaceports_VisitorNotificationsToggle".Translate(), ref settings.visitorNotifications, "Spaceports_VisitorNotificationsTooltip".Translate());
-                listingStandard.Label("Spaceports_VisitorFreqSlider".Translate() + settings.visitorFrequencyDays);
+                listingStandard.Label("Spaceports_ShuttleLimitLabel".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.visitorFrequencyDays);
                 settings.visitorFrequencyDays = (float)Math.Round(listingStandard.Slider(settings.visitorFrequencyDays, 0.10f, 5f) * 10, MidpointRounding.ToEven) / 10;
+                listingStandard.LabelDouble("Spaceports_VisitorStaySlider".Translate(), "Spaceports_VisitorFreqSlider_Count".Translate() + settings.visitorMaxTime);
+                settings.visitorMaxTime = (float)Math.Round(listingStandard.Slider(settings.visitorMaxTime, 0.10f, 2f) * 10, MidpointRounding.ToEven) / 10;
+
             }
+
             listingStandard.GapLine();
-            listingStandard.CheckboxLabeled("Spaceports_AllowRoughLandingToggle".Translate(), ref settings.allowLandingRough, "Spaceports_AllowRoughLandingTooltip".Translate());
-            listingStandard.CheckboxLabeled("Spaceports_EnableShuttleLimitToggle".Translate(), ref settings.enableShuttleLimit);
-            if (settings.enableShuttleLimit) 
-            {
-                listingStandard.Label("Spaceports_ShuttleLimitLabel".Translate() + settings.shuttleLimit);
-                settings.shuttleLimit = (int)Math.Round(listingStandard.Slider(settings.shuttleLimit, 1f, 20f));
-            }
+
+            listingStandard.Label("Spaceports_TraderHeader".Translate());
+
+            listingStandard.GapLine();
+
+            //if (Verse.ModLister.HasActiveModWithName("Hospitality"))
+            //{
+                listingStandard.Label("Spaceports_HospitalityHeader".Translate());
+
+                listingStandard.GapLine();
+            //}
+
+            listingStandard.Label("Spaceports_AnimHeader".Translate());
+
+            listingStandard.GapLine();
+
+            listingStandard.Label("Spaceports_EventHeader".Translate());
+
+            listingStandard.GapLine();
+
+            listingStandard.ButtonText("Spaceports_ResetToDefault".Translate());
+
             listingStandard.End();
         }
 
