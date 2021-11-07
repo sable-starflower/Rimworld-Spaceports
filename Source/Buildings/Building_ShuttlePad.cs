@@ -124,7 +124,7 @@ namespace Spaceports.Buildings
 
         public bool IsAvailable() 
         {
-            if (!IsUnroofed() || IsShuttleOnPad()) {
+            if (!IsUnroofed() || IsShuttleOnPad() || ShuttleInbound) {
                 return false;
             }
             if (CheckAirspaceLockdown()) {

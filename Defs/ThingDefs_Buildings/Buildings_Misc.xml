@@ -2,7 +2,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>Spaceports_VisitorSpot</defName>
     <label>spaceport visitor spot</label>
-    <description>Designates a configurable spot for spaceport visitors to linger at.\n\nArriving spaceport visitors will pick the closest valid spot to their shuttle pad or landing position; if no valid spot is found, they will fall back to a random spot on the edges of your colony. Multiple parties can linger at the same spot simultaneously.</description>
+    <description>Designates a configurable spot for spaceport visitors to linger at.\n\nArriving spaceport visitors will pick the closest valid spot to their shuttle pad or landing position; if no valid spot is found, they will instead linger around their shuttle. Multiple parties can linger at the same spot simultaneously.</description>
     <thingClass>Spaceports.Buildings.Building_ShuttleSpot</thingClass>
     <graphicData>
       <texPath>Things/Building/Misc/PartySpot</texPath>

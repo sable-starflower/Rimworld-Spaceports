@@ -11,6 +11,7 @@ namespace Spaceports
     public static class SpaceportsDefOf
     {
         public static ThingDef Spaceports_ShuttleLandingPad;
+        public static ThingDef Spaceports_TestShuttle;
         public static IncidentDef Spaceports_VisitorShuttleArrival;
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
         public static JobDef Spaceports_Kidnap;
@@ -49,10 +50,11 @@ namespace Spaceports
     {
         public static List<ShuttleVariant> AllShuttleVariants = new List<ShuttleVariant>();
         public static ShuttleVariant RoyaltyShuttle = new ShuttleVariant(ThingDefOf.Shuttle, ThingDefOf.ShuttleIncoming, ThingDefOf.ShuttleLeaving);
+        public static ShuttleVariant TestShuttle = new ShuttleVariant(SpaceportsDefOf.Spaceports_TestShuttle, ThingDefOf.ShuttleIncoming, ThingDefOf.ShuttleLeaving);
 
         static SpaceportsShuttleVariants()
         {
-            AllShuttleVariants.Add(RoyaltyShuttle);
+            AllShuttleVariants.Add(TestShuttle);
         }
     }
 

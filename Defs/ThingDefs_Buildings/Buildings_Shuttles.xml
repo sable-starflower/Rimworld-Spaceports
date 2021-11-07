@@ -1,17 +1,16 @@
 <Defs>
 
-  <ThingDef Name="Spaceports_ShuttleBase" ParentName="BuildingBase">
-    <defName>Spaceports_ShuttleBase</defName>
+  <ThingDef Name="Spaceports_ShuttleBase" ParentName="BuildingBase" Abstract="True">
     <label>shuttle</label>
     <description>A spacer-tech shuttle designed for transit between surface and orbit, or between moons of a planetary system.</description>
+    <thingClass>Spaceports.Buildings.Building_Shuttle</thingClass>
     <altitudeLayer>Building</altitudeLayer>
     <pathCost>50</pathCost>
     <blockWind>true</blockWind>
     <passability>Impassable</passability>
-    <!--<fillPercent>1.0</fillPercent>-->
     <size>(5,3)</size>
     <graphicData>
-      <texPath>Buildings/ShuttleLandingPad/ShuttleLandingPad</texPath>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(6,3)</drawSize>
       <color>(162,164,149)</color>
@@ -43,6 +42,7 @@
     <uiIconScale>1.4</uiIconScale>
     <building>
       <claimable>false</claimable>
+      <isEdifice>false</isEdifice>
       <soundAmbient MayRequire="Ludeon.RimWorld.Ideology">ShuttleIdle_Ambience</soundAmbient>
       <destroySound MayRequire="Ludeon.RimWorld.Ideology">BuildingDestroyed_Metal_Big</destroySound>
     </building>
@@ -59,4 +59,17 @@
     </comps>
   </ThingDef>
 
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_TestShuttle</defName>
+  </ThingDef>
+  <graphicData>
+    <texPath>Buildings/Shuttles/TestShuttle</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+    <drawSize>(6,3)</drawSize>
+    <color>(162,164,149)</color>
+    <shadowData>
+      <volume>(4.1, 1.0, 1.8)</volume>
+      <offset>(0, 0, -0.1)</offset>
+    </shadowData>
+  </graphicData>
   </Defs>

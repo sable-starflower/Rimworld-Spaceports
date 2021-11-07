@@ -132,7 +132,7 @@ namespace Spaceports
 			shuttleDef.shipThing = variantToUse.shipThing;
 			shuttleDef.arrivingSkyfaller = variantToUse.arrivingSkyfaller;
 			shuttleDef.leavingSkyfaller = variantToUse.leavingSkyfaller;
-			TransportShip shuttle = TransportShipMaker.MakeTransportShip(TransportShipDefOf.Ship_Shuttle, null);
+			TransportShip shuttle = TransportShipMaker.MakeTransportShip(shuttleDef, null);
 			foreach (Pawn p in pawns)
 			{
 				shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));
@@ -175,8 +175,9 @@ namespace Spaceports
 				}
 				return closestValidSpot.Position;
 			}
-			RCellFinder.TryFindRandomSpotJustOutsideColony(originCell, map, out var result);
-			return result;
+			IntVec3 fallbackChillspot = originCell;
+			fallbackChillspot.z = fallbackChillspot.z - 2;
+			return fallbackChillspot;
 		}
 
 		public static bool AnyValidSpaceportPads(Map map) {
@@ -241,5 +242,18 @@ namespace Spaceports
 			return true;
 		}
 
-    }
+		public static bool AnyShuttlesOnMap(Map map)
+		{
+			foreach(Building b in map.listerBuildings.allBuildingsNonColonist)
+			{
+				Building val = b as Spaceports.Buildings.Building_Shuttle;
+				if (val != null)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+	}
 }
