@@ -67,19 +67,9 @@ namespace Spaceports.Incidents
 				}
 			}
 			SendLetter(parms, pawns, traderKind);
-			RCellFinder.TryFindRandomSpotJustOutsideColony(pawns[0].Position, pawns[0].MapHeld, pawns[0], out var result, delegate (IntVec3 c)
-			{
-				for (int k = 0; k < pawns.Count; k++)
-				{
-					if (!pawns[k].CanReach(c, PathEndMode.OnCell, Danger.Deadly))
-					{
-						return false;
-					}
-				}
-				return true;
-			});
-			TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, parms, 2);
-			LordJobs.LordJob_ShuttleTradeWithColony lordJob = new LordJobs.LordJob_ShuttleTradeWithColony(parms.faction, result, shuttle.shipThing);
+			IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, parms.faction, 2);
+			TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, parms, pad, 2);
+			LordJobs.LordJob_ShuttleTradeWithColony lordJob = new LordJobs.LordJob_ShuttleTradeWithColony(parms.faction, Utils.GetBestChillspot(map, pad, 2), shuttle.shipThing);
 			LordMaker.MakeNewLord(parms.faction, lordJob, map, pawns);
 			return true;
 		}

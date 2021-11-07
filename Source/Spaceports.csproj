@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Alert_AirspaceLockdown.cs" />
     <Compile Include="Buildings\Building_ShuttlePad.cs" />
+    <Compile Include="Buildings\Building_ShuttleSpot.cs" />
     <Compile Include="Incidents\IncidentWorker_TraderShuttleArrival.cs" />
     <Compile Include="Incidents\IncidentWorker_VisitorShuttleArrival.cs" />
     <Compile Include="JobDrivers\JobDriver_SpaceportsKidnap.cs" />

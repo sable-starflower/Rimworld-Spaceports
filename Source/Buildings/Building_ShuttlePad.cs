@@ -13,7 +13,7 @@ namespace Spaceports.Buildings
     {
         private bool ShuttleInbound = false;
 
-        private int AccessState = 0; //0 for all, 1 for visitors, 2 for traders, 3 for hospitality guests
+        private int AccessState = 0; //-1 for none, 0 for all, 1 for visitors, 2 for traders, 3 for hospitality guests
 
         private Utils.AnimateOver landingPatternAnimation;
         private Utils.AnimateOver rimLightAnimation;

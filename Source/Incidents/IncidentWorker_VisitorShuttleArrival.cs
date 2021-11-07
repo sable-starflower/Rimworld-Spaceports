@@ -60,13 +60,11 @@ namespace Spaceports.Incidents
 				traderExists = TryConvertOnePawnToSmallTrader(list, parms.faction, map);
 			}
 			Pawn leader = list.Find((Pawn x) => parms.faction.leader == x);
-
-			RCellFinder.TryFindRandomSpotJustOutsideColony(list[0], out var result);
-			TransportShip shuttle = Utils.GenerateInboundShuttle(list, parms, 1);
-			LordJob lordJob = new LordJobs.LordJob_ShuttleVisitColony(parms.faction, result, shuttle: shuttle.shipThing);
+			IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, parms.faction, 1);
+			TransportShip shuttle = Utils.GenerateInboundShuttle(list, parms, pad, 1);
+			LordJob lordJob = new LordJobs.LordJob_ShuttleVisitColony(parms.faction, Utils.GetBestChillspot(map, pad, 1), shuttle: shuttle.shipThing);
 			LordMaker.MakeNewLord(parms.faction, lordJob, map, list);
 			SendLetter(parms, list, leader, traderExists);
-
 			return true;
 		}
 

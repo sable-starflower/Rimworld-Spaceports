@@ -126,7 +126,7 @@ namespace Spaceports
 			}
         }
 
-		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms, int typeVal) {
+		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms, IntVec3 padCell, int typeVal) {
 			TransportShipDef shuttleDef = new TransportShipDef();
 			ShuttleVariant variantToUse = SpaceportsShuttleVariants.AllShuttleVariants.RandomElement();
 			shuttleDef.shipThing = variantToUse.shipThing;
@@ -137,7 +137,7 @@ namespace Spaceports
 			{
 				shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));
 			}
-			shuttle.ArriveAt(FindValidSpaceportPad(Find.CurrentMap, parms.faction, typeVal), Find.CurrentMap.Parent);
+			shuttle.ArriveAt(padCell, Find.CurrentMap.Parent);
 			shuttle.AddJob(new ShipJob_Unload());
 			shuttle.ShuttleComp.requiredPawns = pawns;
 			ShipJob_WaitForever wait = new ShipJob_WaitForever();
@@ -160,6 +160,23 @@ namespace Spaceports
 				}
 			}
 			return DropCellFinder.GetBestShuttleLandingSpot(Find.CurrentMap, faction);
+		}
+
+		public static IntVec3 GetBestChillspot(Map map, IntVec3 originCell, int accessVal) {
+			Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
+			foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
+			{
+				if (closestValidSpot == null && spot.CheckAccessGranted(accessVal)) {
+					closestValidSpot = spot;
+				}
+				else if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal))
+				{
+					closestValidSpot = spot;
+				}
+				return closestValidSpot.Position;
+			}
+			RCellFinder.TryFindRandomSpotJustOutsideColony(originCell, map, out var result);
+			return result;
 		}
 
 		public static bool AnyValidSpaceportPads(Map map) {

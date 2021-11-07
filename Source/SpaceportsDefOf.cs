@@ -26,10 +26,10 @@ namespace Spaceports
             AccessStates.Add(new AccessControlState("Spaceports_AllTypes", 0));
             AccessStates.Add(new AccessControlState("Spaceports_JustVisitors", 1));
             AccessStates.Add(new AccessControlState("Spaceports_JustTraders", 2));
-            if (Verse.ModLister.HasActiveModWithName("Hospitality"))
-            {
-                AccessStates.Add(new AccessControlState("Spaceports_JustGuests", 3));
-            }
+            //if (Verse.ModLister.HasActiveModWithName("Hospitality"))
+            //{
+                //AccessStates.Add(new AccessControlState("Spaceports_JustGuests", 3));
+            //}
         }
     }
 
