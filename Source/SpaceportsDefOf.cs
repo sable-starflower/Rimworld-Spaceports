@@ -13,6 +13,7 @@ namespace Spaceports
         public static ThingDef Spaceports_ShuttleLandingPad;
         public static ThingDef Spaceports_TestShuttle;
         public static IncidentDef Spaceports_VisitorShuttleArrival;
+        public static IncidentDef Spaceports_TraderShuttleArrival;
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
         public static JobDef Spaceports_Kidnap;
     }

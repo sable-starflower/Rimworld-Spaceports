@@ -96,7 +96,7 @@ namespace Spaceports.LordJobs
 			stateGraph.AddTransition(transition6);
 
 			Transition transition7 = new Transition(lordToil_DefendPoint, startingToil2);
-			int tickLimit = ((!DebugSettings.instantVisitorsGift || faction == null) ? ((!durationTicks.HasValue) ? Rand.Range(8000, 22000) : durationTicks.Value) : 0);
+			int tickLimit = ((!DebugSettings.instantVisitorsGift || faction == null) ? ((!durationTicks.HasValue) ? Rand.Range(6000, (int)LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorMaxTime * GenDate.TicksPerDay) : durationTicks.Value) : 0);
 			transition7.AddTrigger(new Trigger_TicksPassed(tickLimit));
 			if (faction != null)
 			{

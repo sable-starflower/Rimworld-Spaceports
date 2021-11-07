@@ -24,7 +24,6 @@ namespace Spaceports
                         }
                     }
                 }
-                //output = output.Substring(output.Length - 2);
                 return output;
             }
         }

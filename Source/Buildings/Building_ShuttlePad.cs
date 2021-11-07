@@ -133,7 +133,11 @@ namespace Spaceports.Buildings
             return true;
         }
 
-        private bool IsUnroofed() 
+        public bool IsPowered() {
+            return this.GetComp<CompPowerTrader>().PowerOn;
+        }
+
+        public bool IsUnroofed() 
         {
             foreach (IntVec3 cell in this.OccupiedRect().Cells) {
                 if (cell.Roofed(this.Map)) {

@@ -48,7 +48,7 @@ namespace Spaceports
             Scribe_Values.Look(ref allowLandingRough, "allowLandingRough", false);
             Scribe_Values.Look(ref airspaceLockdown, "airspaceLockdown", true);
             Scribe_Values.Look(ref autoEvacuate, "autoEvacuate", true);
-            Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", true);
+            Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", false);
             Scribe_Values.Look(ref shuttleLimit, "shuttleLimit", 5);
 
             Scribe_Values.Look(ref regularVisitors, "regularVisitors", true);
@@ -91,7 +91,7 @@ namespace Spaceports
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(inRect);
 
-            if(settings.page == 1)
+            if (settings.page == 1)
             {
                 if (listingStandard.ButtonText("Spaceports_NextPage".Translate()))
                 {
@@ -138,6 +138,16 @@ namespace Spaceports
 
                 }
 
+
+
+            }
+
+            else if (settings.page == 2)
+            {
+                if (listingStandard.ButtonText("Spaceports_PrevPage".Translate()))
+                {
+                    settings.page--;
+                }
                 listingStandard.GapLine();
 
                 //if (Verse.ModLister.HasActiveModWithName("Hospitality"))
@@ -151,14 +161,7 @@ namespace Spaceports
                 }
                 listingStandard.GapLine();
                 //}
-            }
 
-            else if(settings.page == 2)
-            {
-                if (listingStandard.ButtonText("Spaceports_PrevPage".Translate()))
-                {
-                    settings.page--;
-                }
                 listingStandard.GapLine();
 
                 listingStandard.Label("Spaceports_AnimHeader".Translate());
@@ -177,7 +180,30 @@ namespace Spaceports
 
                 if (listingStandard.ButtonText("Spaceports_ResetToDefault".Translate()))
                 {
+                    settings.allowLandingRough = false;
+                    settings.airspaceLockdown = true;
+                    settings.autoEvacuate = true;
+                    settings.enableShuttleLimit = false;
+                    settings.shuttleLimit = 5;
 
+                    settings.regularVisitors = true;
+                    settings.visitorNotifications = false;
+                    settings.visitorFrequencyDays = 1.0f;
+                    settings.visitorMaxTime = 1.0f;
+
+                    settings.regularTraders = false;
+                    settings.traderNotifications = false;
+                    settings.traderFrequencyDays = 1.0f;
+                    settings.traderMaxTime = 1.0f;
+
+                    settings.hospitalityEnabled = true;
+                    settings.hospitalityChance = 0.5f;
+
+                    settings.padAnimationsGlobal = true;
+                    settings.rimLightsAnimations = true;
+                    settings.landingAnimations = true;
+
+                    settings.eventsEnabled = true;
                 }
             }
             listingStandard.End();

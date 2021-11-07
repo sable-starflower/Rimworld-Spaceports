@@ -30,7 +30,7 @@
 	<Spaceports_AirspaceLockdown>Airspace lockdown</Spaceports_AirspaceLockdown>
 	<Spaceports_AirspaceLockdownDesc>Due to the presence of hostiles, one or more of your colonies has automatically entered airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart. \n\nColonies currently under airspace lockdown:\n</Spaceports_AirspaceLockdownDesc>
 	<Spaceports_AutoEvac>Auto-evacuation in progress</Spaceports_AutoEvac>
-	<Spaceports_AutoEvacDesc>Due to the presence of hostiles, one or more of your colonies has initiated automatic evacuation of shuttle visitors. \n\nColonies with in-progress auto-evacuation:\n</Spaceports_AutoEvacDesc>
+	<Spaceports_AutoEvacDesc>Due to the presence of hostiles, one or more of your colonies has initiated automatic evacuation of shuttle visitors. \n\nColonies currently performing auto-evacuation:\n</Spaceports_AutoEvacDesc>
 	<Spaceports_NextPage>Next page</Spaceports_NextPage>
 	<Spaceports_PrevPage>Previous page</Spaceports_PrevPage>
 

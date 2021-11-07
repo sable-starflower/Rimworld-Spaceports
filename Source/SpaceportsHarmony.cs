@@ -13,7 +13,33 @@ namespace Spaceports
 
     public static class SpaceportsHarmony
     {
+
+        /*static SpaceportsHarmony() {
+            DoPatches();
+        }
+
         //TODO - patches for Hospitality that hijack visitor arrival methods
+        public static void DoPatches()
+        {
+            Harmony harmony = new Harmony("Spaceports_Plus_Hospitality");
+            if (Verse.ModLister.HasActiveModWithName("Hospitality"))
+            {
+                var mOriginal = AccessTools.Method("Hospitality.IncidentWorker_VisitorGroup:SpawnGroup");
+                var mPrefix = typeof(SpaceportsHarmony).GetMethod("SpawnGroupPrefix");
+
+                if (mOriginal != null)
+                {
+                    var funnelPatch = new HarmonyMethod(mPrefix);
+                    harmony.Patch(mOriginal, postfix: funnelPatch);
+                }
+            }
+        }
+
+        [HarmonyPrefix]
+        public static bool SpawnGroupPrefix(ref IncidentParms __parms, ref Map __map)
+        {
+
+        }*/
 
         //Postfix to CompShuttle's Tick() that checks to see if any required pawns are despawned (e.g. left the map through alternate means) and removes them
         //from the shuttle's required list accordingly
@@ -35,4 +61,5 @@ namespace Spaceports
             }
         }
     }
+
 }

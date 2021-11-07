@@ -82,7 +82,7 @@ namespace Spaceports.LordJobs
 			stateGraph.AddTransition(transition7);
 
 			Transition transition8 = new Transition(lordToil_DefendTraderCaravan2, lordToil_ExitMapAndEscortCarriers);
-			transition8.AddTrigger(new Trigger_TicksPassed((!DebugSettings.instantVisitorsGift) ? Rand.Range(27000, 45000) : 0));
+			transition8.AddTrigger(new Trigger_TicksPassed((!DebugSettings.instantVisitorsGift) ? Rand.Range(6000, (int)LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorMaxTime * GenDate.TicksPerDay) : 0));
 			transition8.AddPreAction(new TransitionAction_CheckGiveGift());
 			transition8.AddPreAction(new TransitionAction_Message("MessageTraderCaravanLeaving".Translate(faction.Name)));
 			transition8.AddPostAction(new TransitionAction_WakeAll());

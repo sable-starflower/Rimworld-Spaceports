@@ -106,6 +106,7 @@ namespace Spaceports
 			}
 		}
 
+		//simplification class for restricting chillspots and pads
 		public class AccessControlState
         {
 			private string label;
@@ -126,6 +127,7 @@ namespace Spaceports
 			}
         }
 
+		//Generates an inbound shuttle of random appearance and sets up its job queue
 		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms, IntVec3 padCell, int typeVal) {
 			TransportShipDef shuttleDef = new TransportShipDef();
 			ShuttleVariant variantToUse = SpaceportsShuttleVariants.AllShuttleVariants.RandomElement();
@@ -147,6 +149,8 @@ namespace Spaceports
 			return shuttle;
 		}
 
+		//Returns the cell of an open spaceport pad
+		//Also notifies that pad of an incoming shuttle, reserving it and playing the animation
 		public static IntVec3 FindValidSpaceportPad(Map map, Faction faction, int typeVal) {
 			foreach (Spaceports.Buildings.Building_ShuttlePad pad in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttlePad>())
 			{
@@ -162,6 +166,8 @@ namespace Spaceports
 			return DropCellFinder.GetBestShuttleLandingSpot(Find.CurrentMap, faction);
 		}
 
+		//Seeks out closest valid chillspot for shuttle visitors
+		//If none found, defaults to tile that is z-2 below shuttle tile
 		public static IntVec3 GetBestChillspot(Map map, IntVec3 originCell, int accessVal) {
 			Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
 			foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
@@ -180,17 +186,16 @@ namespace Spaceports
 			return fallbackChillspot;
 		}
 
-		public static bool AnyValidSpaceportPads(Map map) {
-			foreach (Building pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad))
+		//Checks if there are any pads on a map
+		public static bool AnySpaceportPads(Map map) {
+			foreach (Spaceports.Buildings.Building_ShuttlePad pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad))
 			{
-				if (!pad.Position.Roofed(pad.Map) && pad.Position.Standable(map))
-				{
-					return true;
-				}
+				return true;
 			}
 			return false;
 		}
 
+		//Check if a given map is at the player-set shuttle limit or higher
 		public static bool AtShuttleCapacity(Map map) {
 			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().enableShuttleLimit) 
 			{ 
@@ -203,12 +208,18 @@ namespace Spaceports
 			return false;
 		}
 
+		//Checks if a shuttle event can fire
+		//Qualifying conditions:
+		//A) Airspace lockdown must not be in effect
+		//B) There must be a valid spaceport pad present OR rough landing must be enabled
+		//C) The map must not be at the shuttle limit
+		//D) There must be a powered comms console
 		public static bool CheckIfClearForLanding(Map map) {
 			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(map, true))
 			{
 				return false;
 			}
-			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPads(map))
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnySpaceportPads(map))
 			{
 				return false;
 			}
@@ -226,8 +237,11 @@ namespace Spaceports
 			return true;
 		}
 
+		//Checks if a given map is considered to be a "spaceport"
+		//Qualifying conditions are A) a comms console (does not need to be powered unless you want shuttles to actually land)
+		//and B) either the presence of a valid shuttlepad or rough landing being enabled
 		public static bool CheckIfSpaceport(Map map) {
-			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPads(map))
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnySpaceportPads(map))
 			{
 				return false;
 			}
@@ -235,13 +249,10 @@ namespace Spaceports
 			{
 				return false;
 			}
-			if (map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole && !b.GetComp<CompPowerTrader>().PowerOn))
-			{
-				return false;
-			}
 			return true;
 		}
 
+		//Checks if ANY shuttles are on a given map
 		public static bool AnyShuttlesOnMap(Map map)
 		{
 			foreach(Building b in map.listerBuildings.allBuildingsNonColonist)
