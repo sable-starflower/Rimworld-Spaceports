@@ -18,10 +18,15 @@
 	<!--UI-->
 	<AccessControlButton>Access control</AccessControlButton>
 	<AccessControlDesc>Specify what type of shuttles are allowed to use this pad.</AccessControlDesc>
+	<Spaceports_None>No shuttles</Spaceports_None>
 	<Spaceports_AllTypes>All shuttles</Spaceports_AllTypes>
 	<Spaceports_JustVisitors>Visitors only</Spaceports_JustVisitors>
 	<Spaceports_JustTraders>Traders only</Spaceports_JustTraders>
 	<Spaceports_JustGuests>Guests only</Spaceports_JustGuests>
+	<Spaceports_AirspaceLockdown>Airspace lockdown</Spaceports_AirspaceLockdown>
+	<Spaceports_AirspaceLockdownDesc>Due to the presence of hostiles, one or more of your colonies has automatically entered airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart. \n\nColonies currently under airspace lockdown:\n</Spaceports_AirspaceLockdownDesc>
+	<Spaceports_NextPage>Next page</Spaceports_NextPage>
+	<Spaceports_PrevPage>Previous page</Spaceports_PrevPage>
 
 	<!--Settings-->
 	<SpaceportsModName>Spaceports</SpaceportsModName>
@@ -29,20 +34,24 @@
 	<Spaceports_TCHeader><![CDATA[<i>Traffic Control Settings</i>]]></Spaceports_TCHeader>
 	<Spaceports_AllowRoughLandingToggle>Allow shuttles to land rough when no pads are available?</Spaceports_AllowRoughLandingToggle>
 	<Spaceports_AllowRoughLandingTooltip>Toggling this setting on will allow shuttles to land rough - i.e. out in the open wherever there is space - when there are no free pads. Default off.</Spaceports_AllowRoughLandingTooltip>
+	<Spaceports_AirspaceLockdownToggle>Enable airspace lockdown when hostiles are on map?</Spaceports_AirspaceLockdownToggle>
+	<Spaceports_AirspaceLockdownTooltip>If enabled, when hostiles enter the map, your colony will automatically go into airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart. It is strongly recommended that you leave this ON to avoid diplomatic consequences from visitors being caught in crossfire.</Spaceports_AirspaceLockdownTooltip>
+	<Spaceports_AutoLeaveToggle>Enable visitors and traders automatically evacuating if hostiles enter the map?</Spaceports_AutoLeaveToggle>
+	<Spaceports_AutoLeaveTooltip>If enabled, visitors and traders (but NOT Hospitality guests) will automatically try to depart via shuttle when hostiles enter the map. It is strongly recommended that you leave this ON to avoid diplomatic consequences from visitors being caught in the crossfire.</Spaceports_AutoLeaveTooltip>
 	<Spaceports_EnableShuttleLimitToggle>Enable shuttle limit?</Spaceports_EnableShuttleLimitToggle>
 	<Spaceports_ShuttleLimitLabel>How many shuttles can be landed at your colony simultaneously.</Spaceports_ShuttleLimitLabel>
 	<!--Visitor Settings-->
 	<Spaceports_VisitorHeader><![CDATA[<i>Visitor Shuttle Settings</i>]]></Spaceports_VisitorHeader>
-	<Spaceports_Spaceports_RegularVisitorsToggle>Enable fixed-interval visitors?</Spaceports_Spaceports_RegularVisitorsToggle>
+	<Spaceports_RegularVisitorsToggle>Enable fixed-interval visitors?</Spaceports_RegularVisitorsToggle>
 	<Spaceports_RegularVisitorsTooltip>When enabled, a visitor shuttle will try to land at your colony on a fixed interval. Default on.\n\nIf disabled, visitor shuttles will instead have the potential to fire as events.</Spaceports_RegularVisitorsTooltip>
 	<Spaceports_VisitorNotificationsToggle>Receive notifications pertaining to visitor shuttles?</Spaceports_VisitorNotificationsToggle>
 	<Spaceports_VisitorNotificationsTooltip>When enabled, pushes notifications to the top-left feed whenever a visitor (NOT trader) shuttle arrives or leaves. Default off.</Spaceports_VisitorNotificationsTooltip>
 	<Spaceports_VisitorFreqSlider>How frequently visitor shuttles will attempt to land at your colony, in days.</Spaceports_VisitorFreqSlider>
-	<Spaceports_VisitorFreqSlider_Count>Currently: </Spaceports_VisitorFreqSlider_Count>
+	<Spaceports_VisitorFreqSlider_Count> Currently: </Spaceports_VisitorFreqSlider_Count>
 	<Spaceports_VisitorStaySlider>The maximum amount of time visitor shuttles will stay at your colony, in days.</Spaceports_VisitorStaySlider>
 	<!--Trader Settings-->
 	<Spaceports_TraderHeader><![CDATA[<i>Trader Shuttle Settings</i>]]></Spaceports_TraderHeader>
-	<Spaceports_Spaceports_RegularTradersToggle>Enable fixed-interval traders?</Spaceports_Spaceports_RegularTradersToggle>
+	<Spaceports_RegularTradersToggle>Enable fixed-interval traders?</Spaceports_RegularTradersToggle>
 	<Spaceports_RegularTradersTooltip>When enabled, a trader shuttle will try to land at your colony on a fixed interval. Default on.\n\nIf disabled, trader shuttles will instead have the potential to fire as events.</Spaceports_RegularTradersTooltip>
 	<Spaceports_TraderNotificationsToggle>Receive notifications pertaining to trader shuttles?</Spaceports_TraderNotificationsToggle>
 	<Spaceports_TraderNotificationsTooltip>When enabled, pushes notifications to the top-left feed whenever a trader shuttle arrives or leaves. Default off.</Spaceports_TraderNotificationsTooltip>

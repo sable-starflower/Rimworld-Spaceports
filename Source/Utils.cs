@@ -186,11 +186,31 @@ namespace Spaceports
 		}
 
 		public static bool CheckIfClearForLanding(Map map) {
+			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(map, true))
+			{
+				return false;
+			}
 			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPads(map))
 			{
 				return false;
 			}
 			if (AtShuttleCapacity(map)) {
+				return false;
+			}
+			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))
+			{
+				return false;
+			}
+			if (map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole && !b.GetComp<CompPowerTrader>().PowerOn))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		public static bool CheckIfSpaceport(Map map) {
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPads(map))
+			{
 				return false;
 			}
 			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))

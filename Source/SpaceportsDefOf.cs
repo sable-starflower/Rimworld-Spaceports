@@ -22,6 +22,7 @@ namespace Spaceports
         public static List<AccessControlState> AccessStates = new List<AccessControlState>();
         static SpaceportsMisc()
         {
+            AccessStates.Add(new AccessControlState("Spaceports_None", -1));
             AccessStates.Add(new AccessControlState("Spaceports_AllTypes", 0));
             AccessStates.Add(new AccessControlState("Spaceports_JustVisitors", 1));
             AccessStates.Add(new AccessControlState("Spaceports_JustTraders", 2));

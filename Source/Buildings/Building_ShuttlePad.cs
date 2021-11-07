@@ -47,26 +47,34 @@ namespace Spaceports.Buildings
 
         public override void Draw()
         {
-            if (ShuttleInbound) 
+            if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().padAnimationsGlobal)
             {
-                landingPatternAnimation.FrameStep();
+                if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations)
+                {
+                    landingPatternAnimation.FrameStep();
+                }
+                if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().rimLightsAnimations)
+                {
+                    rimLightAnimation.FrameStep();
+                }
             }
             if (IsShuttleOnPad()) 
             {
                 holdingPattern.FrameStep();
             }
-            if (IsShuttleOnPad() == false && IsUnroofed() == false)
+            if (!IsShuttleOnPad() && !IsUnroofed())
             {
                 blockedPattern.FrameStep();
             }
-            rimLightAnimation.FrameStep();
+            if (AccessState == -1) {
+                blockedPattern.FrameStep();
+            }
             base.Draw();
         }
 
         public override void Tick()
         {
             if (IsShuttleOnPad()) {
-                Log.Message("Shuttle down.");
                 ShuttleInbound = false;
             }
             base.Tick();
@@ -116,7 +124,10 @@ namespace Spaceports.Buildings
 
         public bool IsAvailable() 
         {
-            if (IsUnroofed() == false || IsShuttleOnPad() == true) {
+            if (!IsUnroofed() || IsShuttleOnPad()) {
+                return false;
+            }
+            if (CheckAirspaceLockdown()) {
                 return false;
             }
             return true;
@@ -145,11 +156,21 @@ namespace Spaceports.Buildings
         }
 
         public bool CheckAccessGranted(int val) {
+            if (AccessState == -1) {
+                return false;
+            }
             if (AccessState == 0 || val == 0)
             {
                 return true;
             }
             else return AccessState == val;
+        }
+
+        private bool CheckAirspaceLockdown() {
+            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown) {
+                return false;
+            }
+            return GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true);
         }
 
     }

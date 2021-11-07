@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alert_AirspaceLockdown.cs" />
     <Compile Include="Buildings\Building_ShuttlePad.cs" />
     <Compile Include="Incidents\IncidentWorker_TraderShuttleArrival.cs" />
     <Compile Include="Incidents\IncidentWorker_VisitorShuttleArrival.cs" />
