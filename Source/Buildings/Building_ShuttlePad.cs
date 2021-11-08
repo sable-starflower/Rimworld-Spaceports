@@ -92,7 +92,7 @@ namespace Spaceports.Buildings
 
                 defaultLabel = "AccessControlButton".Translate(),
                 defaultDesc = "AccessControlDesc".Translate(),
-                //icon = getMealIcon(),
+                icon = getAccessIcon(),
                 order = -100,
                 action = delegate ()
                 {
@@ -175,6 +175,27 @@ namespace Spaceports.Buildings
                 return false;
             }
             return GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true);
+        }
+
+        private Texture2D getAccessIcon()
+        {
+            if (AccessState == -1)
+            {
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_none", true);
+            }
+            else if (AccessState == 0)
+            {
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_all", true);
+            }
+            else if (AccessState == 1)
+            {
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_visitors", true);
+            }
+            else if (AccessState == 2)
+            {
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_traders", true);
+            }
+            return null;
         }
 
     }

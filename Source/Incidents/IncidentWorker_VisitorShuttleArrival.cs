@@ -85,11 +85,9 @@ namespace Spaceports.Incidents
 					TaggedString taggedString4 = ((leader != null) ? ("\n\n" + "Spaceports_GroupVisitorsLeader".Translate(leader.LabelShort, leader)) : TaggedString.Empty);
 					notificationText = "Spaceports_GroupVisitorsLanding".Translate(parms.faction.NameColored, taggedString3, taggedString4);
 				}
-				//PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
-				//SendStandardLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, parms, pawns[0]);
 				Messages.Message(notificationText, MessageTypeDefOf.NeutralEvent, false);
 			}
-			else
+			else if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors)
 			{
 				TaggedString letterLabel;
 				TaggedString letterText;
@@ -107,7 +105,6 @@ namespace Spaceports.Incidents
 					letterLabel = "LetterLabelGroupVisitorsArrive".Translate();
 					letterText = "Spaceports_GroupVisitorsLanding".Translate(parms.faction.NameColored, taggedString3, taggedString4);
 				}
-				PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
 				SendStandardLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, parms, pawns[0]);
 			}
 		}

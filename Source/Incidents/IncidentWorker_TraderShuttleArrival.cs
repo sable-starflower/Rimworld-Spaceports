@@ -77,10 +77,14 @@ namespace Spaceports.Incidents
 		protected override void SendLetter(IncidentParms parms, List<Pawn> pawns, TraderKindDef traderKind)
 		{
 			TaggedString letterLabel = "LetterLabelTraderCaravanArrival".Translate(parms.faction.Name, traderKind.label).CapitalizeFirst();
-			TaggedString letterText = "LetterTraderCaravanArrival".Translate(parms.faction.NameColored, traderKind.label).CapitalizeFirst();
-			letterText += "\n\n" + "LetterCaravanArrivalCommonWarning".Translate();
-			PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter(pawns, ref letterLabel, ref letterText, "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), informEvenIfSeenBefore: true);
-			SendStandardLetter(letterLabel, letterText, LetterDefOf.PositiveEvent, parms, pawns[0]);
+			TaggedString letterText = "LetterTraderShuttleArrival".Translate(parms.faction.NameColored, traderKind.label).CapitalizeFirst();
+			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularTraders && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().traderNotifications) {
+				Messages.Message(letterText, MessageTypeDefOf.NeutralEvent, false);
+			}
+            else if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularTraders)
+            {
+				SendStandardLetter(letterLabel, letterText, LetterDefOf.PositiveEvent, parms, pawns[0]);
+			}
 		}
 
 	}

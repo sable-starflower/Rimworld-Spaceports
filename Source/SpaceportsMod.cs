@@ -131,9 +131,9 @@ namespace Spaceports
                 if (settings.regularTraders)
                 {
                     listingStandard.CheckboxLabeled("Spaceports_TraderNotificationsToggle".Translate(), ref settings.traderNotifications, "Spaceports_TraderNotificationsTooltip".Translate());
-                    listingStandard.Label("Spaceports_TraderFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.visitorFrequencyDays);
+                    listingStandard.Label("Spaceports_TraderFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.traderFrequencyDays);
                     settings.traderFrequencyDays = (float)Math.Round(listingStandard.Slider(settings.traderFrequencyDays, 0.10f, 5f) * 10, MidpointRounding.ToEven) / 10;
-                    listingStandard.Label("Spaceports_TraderStaySlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.visitorMaxTime);
+                    listingStandard.Label("Spaceports_TraderStaySlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.traderMaxTime);
                     settings.traderMaxTime = (float)Math.Round(listingStandard.Slider(settings.traderMaxTime, 0.10f, 2f) * 10, MidpointRounding.ToEven) / 10;
 
                 }
@@ -150,19 +150,17 @@ namespace Spaceports
                 }
                 listingStandard.GapLine();
 
-                //if (Verse.ModLister.HasActiveModWithName("Hospitality"))
-                //{
+                if (Verse.ModLister.HasActiveModWithName("Hospitality"))
+                {
                 listingStandard.Label("Spaceports_HospitalityHeader".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_HospitalityModeToggle".Translate(), ref settings.hospitalityEnabled, "Spaceports_HospitalityModeToggleTooltip".Translate());
                 if (settings.hospitalityEnabled)
                 {
                     listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
-                    settings.hospitalityChance = listingStandard.Slider(settings.visitorMaxTime, 0.01f, 1f);
+                    settings.hospitalityChance = listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f);
                 }
                 listingStandard.GapLine();
-                //}
-
-                listingStandard.GapLine();
+                }
 
                 listingStandard.Label("Spaceports_AnimHeader".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_GlobalAnimationToggle".Translate(), ref settings.padAnimationsGlobal, "Spaceports_GlobalAnimationToggle_Label".Translate());

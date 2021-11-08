@@ -44,6 +44,12 @@ namespace Spaceports
         public static readonly Material LandingPatternGamma = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsC", ShaderDatabase.TransparentPostLight, Color.white);
         public static readonly Material RimPatternOn = MaterialPool.MatFrom("Animations/RimLights/RimLights_On", ShaderDatabase.TransparentPostLight, Color.white);
         public static readonly Material RimPatternOff = MaterialPool.MatFrom("Animations/RimLights/RimLights_Off", ShaderDatabase.TransparentPostLight, Color.white);
+
+        public static readonly Material ChillSpot_All = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_all");
+        public static readonly Material ChillSpot_None = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_none");
+        public static readonly Material ChillSpot_Visitors = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_visitors");
+        public static readonly Material ChillSpot_Traders = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_traders");
+
     }
 
     [StaticConstructorOnStartup]
