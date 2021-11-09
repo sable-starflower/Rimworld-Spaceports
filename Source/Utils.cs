@@ -128,12 +128,12 @@ namespace Spaceports
         }
 
 		//Generates an inbound shuttle of random appearance and sets up its job queue
-		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IncidentParms parms, IntVec3 padCell, int typeVal) {
+		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, int typeVal) {
 			TransportShipDef shuttleDef = new TransportShipDef();
 			ShuttleVariant variantToUse = SpaceportsShuttleVariants.AllShuttleVariants.RandomElement();
 			shuttleDef.shipThing = variantToUse.shipThing;
 			shuttleDef.arrivingSkyfaller = variantToUse.arrivingSkyfaller;
-			shuttleDef.leavingSkyfaller = variantToUse.leavingSkyfaller;
+			shuttleDef.leavingSkyfaller = variantToUse.leavingSkyfaller; //TODO patch this, game doesn't preserve dynamic defs between reloads
 			TransportShip shuttle = TransportShipMaker.MakeTransportShip(shuttleDef, null);
 			foreach (Pawn p in pawns)
 			{
@@ -164,6 +164,18 @@ namespace Spaceports
 				}
 			}
 			return DropCellFinder.GetBestShuttleLandingSpot(Find.CurrentMap, faction);
+		}
+
+		public static bool AnyValidSpaceportPad(Map map, int typeVal)
+        {
+			foreach (Spaceports.Buildings.Building_ShuttlePad pad in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttlePad>())
+			{
+				if (pad.IsAvailable() && pad.CheckAccessGranted(typeVal) && Utils.CheckIfSpaceport(map))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		//Seeks out closest valid chillspot for shuttle visitors
@@ -214,18 +226,30 @@ namespace Spaceports
 		//B) There must be a valid spaceport pad present OR rough landing must be enabled
 		//C) The map must not be at the shuttle limit
 		//D) There must be a powered comms console
-		public static bool CheckIfClearForLanding(Map map) {
+		public static bool CheckIfClearForLanding(Map map, int typeVal) {
 			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(map, true))
 			{
 				return false;
 			}
-			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnySpaceportPads(map))
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPad(map, 0))
 			{
 				return false;
 			}
 			if (AtShuttleCapacity(map)) {
 				return false;
 			}
+
+			int count = 0;
+			foreach (Spaceports.Buildings.Building_ShuttlePad pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad))
+			{
+				if (pad.CheckAccessGranted(typeVal)) {
+					count++;
+				}
+			}
+			if (count == 0) {
+				return false;
+			}
+
 			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))
 			{
 				return false;

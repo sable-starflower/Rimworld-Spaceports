@@ -18,7 +18,7 @@ namespace Spaceports.Incidents
 			{
 				return false;
 			}
-			if (!Utils.CheckIfClearForLanding((Map)parms.target)) {
+			if (!Utils.CheckIfClearForLanding((Map)parms.target, 2)) {
 				return false;
 			}
 			return true;
@@ -68,7 +68,7 @@ namespace Spaceports.Incidents
 			}
 			SendLetter(parms, pawns, traderKind);
 			IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, parms.faction, 2);
-			TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, parms, pad, 2);
+			TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad, 2);
 			LordJobs.LordJob_ShuttleTradeWithColony lordJob = new LordJobs.LordJob_ShuttleTradeWithColony(parms.faction, Utils.GetBestChillspot(map, pad, 2), shuttle.shipThing);
 			LordMaker.MakeNewLord(parms.faction, lordJob, map, pawns);
 			return true;

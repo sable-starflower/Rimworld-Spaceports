@@ -58,7 +58,6 @@ namespace Spaceports.Buildings
 
         private void ForceImmediateDeparture() {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
-            //shuttleComp.requiredPawns = null;
             shuttleComp.shipParent.ForceJob(new ShipJob_FlyAway());
         }
 

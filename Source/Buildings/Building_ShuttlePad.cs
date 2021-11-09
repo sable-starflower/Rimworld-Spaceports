@@ -39,6 +39,15 @@ namespace Spaceports.Buildings
             base.PostMake();
         }
 
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            landingPatternAnimation = new Utils.AnimateOver(SpaceportsFramesLists.LandingPatternFrames, 30, this, 7f, 5f);
+            rimLightAnimation = new Utils.AnimateOver(SpaceportsFramesLists.RimPatternFrames, 30, this, 7f, 5f);
+            holdingPattern = new Utils.DrawOver(SpaceportsFrames.HoldingPatternGraphic, 30, this, 7f, 5f);
+            blockedPattern = new Utils.DrawOver(SpaceportsFrames.BlockedPatternGraphic, 30, this, 7f, 5f);
+            base.SpawnSetup(map, respawningAfterLoad);
+        }
+
         public override void ExposeData()
         {
             base.ExposeData();
@@ -47,28 +56,32 @@ namespace Spaceports.Buildings
 
         public override void Draw()
         {
-            if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().padAnimationsGlobal)
-            {
-                if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations)
+            if (IsPowered()) {
+                if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().padAnimationsGlobal)
                 {
-                    landingPatternAnimation.FrameStep();
+                    if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations)
+                    {
+                        landingPatternAnimation.FrameStep();
+                    }
+                    if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().rimLightsAnimations)
+                    {
+                        rimLightAnimation.FrameStep();
+                    }
                 }
-                if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().rimLightsAnimations)
+                if (IsShuttleOnPad())
                 {
-                    rimLightAnimation.FrameStep();
+                    holdingPattern.FrameStep();
+                }
+                if (!IsShuttleOnPad() && !IsUnroofed())
+                {
+                    blockedPattern.FrameStep();
+                }
+                if (AccessState == -1)
+                {
+                    blockedPattern.FrameStep();
                 }
             }
-            if (IsShuttleOnPad()) 
-            {
-                holdingPattern.FrameStep();
-            }
-            if (!IsShuttleOnPad() && !IsUnroofed())
-            {
-                blockedPattern.FrameStep();
-            }
-            if (AccessState == -1) {
-                blockedPattern.FrameStep();
-            }
+
             base.Draw();
         }
 
@@ -124,7 +137,7 @@ namespace Spaceports.Buildings
 
         public bool IsAvailable() 
         {
-            if (!IsUnroofed() || IsShuttleOnPad() || ShuttleInbound) {
+            if (!IsUnroofed() || IsShuttleOnPad() || ShuttleInbound || !IsPowered()) {
                 return false;
             }
             if (CheckAirspaceLockdown()) {

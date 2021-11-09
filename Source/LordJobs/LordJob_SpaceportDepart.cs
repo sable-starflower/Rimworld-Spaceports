@@ -23,7 +23,7 @@ namespace Spaceports.LordJobs
 			LordToil_Wait lordToil_Wait = new LordToil_Wait();
 			stateGraph.AddToil(lordToil_Wait);
 			stateGraph.StartingToil = lordToil_Wait;
-			LordToil_EnterShuttleOrLeave lordToil_EnterShuttleOrLeave = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Sprint);
+			LordToil_EnterShuttleOrLeave lordToil_EnterShuttleOrLeave = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Sprint, interruptCurrentJob: true);
 			stateGraph.AddToil(lordToil_EnterShuttleOrLeave);
 			Transition transition = new Transition(lordToil_Wait, lordToil_EnterShuttleOrLeave);
 			transition.AddPreAction(new TransitionAction_Custom(InitializeLoading));

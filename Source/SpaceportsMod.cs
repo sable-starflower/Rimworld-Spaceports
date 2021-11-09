@@ -39,10 +39,6 @@ namespace Spaceports
 
         public int page = 1;
 
-
-
-        //TODO - chance to use shuttle as Hospitality arrival mode (+ other Hospitality settings?)
-
         public override void ExposeData()
         {
             Scribe_Values.Look(ref allowLandingRough, "allowLandingRough", false);
