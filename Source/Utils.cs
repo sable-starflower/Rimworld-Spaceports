@@ -34,6 +34,82 @@ namespace Spaceports
 			}
 		}
 
+		public class SpinOver
+        {
+			private Material spinner;
+			private Thing thing;
+			private float xSize;
+			private float ySize;
+			private float curRotationInt;
+			private float degreesPerTick;
+			private int direction; //0 for cw, 1 for ccw
+			private bool powerDependent;
+
+			public SpinOver(Material spinner, Thing thing, float xSize, float ySize, float degreesPerTick, int direction = 0, bool powerDependent=false)
+            {
+				this.spinner = spinner;
+				this.thing = thing;
+				this.xSize = xSize;
+				this.ySize = ySize;
+				this.degreesPerTick = degreesPerTick;
+				this.direction = direction;
+				this.powerDependent = powerDependent;
+            }
+
+			public float CurRotation
+			{
+				get
+				{
+					return curRotationInt;
+				}
+				set
+				{
+					if(powerDependent && !thing.TryGetComp<CompPowerTrader>().PowerOn)
+                    {
+						return;
+                    }
+
+					curRotationInt = value;
+					if (curRotationInt > 360f)
+					{
+						curRotationInt -= 360f;
+					}
+					if (curRotationInt < 0f)
+					{
+						curRotationInt += 360f;
+					}
+				}
+			}
+
+			public void FrameStep()
+			{
+				if(!Find.TickManager.Paused)
+                {
+					if (direction == 0)
+					{
+						CurRotation += degreesPerTick * Find.TickManager.TickRateMultiplier;
+					}
+					else
+					{
+						CurRotation -= degreesPerTick * Find.TickManager.TickRateMultiplier;
+					}
+				}
+
+				DrawOverlayTex();
+			}
+
+			private void DrawOverlayTex()
+			{
+				Matrix4x4 matrix = default(Matrix4x4);
+				Vector3 pos = thing.TrueCenter();
+				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
+				matrix.SetTRS(pos + Altitudes.AltIncVect, CurRotation.ToQuat(), s);
+				Graphics.DrawMesh(MeshPool.plane10, matrix, spinner, 0);
+			}
+
+
+		}
+
 		public class AnimateOver
 		{
 			private List<Material> frames;
@@ -71,7 +147,7 @@ namespace Spaceports
 				Matrix4x4 matrix = default(Matrix4x4);
 				Vector3 pos = thing.TrueCenter();
 				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
-				matrix.SetTRS(pos, thing.Rotation.AsQuat, s);
+				matrix.SetTRS(pos + Altitudes.AltIncVect, thing.Rotation.AsQuat, s);
 				Graphics.DrawMesh(MeshPool.plane10, matrix, frames[currFrame], 0);
 			}
 		}
@@ -101,7 +177,7 @@ namespace Spaceports
 				Matrix4x4 matrix = default(Matrix4x4);
 				Vector3 pos = thing.TrueCenter();
 				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
-				matrix.SetTRS(pos, thing.Rotation.AsQuat, s);
+				matrix.SetTRS(pos + Altitudes.AltIncVect, thing.Rotation.AsQuat, s);
 				Graphics.DrawMesh(MeshPool.plane10, matrix, frame, 0);
 			}
 		}
@@ -231,7 +307,7 @@ namespace Spaceports
 			{
 				return false;
 			}
-			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnyValidSpaceportPad(map, 0))
+			if (!Utils.AnyValidSpaceportPad(map, 0))
 			{
 				return false;
 			}
@@ -250,11 +326,11 @@ namespace Spaceports
 				return false;
 			}
 
-			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))
+			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.defName == "Spaceports_Beacon"))
 			{
 				return false;
 			}
-			if (map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole && !b.GetComp<CompPowerTrader>().PowerOn))
+			if (map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.defName == "Spaceports_Beacon" && !b.GetComp<CompPowerTrader>().PowerOn))
 			{
 				return false;
 			}
@@ -265,11 +341,11 @@ namespace Spaceports
 		//Qualifying conditions are A) a comms console (does not need to be powered unless you want shuttles to actually land)
 		//and B) either the presence of a valid shuttlepad or rough landing being enabled
 		public static bool CheckIfSpaceport(Map map) {
-			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().allowLandingRough && !Utils.AnySpaceportPads(map))
+			if (!Utils.AnySpaceportPads(map))
 			{
 				return false;
 			}
-			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.IsCommsConsole))
+			if (!map.listerBuildings.allBuildingsColonist.Any((Building b) => b.def.defName == "Spaceports_Beacon"))
 			{
 				return false;
 			}

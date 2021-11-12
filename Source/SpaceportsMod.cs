@@ -12,7 +12,6 @@ namespace Spaceports
     
     public class SpaceportsSettings : ModSettings
     {   
-        public bool allowLandingRough;
         public bool airspaceLockdown;
         public bool autoEvacuate;
         public bool enableShuttleLimit;
@@ -41,7 +40,6 @@ namespace Spaceports
 
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref allowLandingRough, "allowLandingRough", false);
             Scribe_Values.Look(ref airspaceLockdown, "airspaceLockdown", true);
             Scribe_Values.Look(ref autoEvacuate, "autoEvacuate", true);
             Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", false);
@@ -98,7 +96,6 @@ namespace Spaceports
                 listingStandard.Label("Spaceports_TCHeader".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_AirspaceLockdownToggle".Translate(), ref settings.airspaceLockdown, "Spaceports_AirspaceLockdownTooltip".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_AutoLeaveToggle".Translate(), ref settings.autoEvacuate, "Spaceports_AutoLeaveTooltip".Translate());
-                listingStandard.CheckboxLabeled("Spaceports_AllowRoughLandingToggle".Translate(), ref settings.allowLandingRough, "Spaceports_AllowRoughLandingTooltip".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_EnableShuttleLimitToggle".Translate(), ref settings.enableShuttleLimit);
                 if (settings.enableShuttleLimit)
                 {
@@ -174,7 +171,6 @@ namespace Spaceports
 
                 if (listingStandard.ButtonText("Spaceports_ResetToDefault".Translate()))
                 {
-                    settings.allowLandingRough = false;
                     settings.airspaceLockdown = true;
                     settings.autoEvacuate = true;
                     settings.enableShuttleLimit = false;

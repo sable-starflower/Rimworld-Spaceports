@@ -20,12 +20,10 @@ namespace Spaceports
         static SpaceportsHarmony() {
             DoPatches();
         }
-
-        //TODO - patches for Hospitality
         public static void DoPatches()
         {
             Harmony harmony = new Harmony("Spaceports_Plus_Hospitality");
-            if (Verse.ModLister.HasActiveModWithName("Hospitality"))
+            if (Verse.ModLister.HasActiveModWithName("Hospitality")) //conditional patch to Hospitality
             {
                 Log.Message("[Spaceports] Hospitality FOUND, attempting to patch...");
                 var mOriginal = AccessTools.Method("Hospitality.IncidentWorker_VisitorGroup:CreateLord");
@@ -33,9 +31,9 @@ namespace Spaceports
 
                 if (mOriginal != null)
                 {
-                    var transpPatch = new HarmonyMethod(mPostfix);
+                    var hospPatch = new HarmonyMethod(mPostfix);
                     Log.Message("[Spaceports] Attempting to postfix Hospitality.IncidentWorker_VisitorGroup.CreateLord...");
-                    harmony.Patch(mOriginal, postfix: transpPatch);
+                    harmony.Patch(mOriginal, postfix: hospPatch);
                 }
             }
             else if(!Verse.ModLister.HasActiveModWithName("Hospitality"))
@@ -55,7 +53,7 @@ namespace Spaceports
             {
                 if (pawns != null)
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 1); //Find valid landing pad or touchdown spot
+                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 3); //Find valid landing pad or touchdown spot
                     TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad, 3); //Initialize shuttle
 
                     StateGraph graphExit = new LordJobs.LordJob_SpaceportDepart(shuttle.shipThing).CreateGraph(); //Intialize patched subgraph

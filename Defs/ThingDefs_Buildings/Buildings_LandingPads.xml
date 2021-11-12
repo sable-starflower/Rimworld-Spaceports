@@ -26,8 +26,8 @@
     <passability>Standable</passability>
     <clearBuildingArea>true</clearBuildingArea>
     <costList>
-      <Steel>50</Steel>
-      <ComponentIndustrial>3</ComponentIndustrial>
+      <Steel>100</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
     </costList>
     <building>
       <ai_chillDestination>false</ai_chillDestination>

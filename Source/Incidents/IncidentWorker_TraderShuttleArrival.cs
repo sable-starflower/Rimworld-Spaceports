@@ -18,6 +18,10 @@ namespace Spaceports.Incidents
 			{
 				return false;
 			}
+			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularTraders)
+			{
+				return false;
+			}
 			if (!Utils.CheckIfClearForLanding((Map)parms.target, 2)) {
 				return false;
 			}
@@ -76,14 +80,9 @@ namespace Spaceports.Incidents
 
 		protected override void SendLetter(IncidentParms parms, List<Pawn> pawns, TraderKindDef traderKind)
 		{
-			TaggedString letterLabel = "LetterLabelTraderCaravanArrival".Translate(parms.faction.Name, traderKind.label).CapitalizeFirst();
 			TaggedString letterText = "LetterTraderShuttleArrival".Translate(parms.faction.NameColored, traderKind.label).CapitalizeFirst();
-			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularTraders && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().traderNotifications) {
+			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().traderNotifications) {
 				Messages.Message(letterText, MessageTypeDefOf.NeutralEvent, false);
-			}
-            else if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularTraders)
-            {
-				SendStandardLetter(letterLabel, letterText, LetterDefOf.PositiveEvent, parms, pawns[0]);
 			}
 		}
 

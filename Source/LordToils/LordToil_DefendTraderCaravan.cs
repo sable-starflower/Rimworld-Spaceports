@@ -5,7 +5,7 @@ using Verse.AI.Group;
 
 namespace Spaceports.LordJobs
 {
-	internal class LordToil_DefendTraderCaravan : LordToil_DefendPoint
+	internal class LordToil_DefendTraderCaravan : LordToil_DefendPoint //PURE copy paste from base Rimworld, because the original is internal for some arcane reason
 	{
 		public override bool AllowSatisfyLongNeeds => false;
 

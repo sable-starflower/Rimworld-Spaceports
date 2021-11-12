@@ -50,6 +50,11 @@ namespace Spaceports
         public static readonly Material ChillSpot_None = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_none");
         public static readonly Material ChillSpot_Visitors = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_visitors");
         public static readonly Material ChillSpot_Traders = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_traders");
+        public static readonly Material ChillSpot_Guests = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_guests");
+
+        public static readonly Material BeaconRadarDish = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_Dish");
+        public static readonly Material BeaconLightsOn = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_LightsOn", ShaderDatabase.TransparentPostLight, Color.white);
+        public static readonly Material BeaconLightsOff = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_LightsOff", ShaderDatabase.TransparentPostLight, Color.white);
 
     }
 
@@ -71,6 +76,7 @@ namespace Spaceports
     {
         public static List<Material> LandingPatternFrames = new List<Material>();
         public static List<Material> RimPatternFrames = new List<Material>();
+        public static List<Material> BeaconRimFrames = new List<Material>();
         static SpaceportsFramesLists()
         {
             LandingPatternFrames.Add(SpaceportsFrames.LandingPatternAlpha);
@@ -79,6 +85,10 @@ namespace Spaceports
 
             RimPatternFrames.Add(SpaceportsFrames.RimPatternOn);
             RimPatternFrames.Add(SpaceportsFrames.RimPatternOff);
+
+            BeaconRimFrames.Add(SpaceportsFrames.BeaconLightsOn);
+            BeaconRimFrames.Add(SpaceportsFrames.BeaconLightsOff);
+
 
         }
     }

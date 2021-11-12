@@ -15,6 +15,16 @@ namespace Spaceports.Buildings
         private Utils.DrawOver VisitorsAllowed;
         private Utils.DrawOver TradersAllowed;
 
+
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            AllAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_All, 30, this, 1f, 1f);
+            NoneAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_None, 30, this, 1f, 1f);
+            VisitorsAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_Visitors, 30, this, 1f, 1f);
+            TradersAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_Traders, 30, this, 1f, 1f);
+            base.SpawnSetup(map, respawningAfterLoad);
+        }
+
         public override void PostMake()
         {
             AllAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_All, 30, this, 1f, 1f);
@@ -71,12 +81,15 @@ namespace Spaceports.Buildings
 
                     foreach (Utils.AccessControlState state in SpaceportsMisc.AccessStates)
                     {
-                        string label = state.GetLabel();
-                        FloatMenuOption option = new FloatMenuOption(label, delegate ()
+                        if(state.getValue() != 3)
                         {
-                            SetAccessState(state.getValue());
-                        });
-                        options.Add(option);
+                            string label = state.GetLabel();
+                            FloatMenuOption option = new FloatMenuOption(label, delegate ()
+                            {
+                                SetAccessState(state.getValue());
+                            });
+                            options.Add(option);
+                        }
                     }
 
                     if (options.Count > 0)

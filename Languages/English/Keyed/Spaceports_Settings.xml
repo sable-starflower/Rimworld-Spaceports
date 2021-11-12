@@ -1,47 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-
-
-	<!--Visitor Notifications-->
-  	<Spaceports_SingleVisitorLanding>A shuttle from {1} is landing to visit. {PAWN_titleIndef} named {PAWN_nameFull} is onboard.{3}{4}</Spaceports_SingleVisitorLanding>
-  	<Spaceports_SingleVisitorTrader>{PAWN_pronoun} seems to have a few items to trade.</Spaceports_SingleVisitorTrader>
-  	<Spaceports_SingleVisitorLeader>{PAWN_pronoun} is the leader of the faction.</Spaceports_SingleVisitorLeader>
-
-  	<Spaceports_GroupVisitorsLanding>A shuttle from {0} is landing to visit.{1}{2}</Spaceports_GroupVisitorsLanding>
-  	<Spaceports_GroupVisitorsTraders>They seem to have a few items to trade.</Spaceports_GroupVisitorsTraders>
-  	<Spaceports_GroupVisitorsLeader>One of the visitors - {1_labelShort}, is the leader of the faction.</Spaceports_GroupVisitorsLeader>
-
-  	<Spaceports_VisitorsLeaving>Visitors from {0} are departing.</Spaceports_VisitorsLeaving>    
-
-  	<!--Trader Notifications-->
-	<LetterTraderShuttleArrival>A trade shuttle from {0} is landing. They are a {1}.</LetterTraderShuttleArrival>
-
-
-	<!--UI-->
-	<Spaceports_ImmediateDeparture>Force immediate departure</Spaceports_ImmediateDeparture>
-	<Spaceports_ImmediateDepartureTooltip>Force this shuttle to take off and depart immediately, regardless of whether or not all required items are loaded.</Spaceports_ImmediateDepartureTooltip>
-	<Spaceports_RecallParty>Force party recall and depart</Spaceports_RecallParty>
-	<Spaceports_RecallPartyTooltip>Force this shuttle's owning party to immediately board and depart.</Spaceports_RecallPartyTooltip>
-	<AccessControlButton>Access control</AccessControlButton>
-	<AccessControlDesc>Specify what type of shuttles are allowed to use this pad.</AccessControlDesc>
-	<Spaceports_None>No shuttles</Spaceports_None>
-	<Spaceports_AllTypes>All shuttles</Spaceports_AllTypes>
-	<Spaceports_JustVisitors>Visitors only</Spaceports_JustVisitors>
-	<Spaceports_JustTraders>Traders only</Spaceports_JustTraders>
-	<Spaceports_JustGuests>Guests only</Spaceports_JustGuests>
-	<Spaceports_AirspaceLockdown>Airspace lockdown</Spaceports_AirspaceLockdown>
-	<Spaceports_AirspaceLockdownDesc>Due to the presence of hostiles, one or more of your colonies has automatically entered airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart. \n\nColonies currently under airspace lockdown:\n</Spaceports_AirspaceLockdownDesc>
-	<Spaceports_AutoEvac>Auto-evacuation in progress</Spaceports_AutoEvac>
-	<Spaceports_AutoEvacDesc>Due to the presence of hostiles, one or more of your colonies has initiated automatic evacuation of shuttle visitors. \n\nColonies currently performing auto-evacuation:\n</Spaceports_AutoEvacDesc>
-	<Spaceports_NextPage>Next page (integrations, animations, events and reset)</Spaceports_NextPage>
-	<Spaceports_PrevPage>Previous page (traffic control, visitors, traders)</Spaceports_PrevPage>
-
-	<!--Settings-->
 	<SpaceportsModName>Spaceports</SpaceportsModName>
 	<!--Traffic Control Settings-->
 	<Spaceports_TCHeader><![CDATA[<i>Traffic Control Settings</i>]]></Spaceports_TCHeader>
-	<Spaceports_AllowRoughLandingToggle>Allow shuttles to land rough when no pads are available?</Spaceports_AllowRoughLandingToggle>
-	<Spaceports_AllowRoughLandingTooltip>Toggling this setting on will allow shuttles to land rough - i.e. out in the open wherever there is space - when there are no free pads. Default off.</Spaceports_AllowRoughLandingTooltip>
 	<Spaceports_AirspaceLockdownToggle>Enable airspace lockdown when hostiles are on map?</Spaceports_AirspaceLockdownToggle>
 	<Spaceports_AirspaceLockdownTooltip>If enabled, when hostiles enter the map, your colony will automatically go into airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart.\n\nIt is strongly recommended that you leave this ON to avoid diplomatic consequences from visitors being caught in crossfire.</Spaceports_AirspaceLockdownTooltip>
 	<Spaceports_AutoLeaveToggle>Enable visitors and traders automatically evacuating if hostiles enter the map?</Spaceports_AutoLeaveToggle>
@@ -84,5 +44,4 @@
 	<Spaceports_EventToggleTooltip>Toggles the new events added by Spaceports.</Spaceports_EventToggleTooltip>
 	<!--Reset to Default-->
 	<Spaceports_ResetToDefault>Reset all to default</Spaceports_ResetToDefault>
-
 </LanguageData>

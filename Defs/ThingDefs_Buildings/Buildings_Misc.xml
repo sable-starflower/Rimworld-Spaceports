@@ -28,4 +28,49 @@
       <li>MicroelectronicsBasics</li>
     </researchPrerequisites>
   </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>Spaceports_Beacon</defName>
+    <label>spaceport beacon</label>
+    <description>A combination deep-field transmitter and over-the-horizon radar station used throughout the Rim to broadcast the presence and availability of a spaceport.</description>
+    <thingClass>Spaceports.Buildings.Building_Beacon</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Buildings/SpaceportBeacon/SpaceportBeacon_base</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,3)</drawSize>
+    </graphicData>
+    <tickerType>Normal</tickerType>
+    <drawerType>RealtimeOnly</drawerType>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <WorkToBuild>2000</WorkToBuild>
+      <MaxHitPoints>500</MaxHitPoints>
+    </statBases>
+    <rotatable>false</rotatable>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(3,3)</size>
+    <designationCategory>Misc</designationCategory>
+    <passability>Standable</passability>
+    <clearBuildingArea>true</clearBuildingArea>
+    <costList>
+      <Steel>200</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+    </building>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <researchPrerequisites>
+      <li>MicroelectronicsBasics</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>300</basePowerConsumption>
+      </li>
+    </comps>
+  </ThingDef>
 </Defs>

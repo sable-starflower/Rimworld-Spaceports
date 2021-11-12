@@ -208,6 +208,10 @@ namespace Spaceports.Buildings
             {
                 return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_traders", true);
             }
+            else if (AccessState == 3)
+            {
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_guests", true);
+            }
             return null;
         }
 
