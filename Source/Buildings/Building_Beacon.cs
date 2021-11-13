@@ -27,6 +27,35 @@ namespace Spaceports.Buildings
             base.PostMake();
         }
 
+        public override string GetInspectString()
+        {
+            string info = base.GetInspectString();
+            if (this.Map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
+            {
+                info += "Spaceports_BeaconKessler".Translate();
+            }
+            else if (!this.GetComp<CompPowerTrader>().PowerOn)
+            {
+                info += "Spaceports_BeaconUnpowered".Translate();
+            }
+            else if (!Utils.AnyPoweredSpaceportPads(this.Map))
+            {
+                info += "Spaceports_BeaconNoPads".Translate();
+            }
+            else if (Utils.AtShuttleCapacity(this.Map))
+            {
+                info += "Spaceports_BeaconAtCap".Translate();
+            }
+            else if(!Utils.AnyValidSpaceportPad(this.Map, 0))
+            {
+                info += "Spaceports_BeaconPadsFull".Translate();
+            }
+            else
+            {
+                info += "Spaceports_BeaconOK".Translate();
+            }
+            return info;
+        }
         public override void Draw()
         {
             base.Draw();

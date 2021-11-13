@@ -16,6 +16,7 @@ namespace Spaceports
         public static IncidentDef Spaceports_TraderShuttleArrival;
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
         public static JobDef Spaceports_Kidnap;
+        public static GameConditionDef Spaceports_KesslerSyndrome;
     }
 
     [StaticConstructorOnStartup]

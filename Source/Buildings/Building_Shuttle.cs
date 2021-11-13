@@ -36,7 +36,7 @@ namespace Spaceports.Buildings
             {
                 defaultLabel = "Spaceports_ImmediateDeparture".Translate(),
                 defaultDesc = "Spaceports_ImmediateDepartureTooltip".Translate(),
-                //icon = ContentFinder<Texture2D>.Get("UI/Buttons/NutriBar", true),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/FuckOff", true),
                 order = -100,
                 action = delegate ()
                 {
@@ -47,7 +47,7 @@ namespace Spaceports.Buildings
             {
                 defaultLabel = "Spaceports_RecallParty".Translate(),
                 defaultDesc = "Spaceports_RecallPartyTooltip".Translate(),
-                //icon = ContentFinder<Texture2D>.Get("UI/Buttons/NutriBar", true),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/ComeBack", true),
                 order = -100,
                 action = delegate ()
                 {

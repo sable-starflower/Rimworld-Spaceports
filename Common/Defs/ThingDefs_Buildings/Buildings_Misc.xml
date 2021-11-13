@@ -49,7 +49,6 @@
     </statBases>
     <rotatable>false</rotatable>
     <scatterableOnMapGen>false</scatterableOnMapGen>
-    <useHitPoints>False</useHitPoints>
     <size>(3,3)</size>
     <designationCategory>Misc</designationCategory>
     <passability>Standable</passability>
@@ -70,6 +69,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>300</basePowerConsumption>
+        <soundAmbientPowered>Spaceports_BeaconAmbience</soundAmbientPowered>
       </li>
     </comps>
   </ThingDef>

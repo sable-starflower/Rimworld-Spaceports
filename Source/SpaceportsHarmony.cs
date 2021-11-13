@@ -49,7 +49,7 @@ namespace Spaceports
             //IF rand in range 1-100 is less than or equal to configured chance
             //AND Hospitality integration is enabled
             //AND we are clear for landing
-            if (Rand.RangeInclusive(1, 100) <= (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance * 100) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic")
+            if (Rand.RangeInclusive(1, 100) <= (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance * 100) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
                 if (pawns != null)
                 {

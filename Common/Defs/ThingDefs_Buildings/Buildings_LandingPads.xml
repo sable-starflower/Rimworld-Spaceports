@@ -20,7 +20,6 @@
     </statBases>
     <rotatable>false</rotatable>
     <scatterableOnMapGen>false</scatterableOnMapGen>
-    <useHitPoints>False</useHitPoints>
     <size>(7,5)</size>
     <designationCategory>Misc</designationCategory>
     <passability>Standable</passability>

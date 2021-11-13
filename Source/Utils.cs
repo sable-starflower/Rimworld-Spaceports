@@ -283,16 +283,40 @@ namespace Spaceports
 			return false;
 		}
 
+		public static bool AnyPoweredSpaceportPads(Map map)
+		{
+			foreach (Spaceports.Buildings.Building_ShuttlePad pad in map.listerBuildings.AllBuildingsColonistOfDef(SpaceportsDefOf.Spaceports_ShuttleLandingPad))
+			{
+                if (pad.GetComp<CompPowerTrader>().PowerOn)
+                {
+					return true;
+				}
+			}
+			return false;
+		}
+
 		//Check if a given map is at the player-set shuttle limit or higher
 		public static bool AtShuttleCapacity(Map map) {
 			if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().enableShuttleLimit) 
 			{ 
 				return false;
 			}
-			if (map.listerBuildings.AllBuildingsNonColonistOfDef(ThingDefOf.Shuttle).Count() >= LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().shuttleLimit) 
+
+			int count = 0;
+			foreach (Building b in map.listerBuildings.allBuildingsNonColonist)
+			{
+				Building val = b as Spaceports.Buildings.Building_Shuttle;
+				if (val != null)
+				{
+					count++;
+				}
+			}
+
+			if (count >= LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().shuttleLimit) 
 			{
 				return true;
 			}
+
 			return false;
 		}
 
@@ -303,6 +327,10 @@ namespace Spaceports
 		//C) The map must not be at the shuttle limit
 		//D) There must be a powered comms console
 		public static bool CheckIfClearForLanding(Map map, int typeVal) {
+            if (map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
+            {
+				return false;
+            }
 			if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(map, true))
 			{
 				return false;
