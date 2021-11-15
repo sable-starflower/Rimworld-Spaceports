@@ -1,0 +1,11 @@
+<LanguageData>
+    <!--Shuttle Medevac-->
+    <Spaceports_ShuttleMedevacLetterLabel>Shuttle medevac</Spaceports_ShuttleMedevacLetterLabel>
+    <Spaceports_ShuttleMedevacLetter>Your short-range radio suddenly squawks to life, pumping a staticky but clearly distressed voice through the speakers. It seems you have been contacted by a shuttle pilot from {0} who was tasked with medevacing a badly injured ally.\n\nUnfortunately, the patient’s condition has rapidly worsened, and the onboard nurse fears that they may not reach the nearest {0} base with sufficient medical facilities in time. Your colony, however, is only a few minutes away.\n\nThe nurse and pilot both implore you to clear them for an emergency landing so you can provide proper treatment to the injured patient. Neither can make you a concrete promise of a material reward, but they swear that they’ll put in a good word with {1} and see if they can get a token of their gratitude sent your way.
+    </Spaceports_ShuttleMedevacLetter>
+    <Spaceports_ShuttleMedevacAccept>Clear them for landing - we'll do what we can.</Spaceports_ShuttleMedevacAccept>
+    <Spaceports_ShuttleMedevacPost>Postpone</Spaceports_ShuttleMedevacPost>
+    <Spacepots_ShuttleMedevacDeny>Apologize and send them away.</Spacepots_ShuttleMedevacDeny>
+    <Spaceports_ShuttleMedevacRewardLabel>Medevac reward</Spaceports_ShuttleMedevacRewardLabel>
+    <Spaceports_ShuttleMedevacReward>Some time ago, you assisted a distressed medevac shuttle. The onboard pilot and nurse kept their promise to put in a good word with their boss, and have even managed to get a drop pod reward sent your way.</Spaceports_ShuttleMedevacReward>
+</LanguageData>

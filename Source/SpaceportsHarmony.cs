@@ -22,9 +22,9 @@ namespace Spaceports
         }
         public static void DoPatches()
         {
-            Harmony harmony = new Harmony("Spaceports_Plus_Hospitality");
             if (Verse.ModLister.HasActiveModWithName("Hospitality")) //conditional patch to Hospitality
             {
+                Harmony harmony = new Harmony("Spaceports_Plus_Hospitality");
                 Log.Message("[Spaceports] Hospitality FOUND, attempting to patch...");
                 var mOriginal = AccessTools.Method("Hospitality.IncidentWorker_VisitorGroup:CreateLord");
                 var mPostfix = typeof(SpaceportsHarmony).GetMethod("CreateLordPostfix");
@@ -36,7 +36,7 @@ namespace Spaceports
                     harmony.Patch(mOriginal, postfix: hospPatch);
                 }
             }
-            else if(!Verse.ModLister.HasActiveModWithName("Hospitality"))
+            else
             {
                 Log.Message("[Spaceports] Hospitality not found, patches bypassed.");
             }
@@ -49,6 +49,8 @@ namespace Spaceports
             //IF rand in range 1-100 is less than or equal to configured chance
             //AND Hospitality integration is enabled
             //AND we are clear for landing
+            //AND the faction is not neolithic
+            //AND Kessler Syndrome is not in effect
             if (Rand.RangeInclusive(1, 100) <= (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance * 100) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
                 if (pawns != null)
@@ -91,7 +93,7 @@ namespace Spaceports
                                 transition.target = lordToil_TakeWoundedGuest;
                             }
                             //Remove all occurences of a custom Hospitality preaction that throws NRE (I think because it assumes it is interacting w/ a LordToil_Travel but gets a LordToil_Wait)
-                            foreach(TransitionAction preAction in transition.preActions.ToList())
+                            foreach (TransitionAction preAction in transition.preActions.ToList())
                             {
                                 if (preAction.ToString().Equals("Hospitality.TransitionAction_EnsureHaveNearbyExitDestination"))
                                 {
@@ -116,7 +118,7 @@ namespace Spaceports
 
         //Postfix to CompShuttle's Tick() that checks to see if any required pawns are despawned (e.g. left the map through alternate means) and removes them
         //from the shuttle's required list accordingly
-        //This actually fixes a bug in the base game as well
+        //This actually fixes a bug in the base game as well - ty Tynan very cool
         [HarmonyPatch(typeof(CompShuttle), nameof(CompShuttle.CompTick))]
         private static class Harmony_CompShuttle_CompTick
         {
@@ -124,7 +126,7 @@ namespace Spaceports
             {
                 List<Pawn> pawnsToMurk = new List<Pawn>();
                 foreach (Pawn pawn in ___requiredPawns) {
-                    if (!pawn.Spawned && !___shipParent.TransporterComp.innerContainer.Contains(pawn)) {
+                    if (!pawn.Spawned && !___shipParent.TransporterComp.innerContainer.Contains(pawn) && pawn.CarriedBy == null) {
                         pawnsToMurk.Add(pawn);
                     }
                 }
@@ -134,6 +136,23 @@ namespace Spaceports
                 }
             }
         }
+
+        //Postfix to vanilla's GetBestShuttleLandingSpot method. Tries to reroute Imperial shuttles to type 0/1 landing pads.
+        /*[HarmonyPatch(typeof(DropCellFinder), nameof(DropCellFinder.GetBestShuttleLandingSpot), new[] { typeof(Map), typeof(Faction), typeof(Thing) })]
+        private static class Harmony_DropCellFinder_GetBestShuttleLandingSpot
+        {
+            static void Postfix(Map map, Faction faction, ref IntVec3 __result)
+            {
+                if(!Utils.CheckIfClearForLanding(map, 1))
+                {
+                    return;
+                }
+                else
+                {
+                    __result = Utils.FindValidSpaceportPad(map, faction, 1);
+                }
+            }
+        }*/
     }
 
 }

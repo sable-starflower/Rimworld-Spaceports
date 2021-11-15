@@ -17,10 +17,11 @@ namespace Spaceports
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
         public static JobDef Spaceports_Kidnap;
         public static GameConditionDef Spaceports_KesslerSyndrome;
+        public static IncidentDef Spaceports_MedevacReward;
     }
 
     [StaticConstructorOnStartup]
-    public static class SpaceportsMisc
+    public static class SpaceportsMisc //Misc complex constants - currently only used to spin up valid access control states at runtime
     {
         public static List<AccessControlState> AccessStates = new List<AccessControlState>();
         static SpaceportsMisc()
@@ -37,7 +38,7 @@ namespace Spaceports
     }
 
     [StaticConstructorOnStartup]
-    public static class SpaceportsFrames
+    public static class SpaceportsFrames //Material constants used in animations/visual changes. Spun up at runtime.
     {
         public static readonly Material HoldingPatternGraphic = MaterialPool.MatFrom("Animations/HoldingPattern", ShaderDatabase.TransparentPostLight, Color.white);
         public static readonly Material BlockedPatternGraphic = MaterialPool.MatFrom("Animations/BlockedPattern", ShaderDatabase.TransparentPostLight, Color.white);
@@ -60,7 +61,7 @@ namespace Spaceports
     }
 
     [StaticConstructorOnStartup]
-    public static class SpaceportsShuttleVariants
+    public static class SpaceportsShuttleVariants //Compiles list of available shuttle variants at runtime.
     {
         public static List<ShuttleVariant> AllShuttleVariants = new List<ShuttleVariant>();
         public static ShuttleVariant RoyaltyShuttle = new ShuttleVariant(ThingDefOf.Shuttle, ThingDefOf.ShuttleIncoming, ThingDefOf.ShuttleLeaving);
@@ -73,7 +74,7 @@ namespace Spaceports
     }
 
     [StaticConstructorOnStartup]
-    public static class SpaceportsFramesLists
+    public static class SpaceportsFramesLists //Compiles Material Lists used in building animations at runtime.
     {
         public static List<Material> LandingPatternFrames = new List<Material>();
         public static List<Material> RimPatternFrames = new List<Material>();

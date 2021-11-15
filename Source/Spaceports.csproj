@@ -73,10 +73,12 @@
     <Compile Include="Buildings\Building_ShuttlePad.cs" />
     <Compile Include="Buildings\Building_ShuttleSpot.cs" />
     <Compile Include="Incidents\GameCondition_KesslerSyndrome.cs" />
+    <Compile Include="Incidents\IncidentWorker_ShuttleMedevac.cs" />
     <Compile Include="Incidents\IncidentWorker_TraderShuttleArrival.cs" />
     <Compile Include="Incidents\IncidentWorker_VisitorShuttleArrival.cs" />
     <Compile Include="JobDrivers\JobDriver_SpaceportsKidnap.cs" />
     <Compile Include="JobGivers\JobGiver_TryShuttleWoundedGuest.cs" />
+    <Compile Include="Letters\MedevacLetter.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleTradeWithColony.cs" />
     <Compile Include="LordJobs\LordJob_SpaceportDepart.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleVisitColony.cs" />

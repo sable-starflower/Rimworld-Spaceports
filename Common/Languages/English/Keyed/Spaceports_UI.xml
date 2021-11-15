@@ -3,6 +3,7 @@
 	<Spaceports_ImmediateDepartureTooltip>Force this shuttle to take off and depart immediately, regardless of whether or not all required items are loaded.</Spaceports_ImmediateDepartureTooltip>
 	<Spaceports_RecallParty>Force recall</Spaceports_RecallParty>
 	<Spaceports_RecallPartyTooltip>Force this shuttle's owning party to immediately board and depart.</Spaceports_RecallPartyTooltip>
+
 	<AccessControlButton>Access control</AccessControlButton>
 	<AccessControlDesc>Specify what type of shuttles are allowed to use this pad.</AccessControlDesc>
 	<Spaceports_None>No shuttles</Spaceports_None>
@@ -10,16 +11,21 @@
 	<Spaceports_JustVisitors>Visitors only</Spaceports_JustVisitors>
 	<Spaceports_JustTraders>Traders only</Spaceports_JustTraders>
 	<Spaceports_JustGuests>Guests only</Spaceports_JustGuests>
+
 	<Spaceports_AirspaceLockdown>Airspace lockdown</Spaceports_AirspaceLockdown>
 	<Spaceports_AirspaceLockdownDesc>Due to the presence of hostiles, one or more of your colonies has automatically entered airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart. \n\nColonies currently under airspace lockdown:\n</Spaceports_AirspaceLockdownDesc>
 	<Spaceports_AutoEvac>Auto-evacuation in progress</Spaceports_AutoEvac>
 	<Spaceports_AutoEvacDesc>Due to the presence of hostiles, one or more of your colonies has initiated automatic evacuation of shuttle visitors. \n\nColonies currently performing auto-evacuation:\n</Spaceports_AutoEvacDesc>
+	
 	<Spaceports_NextPage>Next page (integrations, animations, events and reset)</Spaceports_NextPage>
 	<Spaceports_PrevPage>Previous page (traffic control, visitors, traders)</Spaceports_PrevPage>
+
 	<Spaceports_BeaconUnpowered>\nBeacon unpowered - spaceport offline.</Spaceports_BeaconUnpowered>
 	<Spaceports_BeaconNoPads>\nNo active landing pads detected - spaceport offline.</Spaceports_BeaconNoPads>
 	<Spaceports_BeaconAtCap>\nSpaceport at user-defined limit - landings suspended.</Spaceports_BeaconAtCap>
 	<Spaceports_BeaconPadsFull>\nAll landing pads are full - landings suspended.</Spaceports_BeaconPadsFull>
 	<Spaceports_BeaconKessler>\nDebris cascade in progress - landings impossible.</Spaceports_BeaconKessler>
 	<Spaceports_BeaconOK>\nSpaceport online.</Spaceports_BeaconOK>
+	<Spaceports_CallTaxi>Call taxi shuttle</Spaceports_CallTaxi> <!--Royalty locked-->
+	<Spaceports_CallTaxiTooltip>Call a single-use automated taxi shuttle for XXX silver.</Spaceports_CallTaxiTooltip>
 </LanguageData>

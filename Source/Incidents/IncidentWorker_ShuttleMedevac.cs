@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RimWorld;
+using Verse;
+
+namespace Spaceports.Incidents
+{
+    public class IncidentWorker_ShuttleMedevac : IncidentWorker
+    {
+        protected override bool CanFireNowSub(IncidentParms parms)
+        {
+            if (!base.CanFireNowSub(parms))
+            {
+                return false;
+            }
+            if (!Utils.CheckIfClearForLanding((Map)parms.target, 0)) //TODO consider edge case of full pads?
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected override bool TryExecuteWorker(IncidentParms parms)
+        {
+            Map map = (Map)parms.target;
+            parms.faction = Find.FactionManager.RandomNonHostileFaction(allowNonHumanlike: false, minTechLevel: TechLevel.Industrial);
+            Faction faction = parms.faction;
+            Letters.MedevacLetter letter = (Letters.MedevacLetter)LetterMaker.MakeLetter(def.letterLabel, "Spaceports_ShuttleMedevacLetter".Translate(faction.NameColored, faction.LeaderTitle + " " + faction.leader.NameShortColored), def.letterDef);
+            letter.title = "Spaceports_ShuttleMedevacLetterLabel".Translate();
+            letter.radioMode = true;
+            letter.map = map;
+            letter.faction = faction;
+            Find.LetterStack.ReceiveLetter(letter);
+            return true;
+        }
+    }
+
+    public class IncidentWorker_ShuttleMedevacReward : IncidentWorker
+    {
+        protected override bool TryExecuteWorker(IncidentParms parms)
+        {
+            Map map = (Map)parms.target;
+            ThingSetMakerParams parameters = default(ThingSetMakerParams);
+            parameters.qualityGenerator = QualityGenerator.Reward;
+            List<Thing> list = ThingSetMakerDefOf.MapGen_AncientTempleContents.root.Generate(parameters); //100% balanced rewards generation, dont't fucking question it
+            IntVec3 intVec = DropCellFinder.RandomDropSpot(map);
+            DropPodUtility.DropThingsNear(intVec, map, list, 110, canInstaDropDuringInit: false, leaveSlag: true);
+            SendStandardLetter("Spaceports_ShuttleMedevacRewardLabel".Translate(), "Spaceports_ShuttleMedevacReward".Translate(), LetterDefOf.PositiveEvent, parms, new TargetInfo(intVec, map));
+            return true;
+        }
+    }
+}

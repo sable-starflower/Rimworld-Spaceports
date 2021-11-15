@@ -1,0 +1,26 @@
+<Defs>
+    <IncidentDef>
+        <defName>Spaceports_ShuttleMedevac</defName>
+        <label>shuttle medevac</label>
+        <category>Misc</category>
+        <targetTags>
+          <li>Map_PlayerHome</li>
+        </targetTags>
+        <workerClass>Spaceports.Incidents.IncidentWorker_ShuttleMedevac</workerClass>
+        <letterDef>Spaceports_ShuttleMedevac</letterDef>
+        <letterLabel>Shuttle medevac</letterLabel>
+        <baseChance>0.7</baseChance>
+        <minRefireDays>15</minRefireDays>
+    </IncidentDef>
+
+    <IncidentDef>
+        <defName>Spaceports_MedevacReward</defName>
+        <label>medevac reward</label>
+        <category>Misc</category>
+        <targetTags>
+          <li>Map_PlayerHome</li>
+        </targetTags>
+        <workerClass>Spaceports.Incidents.IncidentWorker_ShuttleMedevacReward</workerClass>
+        <baseChance>0</baseChance>
+      </IncidentDef>    
+</Defs>

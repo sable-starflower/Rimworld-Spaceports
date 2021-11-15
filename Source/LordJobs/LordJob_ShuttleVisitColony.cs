@@ -71,7 +71,7 @@ namespace Spaceports.LordJobs
 
 			Transition transition3 = new Transition(lordToil_ExitMap, startingToil2);
 			transition3.AddTrigger(new Trigger_PawnCanReachMapEdge());
-			transition3.AddPreAction(new TransitionAction_EnsureHaveExitDestination());
+			//transition3.AddPreAction(new TransitionAction_EnsureHaveExitDestination());
 			transition3.AddPostAction(new TransitionAction_EndAllJobs());
 			stateGraph.AddTransition(transition3);
 
@@ -98,23 +98,11 @@ namespace Spaceports.LordJobs
 			Transition transition7 = new Transition(lordToil_DefendPoint, startingToil2);
 			int tickLimit = ((!DebugSettings.instantVisitorsGift || faction == null) ? ((!durationTicks.HasValue) ? Rand.Range(6000, (int)LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorMaxTime * GenDate.TicksPerDay) : durationTicks.Value) : 0);
 			transition7.AddTrigger(new Trigger_TicksPassed(tickLimit));
-			if (faction != null)
+			if (faction != null && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorNotifications)
 			{
 				transition7.AddPreAction(new TransitionAction_Message("Spaceports_VisitorsLeaving".Translate(faction.Name)));
 			}
-			if (gifts != null)
-			{
-				transition7.AddPreAction(new TransitionAction_GiveGift
-				{
-					gifts = gifts
-				});
-			}
-			else
-			{
-				transition7.AddPreAction(new TransitionAction_CheckGiveGift());
-			}
 			transition7.AddPostAction(new TransitionAction_WakeAll());
-			//transition7.AddPreAction(new TransitionAction_EnsureHaveExitDestination());
 			stateGraph.AddTransition(transition7);
 			return stateGraph;
 		}
@@ -125,11 +113,6 @@ namespace Spaceports.LordJobs
 			Scribe_Values.Look(ref chillSpot, "chillSpot");
 			Scribe_Values.Look(ref durationTicks, "durationTicks");
 			Scribe_References.Look(ref shuttle, "shuttle");
-			Scribe_Collections.Look(ref gifts, "gifts", LookMode.Deep);
-			if (Scribe.mode == LoadSaveMode.PostLoadInit)
-			{
-				gifts?.RemoveAll((Thing x) => x == null);
-			}
 		}
 	}
 }

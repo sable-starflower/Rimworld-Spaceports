@@ -72,9 +72,11 @@ namespace Spaceports.Buildings
                 {
                     foreach (Trigger trigger in transition.triggers)
                     {
-                        if (trigger is Trigger_TicksPassed && transition.preActions.Any(x => x is TransitionAction_CheckGiveGift))
+                        if (trigger is Trigger_TicksPassed)
                         {
                             transition.triggers.Add(new Trigger_TicksPassed(20));
+                            TaggedString notifText = "Spaceports_VisitorsLeaving".Translate(partyPawns[0].Faction.Name);
+                            Messages.Message(notifText, MessageTypeDefOf.NeutralEvent, false);
                             break;
                         }
                     }

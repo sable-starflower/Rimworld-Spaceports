@@ -1,0 +1,14 @@
+<Defs>
+    <LetterDef Name="Spaceports_NeutralEvent">
+        <defName>Spaceports_NeutralEvent</defName>
+        <color>(175, 176, 185)</color>
+        <flashColor>(160, 170, 180)</flashColor>
+        <flashInterval>90</flashInterval>
+        <arriveSound>LetterArrive</arriveSound>
+      </LetterDef>
+
+      <LetterDef ParentName="Spaceports_NeutralEvent">
+        <defName>Spaceports_ShuttleMedevac</defName>
+        <letterClass>Spaceports.Letters.MedevacLetter</letterClass>
+      </LetterDef>
+</Defs>

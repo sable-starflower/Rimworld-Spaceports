@@ -11,6 +11,11 @@ namespace Spaceports
 {
     public class Utils
     {
+		public abstract class Tracker
+        {
+			public abstract bool Check();
+        }
+
 		public class ShuttleVariant
 		{
 			public ThingDef shipThing;
@@ -322,10 +327,11 @@ namespace Spaceports
 
 		//Checks if a shuttle event can fire
 		//Qualifying conditions:
-		//A) Airspace lockdown must not be in effect
-		//B) There must be a valid spaceport pad present OR rough landing must be enabled
-		//C) The map must not be at the shuttle limit
-		//D) There must be a powered comms console
+		//1) Kessler Syndrome must not be in effect
+		//2) Airspace lockdown must not be in effect
+		//3) There must be a valid spaceport pad present
+		//4) The map must not be at the shuttle limit
+		//5) There must be a powered beacon
 		public static bool CheckIfClearForLanding(Map map, int typeVal) {
             if (map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
