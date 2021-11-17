@@ -16,4 +16,9 @@
         <defName>Spaceports_InterstellarDerelict</defName>
         <letterClass>Spaceports.Letters.InterstellarDerelictLetter</letterClass>
       </LetterDef>
+
+      <LetterDef ParentName="Spaceports_NeutralEvent">
+        <defName>Spaceports_MysteryCargo</defName>
+        <letterClass>Spaceports.Letters.MysteryCargoLetter</letterClass>
+      </LetterDef>
 </Defs>

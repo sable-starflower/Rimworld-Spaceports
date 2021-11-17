@@ -1,4 +1,5 @@
 <LanguageData>
+    <Spaceports_ShuttleDisabled>No free landing pads</Spaceports_ShuttleDisabled>
     <!--Shuttle Medevac-->
     <Spaceports_ShuttleMedevacLetterLabel>Shuttle medevac</Spaceports_ShuttleMedevacLetterLabel>
     <Spaceports_ShuttleMedevacLetter>Your short-range radio suddenly squawks to life, pumping a staticky but clearly distressed voice through the speakers. It seems you have been contacted by a shuttle pilot from {0} who was tasked with medevacing a badly injured ally.\n\nUnfortunately, the patient’s condition has rapidly worsened, and the onboard nurse fears that they may not reach the nearest {0} base with sufficient medical facilities in time. Your colony, however, is only a few minutes away.\n\nThe nurse and pilot both implore you to clear them for an emergency landing so you can provide proper treatment to the injured patient. Neither can make you a concrete promise of a material reward, but they swear that they’ll put in a good word with {1} and see if they can get a token of their gratitude sent your way.
@@ -17,4 +18,19 @@
     <Spaceports_InterstellarDerelictSafe>The shuttle's drive roars strong as it nears your spaceport. It's going to make it.</Spaceports_InterstellarDerelictSafe>
     <Spaceports_InterstellarDerelictBoom>The shuttle's drive sputters dangerously as it nears your spaceport. It's going to crash!</Spaceports_InterstellarDerelictBoom>
     <Spaceports_InterstellarDerelictShrapnel>The shuttle's reactor lost containment during atmospheric entry. Your spaceport beacon has picked up {0} inbound chunks of shrapnel and debris!</Spaceports_InterstellarDerelictShrapnel>
+
+    <!--Mystery Cargo-->
+    <Spaceports_MysteryCargo>Mysterious cargo</Spaceports_MysteryCargo>
+    <Spaceports_MysteryCargoLetter>Your spaceport beacon has just detected a shuttle approaching your spaceport on autonav. Its transponder has been disabled, and all attempts to contact crew that may be on board have failed.\n\nHowever, kinematic analysis of the shuttle’s trajectory and acceleration seems to suggest it holds a heavy cargo. It could be something valuable… or it could be a trap.\n\nYou could quash your beacon to hide from the autonav, or alternatively, you can keep it on and let the shuttle land.</Spaceports_MysteryCargoLetter>
+    <Spaceports_MysteryCargoAccept>Let the shuttle land.</Spaceports_MysteryCargoAccept>
+    <Spaceports_MysteryCargoDeny>It's too risky. Shut down the beacon.</Spaceports_MysteryCargoDeny>
+    <Spaceports_MysteryCargoContents>Contents: unknown</Spaceports_MysteryCargoContents>
+    <Spaceports_MysteryCargo0>It seems the shuttle contains a small assortment of useful things.</Spaceports_MysteryCargo0>
+    <Spaceports_MysteryCargo1>It seems the shuttle contains a large assortment of useful things.</Spaceports_MysteryCargo1>
+    <Spaceports_MysteryCargo2>It seems that the shuttle is empty. Its drives have been damaged, making it only good for scrap.</Spaceports_MysteryCargo2>
+    <Spaceports_MysteryCargo3>The shuttle's drive fires up as you approach, and it takes off for parts unknown.</Spaceports_MysteryCargo3>
+    <Spaceports_MysteryCargo4>The shuttle depressurizes violently when you approach, hurling several dessicated skeletons out of its airlock.</Spaceports_MysteryCargo4>
+    <Spaceports_MysteryCargo5>A piercing mental scream emits from the shuttle as you approach. A psychic charge!</Spaceports_MysteryCargo5>
+    <Spaceports_MysteryCargo6>The shuttle's airlock springs open when you approach, and a small attack party from {0} pours out!</Spaceports_MysteryCargo6>
+    <Spaceports_MysteryCargo7>The shuttle's reactor begins to wail louder and louder as you approach. It's a bomb!</Spaceports_MysteryCargo7>
 </LanguageData>

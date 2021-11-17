@@ -9,14 +9,22 @@ using Verse.AI.Group;
 
 namespace Spaceports.Buildings
 {
-    class Building_Shuttle : Building
+    public class Building_Shuttle : Building
     {
         public bool disabled = false;
+        public bool PartyRecalled = false;
+        public override void ExposeData()
+        {
+            Scribe_Values.Look(ref disabled, "disabled", false);
+            Scribe_Values.Look(ref PartyRecalled, "PartyRecalled", false);
+            base.ExposeData();
+        }
+
         public override void Tick()
         {
             if(this.Map != null)
             {
-                if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().autoEvacuate && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true))
+                if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().autoEvacuate && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true) && !PartyRecalled)
                 {
                     RecallParty();
                 }
@@ -31,31 +39,32 @@ namespace Spaceports.Buildings
             {
                 yield return gizmo;
             }
-            if (!disabled)
+            yield return new Command_Action()
             {
-                yield return new Command_Action()
+                defaultLabel = "Spaceports_ImmediateDeparture".Translate(),
+                defaultDesc = "Spaceports_ImmediateDepartureTooltip".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/FuckOff", true),
+                disabled = disabled,
+                disabledReason = "Spaceports_GizmoDisabled".Translate(),
+                order = -100,
+                action = delegate ()
                 {
-                    defaultLabel = "Spaceports_ImmediateDeparture".Translate(),
-                    defaultDesc = "Spaceports_ImmediateDepartureTooltip".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Buttons/FuckOff", true),
-                    order = -100,
-                    action = delegate ()
-                    {
-                        ForceImmediateDeparture();
-                    }
-                };
-                yield return new Command_Action()
+                    ForceImmediateDeparture();
+                }
+            };
+            yield return new Command_Action()
+            {
+                defaultLabel = "Spaceports_RecallParty".Translate(),
+                defaultDesc = "Spaceports_RecallPartyTooltip".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/ComeBack", true),
+                disabled = disabled,
+                disabledReason = "Spaceports_GizmoDisabled".Translate(),
+                order = -100,
+                action = delegate ()
                 {
-                    defaultLabel = "Spaceports_RecallParty".Translate(),
-                    defaultDesc = "Spaceports_RecallPartyTooltip".Translate(),
-                    icon = ContentFinder<Texture2D>.Get("UI/Buttons/ComeBack", true),
-                    order = -100,
-                    action = delegate ()
-                    {
-                        RecallParty();
-                    }
-                };
-            }
+                    RecallParty();
+                }
+            };
         }
 
         private void ForceImmediateDeparture() {
@@ -71,17 +80,21 @@ namespace Spaceports.Buildings
             if (partyPawns != null)
             {
                 Lord lord = partyPawns[0].GetLord();
-                List<Transition> transitions = lord.Graph.transitions.ToList();
-                foreach (Transition transition in transitions)
+                if(lord != null)
                 {
-                    foreach (Trigger trigger in transition.triggers)
+                    List<Transition> transitions = lord.Graph.transitions.ToList();
+                    foreach (Transition transition in transitions)
                     {
-                        if (trigger is Trigger_TicksPassed)
+                        foreach (Trigger trigger in transition.triggers)
                         {
-                            transition.triggers.Add(new Trigger_TicksPassed(20));
-                            TaggedString notifText = "Spaceports_VisitorsLeaving".Translate(partyPawns[0].Faction.Name);
-                            Messages.Message(notifText, MessageTypeDefOf.NeutralEvent, false);
-                            break;
+                            if (trigger is Trigger_TicksPassed)
+                            {
+                                transition.triggers.Add(new Trigger_TicksPassed(5));
+                                TaggedString notifText = "Spaceports_VisitorsLeaving".Translate(partyPawns[0].Faction.Name);
+                                Messages.Message(notifText, MessageTypeDefOf.NeutralEvent, false);
+                                PartyRecalled = true;
+                                break;
+                            }
                         }
                     }
                 }

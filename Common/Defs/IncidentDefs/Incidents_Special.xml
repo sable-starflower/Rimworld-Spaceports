@@ -37,4 +37,18 @@
         <baseChance>1.0</baseChance>
         <minRefireDays>60</minRefireDays>
     </IncidentDef>
+
+    <IncidentDef>
+      <defName>Spaceports_MysteryCargo</defName>
+      <label>mysterious cargo</label>
+      <category>Misc</category>
+      <targetTags>
+        <li>Map_PlayerHome</li>
+      </targetTags>
+      <workerClass>Spaceports.Incidents.IncidentWorker_MysteryCargo</workerClass>
+      <letterDef>Spaceports_MysteryCargo</letterDef>
+      <letterLabel>Mysterious cargo</letterLabel>
+      <baseChance>1.0</baseChance>
+      <minRefireDays>60</minRefireDays>
+  </IncidentDef>
 </Defs>

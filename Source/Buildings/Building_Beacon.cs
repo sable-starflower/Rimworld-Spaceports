@@ -20,13 +20,6 @@ namespace Spaceports.Buildings
             base.SpawnSetup(map, respawningAfterLoad);
         }
 
-        public override void PostMake()
-        {
-            RimLights = new Utils.AnimateOver(SpaceportsFramesLists.BeaconRimFrames, 30, this, 3f, 3f);
-            RadarDish = new Utils.SpinOver(SpaceportsFrames.BeaconRadarDish, this, 3f, 3f, 1.5f, powerDependent: true);
-            base.PostMake();
-        }
-
         public override string GetInspectString()
         {
             string info = base.GetInspectString();

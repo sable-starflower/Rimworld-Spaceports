@@ -57,36 +57,46 @@
         <pawnExitSound MayRequire="Ludeon.RimWorld.Ideology">Shuttle_PawnExit</pawnExitSound>
       </li>
     </comps>
+    <interactionCellOffset>(0,0,-2)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
   </ThingDef>
 
   <ThingDef ParentName="Spaceports_ShuttleBase">
     <defName>Spaceports_ShuttleA</defName>
     <graphicData>
       <texPath>Buildings/Shuttles/TestShuttle</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
-      <color>(162,164,149)</color>
-      <shadowData>
-        <volume>(4.1, 1.0, 1.8)</volume>
-        <offset>(0, 0, -0.1)</offset>
-      </shadowData>
+    </graphicData>
+  </ThingDef>
+
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleB</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
     </graphicData>
   </ThingDef>
 
   <ThingDef ParentName="Spaceports_ShuttleBase">
-    <defName>Spaceports_ShuttleCrashed</defName>
+    <defName>Spaceports_ShuttleC</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleD</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleInert</defName>
     <label>inert shuttle</label>
     <description>An ancient shuttle, scarred and worn out by endless centuries spent trawling between stars. Its reactor has been rendered useless, making it only good for scrap.</description>
     <thingClass>Building</thingClass>
     <graphicData>
       <texPath>Buildings/Shuttles/TestShuttle</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
-      <color>(162,164,149)</color>
-      <shadowData>
-        <volume>(4.1, 1.0, 1.8)</volume>
-        <offset>(0, 0, -0.1)</offset>
-      </shadowData>
     </graphicData>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
@@ -114,47 +124,30 @@
     </building>
   </ThingDef>
 
-
   <ThingDef ParentName="Spaceports_ShuttleBase">
-    <defName>Spaceports_ShuttleB</defName>
+    <defName>Spaceports_SurpriseShuttle</defName>
+    <label>mysterious shuttle</label>
+    <description>A mysterious shuttlecraft. Its transponder has been disabled, and all attempts at remote communication have failed. Approach with caution.</description>
+    <thingClass>Spaceports.Buildings.Building_SurpriseShuttle</thingClass>
     <graphicData>
       <texPath>Buildings/Shuttles/TestShuttle</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
-      <color>(162,164,149)</color>
-      <shadowData>
-        <volume>(4.1, 1.0, 1.8)</volume>
-        <offset>(0, 0, -0.1)</offset>
-      </shadowData>
     </graphicData>
+    <costList>
+      <Steel>40</Steel>
+      <Plasteel>70</Plasteel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>8</explosiveRadius>
+        <explosiveDamageType>BombSuper</explosiveDamageType>
+        <explodeOnKilled>false</explodeOnKilled>
+        <chanceNeverExplodeFromDamage>1.0</chanceNeverExplodeFromDamage>
+        <wickTicks>
+          <min>190</min>
+          <max>200</max>
+        </wickTicks>
+      </li>
+    </comps>
   </ThingDef>
-
-  <ThingDef ParentName="Spaceports_ShuttleBase">
-    <defName>Spaceports_ShuttleC</defName>
-    <graphicData>
-      <texPath>Buildings/Shuttles/TestShuttle</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
-      <color>(162,164,149)</color>
-      <shadowData>
-        <volume>(4.1, 1.0, 1.8)</volume>
-        <offset>(0, 0, -0.1)</offset>
-      </shadowData>
-    </graphicData>
-  </ThingDef>
-
-  <ThingDef ParentName="Spaceports_ShuttleBase">
-    <defName>Spaceports_ShuttleD</defName>
-    <graphicData>
-      <texPath>Buildings/Shuttles/TestShuttle</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
-      <color>(162,164,149)</color>
-      <shadowData>
-        <volume>(4.1, 1.0, 1.8)</volume>
-        <offset>(0, 0, -0.1)</offset>
-      </shadowData>
-    </graphicData>
-  </ThingDef>
-
   </Defs>

@@ -33,13 +33,7 @@ namespace Spaceports.Letters
 						parameters.qualityGenerator = QualityGenerator.Reward;
 						List<Thing> things = (ThingSetMakerDefOf.MapGen_AncientTempleContents.root.Generate(parameters));
 
-						TransportShip shuttle = Utils.GenerateInboundShuttle(spacers, pad, forcedType: SpaceportsDefOf.Spaceports_ShuttleCrashing, canLeave: false);
-						shuttle.TransporterComp.innerContainer.TryAddRangeOrTransfer(things);
-						Buildings.Building_Shuttle b = shuttle.shipThing as Buildings.Building_Shuttle;
-						if(b != null)
-                        {
-							b.disabled = true;
-                        }
+						TransportShip shuttle = Utils.GenerateInboundShuttle(spacers, pad, items: things, forcedType: SpaceportsDefOf.Spaceports_ShuttleInert, canLeave: false);
 
 						Messages.Message("Spaceports_InterstellarDerelictSafe".Translate(), MessageTypeDefOf.PositiveEvent, false);
 					}
@@ -48,7 +42,7 @@ namespace Spaceports.Letters
 						if (Rand.RangeInclusive(0, 100) <= 50)
                         {
 							IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, null, 0);
-							Utils.GenerateCrashingShuttle(pad);
+							GenPlace.TryPlaceThing(SkyfallerMaker.MakeSkyfaller(SpaceportsDefOf.ShuttleA_Crashing, ThingMaker.MakeThing(ThingDefOf.ChunkSlagSteel)), pad, Find.CurrentMap, ThingPlaceMode.Near);
 							Messages.Message("Spaceports_InterstellarDerelictBoom".Translate(), MessageTypeDefOf.NegativeEvent, false);
 						}
                         else 
@@ -65,6 +59,11 @@ namespace Spaceports.Letters
 					Find.LetterStack.RemoveLetter(this);
 				};
 				diaAccept.resolveTree = true;
+				diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
+				if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+				{
+					diaAccept.disabled = true;
+				}
 				diaDeny.action = delegate
 				{
 					Find.LetterStack.RemoveLetter(this);

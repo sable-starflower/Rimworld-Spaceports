@@ -67,15 +67,23 @@ namespace Spaceports.Letters
 					IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
 					Pawn pawn = PawnGenerator.GeneratePawn(faction.RandomPawnKind(), faction);
 					HealthUtility.DamageUntilDowned(pawn);
-					HealthUtility.DamageLegsUntilIncapableOfMoving(pawn);
-					HealthUtility.GiveInjuriesOperationFailureRidiculous(pawn);
 					List<Pawn> list = new List<Pawn>();
 					list.Add(pawn);
 					TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad);
 					map.GetComponent<SpaceportsMapComp>().LoadTracker(new MedevacTracker(pawn, shuttle.shipThing));
+					Buildings.Building_Shuttle b = shuttle.shipThing as Buildings.Building_Shuttle;
+					if(b != null)
+                    {
+						b.disabled = true;
+                    }
 					Find.LetterStack.RemoveLetter(this);
 				};
 				diaAccept.resolveTree = true;
+				diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
+				if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                {
+					diaAccept.disabled = true;
+                }
 				diaDeny.action = delegate
 				{
 					Find.LetterStack.RemoveLetter(this);
@@ -86,6 +94,7 @@ namespace Spaceports.Letters
 				yield return base.Option_Postpone;
 			}
 		}
+
         public override void ExposeData()
         {
 			Scribe_References.Look(ref faction, "faction");

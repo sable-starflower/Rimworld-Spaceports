@@ -31,15 +31,6 @@ namespace Spaceports.Buildings
             return text;
         }
 
-        public override void PostMake()
-        {
-            landingPatternAnimation = new Utils.AnimateOver(SpaceportsFramesLists.LandingPatternFrames, 30, this, 7f, 5f);
-            rimLightAnimation = new Utils.AnimateOver(SpaceportsFramesLists.RimPatternFrames, 30, this, 7f, 5f);
-            holdingPattern = new Utils.DrawOver(SpaceportsFrames.HoldingPatternGraphic, 30, this, 7f, 5f);
-            blockedPattern = new Utils.DrawOver(SpaceportsFrames.BlockedPatternGraphic, 30, this, 7f, 5f);
-            base.PostMake();
-        }
-
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             landingPatternAnimation = new Utils.AnimateOver(SpaceportsFramesLists.LandingPatternFrames, 30, this, 7f, 5f);
@@ -95,7 +86,7 @@ namespace Spaceports.Buildings
             if (ShuttleInbound)
             {
                 ticksSinceReserved++;
-                if(ticksSinceReserved > 2000) //fallback if a shuttle fails to spawn, stops the pad from being locked up forever
+                if(ticksSinceReserved > 500) //fallback if a shuttle fails to spawn, stops the pad from being locked up forever
                 {
                     ShuttleInbound = false;
                 }

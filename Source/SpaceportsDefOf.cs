@@ -18,10 +18,11 @@ namespace Spaceports
         public static GameConditionDef Spaceports_KesslerSyndrome;
         public static IncidentDef Spaceports_MedevacReward;
         public static ThingDef Spaceports_Shrapnel;
-        public static ThingDef Spaceports_ShuttleCrashed;
         public static TransportShipDef Spaceports_ShuttleA;
-        public static TransportShipDef Spaceports_ShuttleCrashing;
+        public static TransportShipDef Spaceports_ShuttleInert;
+        public static TransportShipDef Spaceports_SurpriseShuttle;
         public static ThingDef ShuttleA_Crashing;
+        public static ThoughtDef Spaceports_PsychicCharge;
     }
 
     [StaticConstructorOnStartup]

@@ -16,7 +16,7 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
-            if (!Utils.CheckIfSpaceport((Map)parms.target)) //TODO consider edge case of full pads?
+            if (!Utils.CheckIfSpaceport((Map)parms.target))
             {
                 return false;
             }

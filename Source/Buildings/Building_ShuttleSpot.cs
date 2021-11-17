@@ -25,15 +25,6 @@ namespace Spaceports.Buildings
             base.SpawnSetup(map, respawningAfterLoad);
         }
 
-        public override void PostMake()
-        {
-            AllAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_All, 30, this, 1f, 1f);
-            NoneAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_None, 30, this, 1f, 1f);
-            VisitorsAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_Visitors, 30, this, 1f, 1f);
-            TradersAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_Traders, 30, this, 1f, 1f);
-            base.PostMake();
-        }
-
         public override void ExposeData()
         {
             base.ExposeData();

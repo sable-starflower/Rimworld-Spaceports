@@ -43,6 +43,7 @@
     <tickerType>Normal</tickerType>
     <drawerType>RealtimeOnly</drawerType>
     <altitudeLayer>Building</altitudeLayer>
+    <pathCost>50</pathCost>
     <statBases>
       <WorkToBuild>2000</WorkToBuild>
       <MaxHitPoints>500</MaxHitPoints>
