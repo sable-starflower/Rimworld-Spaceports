@@ -51,7 +51,7 @@
       <ThingDef ParentName="Spaceports_SkyfallerCrashingBase">
           <defName>ShuttleA_Crashing</defName>
           <graphicData>
-            <texPath>Buildings/Shuttles/TestShuttle</texPath>
+            <texPath>Buildings/Shuttles/ShuttleA</texPath>
             <graphicClass>Graphic_Single</graphicClass>
             <shaderType>CutoutFlying</shaderType>
             <drawSize>(6,3)</drawSize>

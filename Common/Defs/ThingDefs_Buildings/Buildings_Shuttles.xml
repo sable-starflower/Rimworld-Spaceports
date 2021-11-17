@@ -13,7 +13,6 @@
       <texPath>Buildings/Shuttles/TestShuttle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(6,3)</drawSize>
-      <color>(162,164,149)</color>
       <shadowData>
         <volume>(4.1, 1.0, 1.8)</volume>
         <offset>(0, 0, -0.1)</offset>
@@ -64,7 +63,7 @@
   <ThingDef ParentName="Spaceports_ShuttleBase">
     <defName>Spaceports_ShuttleA</defName>
     <graphicData>
-      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <texPath>Buildings/Shuttles/ShuttleA</texPath>
     </graphicData>
   </ThingDef>
 
@@ -96,7 +95,7 @@
     <description>An ancient shuttle, scarred and worn out by endless centuries spent trawling between stars. Its reactor has been rendered useless, making it only good for scrap.</description>
     <thingClass>Building</thingClass>
     <graphicData>
-      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <texPath>Buildings/Shuttles/ShuttleA</texPath>
     </graphicData>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
@@ -130,7 +129,7 @@
     <description>A mysterious shuttlecraft. Its transponder has been disabled, and all attempts at remote communication have failed. Approach with caution.</description>
     <thingClass>Spaceports.Buildings.Building_SurpriseShuttle</thingClass>
     <graphicData>
-      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <texPath>Buildings/Shuttles/ShuttleA</texPath>
     </graphicData>
     <costList>
       <Steel>40</Steel>

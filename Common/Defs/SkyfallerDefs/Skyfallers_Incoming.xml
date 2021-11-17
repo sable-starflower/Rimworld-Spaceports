@@ -50,7 +50,7 @@
       <ThingDef ParentName="Spaceports_SkyfallerIncomingBase">
         <defName>ShuttleA_Incoming</defName>
         <graphicData>
-          <texPath>Buildings/Shuttles/TestShuttle</texPath>
+          <texPath>Buildings/Shuttles/ShuttleA</texPath>
           <graphicClass>Graphic_Single</graphicClass>
           <shaderType>CutoutFlying</shaderType>
           <drawSize>(6,3)</drawSize>
