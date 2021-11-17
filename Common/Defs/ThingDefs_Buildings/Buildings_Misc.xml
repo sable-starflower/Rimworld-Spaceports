@@ -42,7 +42,7 @@
     </graphicData>
     <tickerType>Normal</tickerType>
     <drawerType>RealtimeOnly</drawerType>
-    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <altitudeLayer>Building</altitudeLayer>
     <statBases>
       <WorkToBuild>2000</WorkToBuild>
       <MaxHitPoints>500</MaxHitPoints>
@@ -71,6 +71,7 @@
         <basePowerConsumption>300</basePowerConsumption>
         <soundAmbientPowered>Spaceports_BeaconAmbience</soundAmbientPowered>
       </li>
+      <li Class="CompProperties_Flickable"/>
     </comps>
   </ThingDef>
 </Defs>

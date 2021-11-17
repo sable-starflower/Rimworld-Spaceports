@@ -12,6 +12,7 @@ namespace Spaceports.Buildings
     public class Building_ShuttlePad : Building
     {
         private bool ShuttleInbound = false;
+        private int ticksSinceReserved = 0;
 
         private int AccessState = 0; //-1 for none, 0 for all, 1 for visitors, 2 for traders, 3 for hospitality guests
 
@@ -52,6 +53,7 @@ namespace Spaceports.Buildings
         {
             base.ExposeData();
             Scribe_Values.Look(ref AccessState, "accessState", 0);
+            Scribe_Values.Look(ref ShuttleInbound, "ShuttleInbound", false);
         }
 
         public override void Draw()
@@ -89,6 +91,14 @@ namespace Spaceports.Buildings
         {
             if (IsShuttleOnPad()) {
                 ShuttleInbound = false;
+            }
+            if (ShuttleInbound)
+            {
+                ticksSinceReserved++;
+                if(ticksSinceReserved > 2000) //fallback if a shuttle fails to spawn, stops the pad from being locked up forever
+                {
+                    ShuttleInbound = false;
+                }
             }
             base.Tick();
         }
@@ -133,6 +143,7 @@ namespace Spaceports.Buildings
         public void NotifyIncoming() 
         {
             ShuttleInbound = true;
+            ticksSinceReserved = 0;
         }
 
         public bool IsAvailable() 

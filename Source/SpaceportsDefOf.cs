@@ -11,13 +11,17 @@ namespace Spaceports
     public static class SpaceportsDefOf
     {
         public static ThingDef Spaceports_ShuttleLandingPad;
-        public static ThingDef Spaceports_TestShuttle;
         public static IncidentDef Spaceports_VisitorShuttleArrival;
         public static IncidentDef Spaceports_TraderShuttleArrival;
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
         public static JobDef Spaceports_Kidnap;
         public static GameConditionDef Spaceports_KesslerSyndrome;
         public static IncidentDef Spaceports_MedevacReward;
+        public static ThingDef Spaceports_Shrapnel;
+        public static ThingDef Spaceports_ShuttleCrashed;
+        public static TransportShipDef Spaceports_ShuttleA;
+        public static TransportShipDef Spaceports_ShuttleCrashing;
+        public static ThingDef ShuttleA_Crashing;
     }
 
     [StaticConstructorOnStartup]
@@ -57,19 +61,15 @@ namespace Spaceports
         public static readonly Material BeaconRadarDish = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_Dish");
         public static readonly Material BeaconLightsOn = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_LightsOn", ShaderDatabase.TransparentPostLight, Color.white);
         public static readonly Material BeaconLightsOff = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_LightsOff", ShaderDatabase.TransparentPostLight, Color.white);
-
     }
 
     [StaticConstructorOnStartup]
     public static class SpaceportsShuttleVariants //Compiles list of available shuttle variants at runtime.
     {
-        public static List<ShuttleVariant> AllShuttleVariants = new List<ShuttleVariant>();
-        public static ShuttleVariant RoyaltyShuttle = new ShuttleVariant(ThingDefOf.Shuttle, ThingDefOf.ShuttleIncoming, ThingDefOf.ShuttleLeaving);
-        public static ShuttleVariant TestShuttle = new ShuttleVariant(SpaceportsDefOf.Spaceports_TestShuttle, ThingDefOf.ShuttleIncoming, ThingDefOf.ShuttleLeaving);
-
+        public static List<TransportShipDef> AllShuttleVariants = new List<TransportShipDef>();
         static SpaceportsShuttleVariants()
         {
-            AllShuttleVariants.Add(TestShuttle);
+            AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_ShuttleA);
         }
     }
 
@@ -90,8 +90,6 @@ namespace Spaceports
 
             BeaconRimFrames.Add(SpaceportsFrames.BeaconLightsOn);
             BeaconRimFrames.Add(SpaceportsFrames.BeaconLightsOff);
-
-
         }
     }
 }

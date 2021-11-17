@@ -1,0 +1,21 @@
+<Defs>
+      <TransportShipDef>
+        <defName>Spaceports_ShuttleA</defName>
+        <label>shuttle</label>
+        <shipThing>Spaceports_ShuttleA</shipThing>
+        <arrivingSkyfaller>ShuttleA_Incoming</arrivingSkyfaller>
+        <leavingSkyfaller>ShuttleA_Leaving</leavingSkyfaller>
+        <worldObject>TravelingShuttle</worldObject> <!--make custom wo-->
+        <maxLaunchDistance>70</maxLaunchDistance>
+      </TransportShipDef>
+
+      <TransportShipDef>
+        <defName>Spaceports_ShuttleCrashing</defName>
+        <label>shuttle</label>
+        <shipThing>Spaceports_ShuttleCrashed</shipThing>
+        <arrivingSkyfaller>ShuttleA_Incoming</arrivingSkyfaller>
+        <leavingSkyfaller>ShuttleA_Leaving</leavingSkyfaller>
+        <worldObject>TravelingShuttle</worldObject> <!--make custom wo-->
+        <maxLaunchDistance>70</maxLaunchDistance>
+      </TransportShipDef>
+</Defs>

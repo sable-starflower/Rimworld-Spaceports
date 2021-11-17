@@ -8,4 +8,13 @@
     <Spacepots_ShuttleMedevacDeny>Apologize and send them away.</Spacepots_ShuttleMedevacDeny>
     <Spaceports_ShuttleMedevacRewardLabel>Medevac reward</Spaceports_ShuttleMedevacRewardLabel>
     <Spaceports_ShuttleMedevacReward>Some time ago, you assisted a distressed medevac shuttle. The onboard pilot and nurse kept their promise to put in a good word with their boss, and have even managed to get a drop pod reward sent your way.</Spaceports_ShuttleMedevacReward>
+
+    <!--Interstellar Derelict-->
+    <Spaceports_InterstellarDerelictLetterLabel>Interstellar derelict</Spaceports_InterstellarDerelictLetterLabel>
+    <Spaceports_InterstellarDerelictLetter>Your short-range radio has picked up an automated distress call from an interstellar ship. It seems that its Johnson-Tanaka drive was irreparably damaged somewhere out in the void between stars, leaving the vessel on a hyperbolic orbit that will sling it around the local sun and out of the system.\n\nHowever, as you watch its passage, a battered interplanetary shuttle decouples from its hull and fires up its Newtonian drive! Soon after, you receive a transmission from the passengers - they must have picked up your spaceport signal.\n\nThe pilot explains that their drive reactor is too unstable to perform a controlled descent, and begs you to clear them for an emergency landing. He offers some spacer tech as a reward.\n\nYou can accept their request, but be warned - the shuttle's damaged reactor could detonate during atmospheric entry, raining debris down on your colony. It might even detonate on impact, wreaking havoc on your spaceport.</Spaceports_InterstellarDerelictLetter>
+    <Spaceports_InterstellarDerelictAccept>Clear them for landing, but brace for the worst.</Spaceports_InterstellarDerelictAccept>
+    <Spaceports_InterstellarDerelictDeny>Apologize and mask your spaceport signal. It's too risky.</Spaceports_InterstellarDerelictDeny>
+    <Spaceports_InterstellarDerelictSafe>The shuttle's drive roars strong as it nears your spaceport. It's going to make it.</Spaceports_InterstellarDerelictSafe>
+    <Spaceports_InterstellarDerelictBoom>The shuttle's drive sputters dangerously as it nears your spaceport. It's going to crash!</Spaceports_InterstellarDerelictBoom>
+    <Spaceports_InterstellarDerelictShrapnel>The shuttle's reactor lost containment during atmospheric entry. Your spaceport beacon has picked up {0} inbound chunks of shrapnel and debris!</Spaceports_InterstellarDerelictShrapnel>
 </LanguageData>

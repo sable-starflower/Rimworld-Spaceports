@@ -1,11 +1,9 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using RimWorld;
 using UnityEngine;
 using Verse;
-using Verse.AI.Group;
 
 namespace Spaceports
 {
@@ -209,25 +207,45 @@ namespace Spaceports
         }
 
 		//Generates an inbound shuttle of random appearance and sets up its job queue
-		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, int typeVal) {
-			TransportShipDef shuttleDef = new TransportShipDef();
-			ShuttleVariant variantToUse = SpaceportsShuttleVariants.AllShuttleVariants.RandomElement();
-			shuttleDef.shipThing = variantToUse.shipThing;
-			shuttleDef.arrivingSkyfaller = variantToUse.arrivingSkyfaller;
-			shuttleDef.leavingSkyfaller = variantToUse.leavingSkyfaller; //TODO patch this, game doesn't preserve dynamic defs between reloads
-			TransportShip shuttle = TransportShipMaker.MakeTransportShip(shuttleDef, null);
+		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, TransportShipDef forcedType = null, bool canLeave = true) {
+			TransportShip shuttle = TransportShipMaker.MakeTransportShip(SpaceportsShuttleVariants.AllShuttleVariants.RandomElement(), null);
+			if(forcedType != null)
+            {
+				shuttle = TransportShipMaker.MakeTransportShip(forcedType, null);
+			}
+			List<Thing> checkTargets = new List<Thing>();
 			foreach (Pawn p in pawns)
 			{
 				shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));
+				checkTargets.Add(p);
 			}
 			shuttle.ArriveAt(padCell, Find.CurrentMap.Parent);
-			shuttle.AddJob(new ShipJob_Unload());
-			shuttle.ShuttleComp.requiredPawns = pawns;
-			ShipJob_WaitForever wait = new ShipJob_WaitForever();
-			wait.leaveImmediatelyWhenSatisfied = true;
-			wait.showGizmos = false;
-			shuttle.AddJob(wait);
+			ShipJob_Unload unload = new ShipJob_Unload();
+			unload.loadID = Find.UniqueIDsManager.GetNextShipJobID();
+			shuttle.AddJob(unload);
+            if (canLeave)
+            {
+				shuttle.ShuttleComp.requiredPawns = pawns;
+				ShipJob_WaitForever wait = new ShipJob_WaitForever();
+				wait.loadID = Find.UniqueIDsManager.GetNextShipJobID();
+				wait.leaveImmediatelyWhenSatisfied = true;
+				wait.showGizmos = false;
+				wait.sendAwayIfAllDespawned = checkTargets;
+				shuttle.AddJob(wait);
+			}
+            else
+            {
+				ShipJob_WaitForever wait = new ShipJob_WaitForever();
+				wait.loadID = Find.UniqueIDsManager.GetNextShipJobID();
+				wait.showGizmos = false;
+				shuttle.AddJob(wait);
+			}
 			return shuttle;
+		}
+
+		public static void GenerateCrashingShuttle(IntVec3 padCell)
+        {
+			GenPlace.TryPlaceThing(SkyfallerMaker.MakeSkyfaller(SpaceportsDefOf.ShuttleA_Crashing, ThingMaker.MakeThing(ThingDefOf.ChunkSlagSteel)), padCell, Find.CurrentMap, ThingPlaceMode.Near);
 		}
 
 		//Returns the cell of an open spaceport pad

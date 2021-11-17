@@ -17,8 +17,6 @@ namespace Spaceports.LordJobs
 
 		private int? durationTicks;
 
-		public List<Thing> gifts;
-
 		public StateGraph exitSubgraph;
 
 		public LordJob_ShuttleVisitColony()

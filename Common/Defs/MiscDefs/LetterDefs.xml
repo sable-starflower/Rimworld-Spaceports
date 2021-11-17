@@ -11,4 +11,9 @@
         <defName>Spaceports_ShuttleMedevac</defName>
         <letterClass>Spaceports.Letters.MedevacLetter</letterClass>
       </LetterDef>
+
+      <LetterDef ParentName="Spaceports_NeutralEvent">
+        <defName>Spaceports_InterstellarDerelict</defName>
+        <letterClass>Spaceports.Letters.InterstellarDerelictLetter</letterClass>
+      </LetterDef>
 </Defs>

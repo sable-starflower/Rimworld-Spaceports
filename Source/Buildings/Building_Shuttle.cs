@@ -11,7 +11,7 @@ namespace Spaceports.Buildings
 {
     class Building_Shuttle : Building
     {
-
+        public bool disabled = false;
         public override void Tick()
         {
             if(this.Map != null)
@@ -31,34 +31,38 @@ namespace Spaceports.Buildings
             {
                 yield return gizmo;
             }
-
-            yield return new Command_Action()
+            if (!disabled)
             {
-                defaultLabel = "Spaceports_ImmediateDeparture".Translate(),
-                defaultDesc = "Spaceports_ImmediateDepartureTooltip".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Buttons/FuckOff", true),
-                order = -100,
-                action = delegate ()
+                yield return new Command_Action()
                 {
-                    ForceImmediateDeparture();
-                }
-            };
-            yield return new Command_Action()
-            {
-                defaultLabel = "Spaceports_RecallParty".Translate(),
-                defaultDesc = "Spaceports_RecallPartyTooltip".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Buttons/ComeBack", true),
-                order = -100,
-                action = delegate ()
+                    defaultLabel = "Spaceports_ImmediateDeparture".Translate(),
+                    defaultDesc = "Spaceports_ImmediateDepartureTooltip".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Buttons/FuckOff", true),
+                    order = -100,
+                    action = delegate ()
+                    {
+                        ForceImmediateDeparture();
+                    }
+                };
+                yield return new Command_Action()
                 {
-                    RecallParty();
-                }
-            };
+                    defaultLabel = "Spaceports_RecallParty".Translate(),
+                    defaultDesc = "Spaceports_RecallPartyTooltip".Translate(),
+                    icon = ContentFinder<Texture2D>.Get("UI/Buttons/ComeBack", true),
+                    order = -100,
+                    action = delegate ()
+                    {
+                        RecallParty();
+                    }
+                };
+            }
         }
 
         private void ForceImmediateDeparture() {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
-            shuttleComp.shipParent.ForceJob(new ShipJob_FlyAway());
+            ShipJob_FlyAway leave = new ShipJob_FlyAway();
+            leave.loadID = Find.UniqueIDsManager.GetNextShipJobID();
+            shuttleComp.shipParent.ForceJob(leave);
         }
 
         private void RecallParty() {

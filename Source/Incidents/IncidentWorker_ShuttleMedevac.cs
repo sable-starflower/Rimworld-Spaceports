@@ -16,7 +16,7 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
-            if (!Utils.CheckIfClearForLanding((Map)parms.target, 0)) //TODO consider edge case of full pads?
+            if (!Utils.CheckIfSpaceport((Map)parms.target)) //TODO consider edge case of full pads?
             {
                 return false;
             }
@@ -33,6 +33,7 @@ namespace Spaceports.Incidents
             letter.radioMode = true;
             letter.map = map;
             letter.faction = faction;
+            letter.StartTimeout(5000);
             Find.LetterStack.ReceiveLetter(letter);
             return true;
         }

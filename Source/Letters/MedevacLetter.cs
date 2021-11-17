@@ -71,7 +71,7 @@ namespace Spaceports.Letters
 					HealthUtility.GiveInjuriesOperationFailureRidiculous(pawn);
 					List<Pawn> list = new List<Pawn>();
 					list.Add(pawn);
-					TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad, 0);
+					TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad);
 					map.GetComponent<SpaceportsMapComp>().LoadTracker(new MedevacTracker(pawn, shuttle.shipThing));
 					Find.LetterStack.RemoveLetter(this);
 				};

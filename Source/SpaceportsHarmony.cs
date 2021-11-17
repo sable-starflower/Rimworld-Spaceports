@@ -56,7 +56,7 @@ namespace Spaceports
                 if (pawns != null)
                 {
                     IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 3); //Find valid landing pad or touchdown spot
-                    TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad, 3); //Initialize shuttle
+                    TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad); //Initialize shuttle
 
                     StateGraph graphExit = new LordJobs.LordJob_SpaceportDepart(shuttle.shipThing).CreateGraph(); //Intialize patched subgraph
 
@@ -119,23 +119,23 @@ namespace Spaceports
         //Postfix to CompShuttle's Tick() that checks to see if any required pawns are despawned (e.g. left the map through alternate means) and removes them
         //from the shuttle's required list accordingly
         //This actually fixes a bug in the base game as well - ty Tynan very cool
-        [HarmonyPatch(typeof(CompShuttle), nameof(CompShuttle.CompTick))]
+        /*[HarmonyPatch(typeof(CompShuttle), nameof(CompShuttle.CompTick))]
         private static class Harmony_CompShuttle_CompTick
         {
             static void Postfix(List<Pawn> ___requiredPawns, TransportShip ___shipParent)
             {
-                List<Pawn> pawnsToMurk = new List<Pawn>();
+                List<Pawn> targetPawns = new List<Pawn>();
                 foreach (Pawn pawn in ___requiredPawns) {
                     if (!pawn.Spawned && !___shipParent.TransporterComp.innerContainer.Contains(pawn) && pawn.CarriedBy == null) {
-                        pawnsToMurk.Add(pawn);
+                        targetPawns.Add(pawn);
                     }
                 }
-                foreach (Pawn pawn in pawnsToMurk)
+                foreach (Pawn pawn in targetPawns)
                 {
                     ___requiredPawns.Remove(pawn);
                 }
             }
-        }
+        }*/
 
         //Postfix to vanilla's GetBestShuttleLandingSpot method. Tries to reroute Imperial shuttles to type 0/1 landing pads.
         /*[HarmonyPatch(typeof(DropCellFinder), nameof(DropCellFinder.GetBestShuttleLandingSpot), new[] { typeof(Map), typeof(Faction), typeof(Thing) })]

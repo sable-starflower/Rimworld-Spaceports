@@ -60,16 +60,101 @@
   </ThingDef>
 
   <ThingDef ParentName="Spaceports_ShuttleBase">
-    <defName>Spaceports_TestShuttle</defName>
+    <defName>Spaceports_ShuttleA</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(6,3)</drawSize>
+      <color>(162,164,149)</color>
+      <shadowData>
+        <volume>(4.1, 1.0, 1.8)</volume>
+        <offset>(0, 0, -0.1)</offset>
+      </shadowData>
+    </graphicData>
   </ThingDef>
-  <graphicData>
-    <texPath>Buildings/Shuttles/TestShuttle</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-    <drawSize>(6,3)</drawSize>
-    <color>(162,164,149)</color>
-    <shadowData>
-      <volume>(4.1, 1.0, 1.8)</volume>
-      <offset>(0, 0, -0.1)</offset>
-    </shadowData>
-  </graphicData>
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleCrashed</defName>
+    <label>inert shuttle</label>
+    <description>An ancient shuttle, scarred and worn out by endless centuries spent trawling between stars. Its reactor has been rendered useless, making it only good for scrap.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(6,3)</drawSize>
+      <color>(162,164,149)</color>
+      <shadowData>
+        <volume>(4.1, 1.0, 1.8)</volume>
+        <offset>(0, 0, -0.1)</offset>
+      </shadowData>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1</Flammability>
+      <WorkToBuild>800</WorkToBuild>
+    </statBases>
+    <killedLeavings Inherit="False">
+      <Steel>4</Steel>
+      <Plasteel>7</Plasteel>
+      <ChunkSlagSteel>1</ChunkSlagSteel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </killedLeavings>
+    <costList>
+      <Steel>40</Steel>
+      <Plasteel>70</Plasteel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </costList>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <preventSkyfallersLandingOn>true</preventSkyfallersLandingOn>
+    <building Inherit="False">
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+      <claimable>false</claimable>
+      <isEdifice>false</isEdifice>
+      <alwaysDeconstructible>true</alwaysDeconstructible>
+    </building>
+  </ThingDef>
+
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleB</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(6,3)</drawSize>
+      <color>(162,164,149)</color>
+      <shadowData>
+        <volume>(4.1, 1.0, 1.8)</volume>
+        <offset>(0, 0, -0.1)</offset>
+      </shadowData>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleC</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(6,3)</drawSize>
+      <color>(162,164,149)</color>
+      <shadowData>
+        <volume>(4.1, 1.0, 1.8)</volume>
+        <offset>(0, 0, -0.1)</offset>
+      </shadowData>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleD</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(6,3)</drawSize>
+      <color>(162,164,149)</color>
+      <shadowData>
+        <volume>(4.1, 1.0, 1.8)</volume>
+        <offset>(0, 0, -0.1)</offset>
+      </shadowData>
+    </graphicData>
+  </ThingDef>
+
   </Defs>

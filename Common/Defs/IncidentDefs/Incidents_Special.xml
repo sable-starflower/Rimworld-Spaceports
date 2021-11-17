@@ -9,8 +9,8 @@
         <workerClass>Spaceports.Incidents.IncidentWorker_ShuttleMedevac</workerClass>
         <letterDef>Spaceports_ShuttleMedevac</letterDef>
         <letterLabel>Shuttle medevac</letterLabel>
-        <baseChance>0.7</baseChance>
-        <minRefireDays>15</minRefireDays>
+        <baseChance>1.0</baseChance>
+        <minRefireDays>60</minRefireDays>
     </IncidentDef>
 
     <IncidentDef>
@@ -22,5 +22,19 @@
         </targetTags>
         <workerClass>Spaceports.Incidents.IncidentWorker_ShuttleMedevacReward</workerClass>
         <baseChance>0</baseChance>
-      </IncidentDef>    
+      </IncidentDef>
+      
+      <IncidentDef>
+        <defName>Spaceports_InterstellarDerelict</defName>
+        <label>interstellar derelict</label>
+        <category>Misc</category>
+        <targetTags>
+          <li>Map_PlayerHome</li>
+        </targetTags>
+        <workerClass>Spaceports.Incidents.IncidentWorker_InterstellarDerelict</workerClass>
+        <letterDef>Spaceports_InterstellarDerelict</letterDef>
+        <letterLabel>Interstellar derelict</letterLabel>
+        <baseChance>1.0</baseChance>
+        <minRefireDays>60</minRefireDays>
+    </IncidentDef>
 </Defs>
