@@ -11,22 +11,26 @@ namespace Spaceports
     public static class SpaceportsDefOf
     {
         public static ThingDef Spaceports_ShuttleLandingPad;
-        public static IncidentDef Spaceports_VisitorShuttleArrival;
-        public static IncidentDef Spaceports_TraderShuttleArrival;
-        public static DutyDef Spaceports_TryShuttleWoundedGuest;
-        public static JobDef Spaceports_Kidnap;
-        public static GameConditionDef Spaceports_KesslerSyndrome;
-        public static IncidentDef Spaceports_MedevacReward;
+        public static ThingDef ShuttleA_Crashing;
         public static ThingDef Spaceports_Shrapnel;
+
         public static TransportShipDef Spaceports_ShuttleA;
         public static TransportShipDef Spaceports_ShuttleInert;
         public static TransportShipDef Spaceports_SurpriseShuttle;
-        public static ThingDef ShuttleA_Crashing;
+
+        public static IncidentDef Spaceports_VisitorShuttleArrival;
+        public static IncidentDef Spaceports_TraderShuttleArrival;
+        public static IncidentDef Spaceports_MedevacReward;
+
+        public static DutyDef Spaceports_TryShuttleWoundedGuest;
+        public static JobDef Spaceports_Kidnap;
+        public static GameConditionDef Spaceports_KesslerSyndrome;
+
         public static ThoughtDef Spaceports_PsychicCharge;
     }
 
     [StaticConstructorOnStartup]
-    public static class SpaceportsMisc //Misc complex constants - currently only used to spin up valid access control states at runtime
+    public static class SpaceportsMisc //Misc complex constants 
     {
         public static List<AccessControlState> AccessStates = new List<AccessControlState>();
         static SpaceportsMisc()

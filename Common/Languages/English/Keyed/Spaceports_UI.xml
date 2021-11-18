@@ -3,7 +3,7 @@
 	<Spaceports_ImmediateDepartureTooltip>Force this shuttle to take off and depart immediately, regardless of whether or not all required items are loaded.</Spaceports_ImmediateDepartureTooltip>
 	<Spaceports_RecallParty>Force recall</Spaceports_RecallParty>
 	<Spaceports_RecallPartyTooltip>Force this shuttle's owning party to immediately board and depart.</Spaceports_RecallPartyTooltip>
-	<Spaceports_GizmoDisabled>Disabled: you do not have control over this shuttle, or this shuttle is incapable of taking off.</Spaceports_GizmoDisabled>
+	<Spaceports_GizmoDisabled>you do not have control over this shuttle, or this shuttle is incapable of taking off.</Spaceports_GizmoDisabled>
 
 	<AccessControlButton>Access control</AccessControlButton>
 	<AccessControlDesc>Specify what type of shuttles are allowed to use this pad.</AccessControlDesc>

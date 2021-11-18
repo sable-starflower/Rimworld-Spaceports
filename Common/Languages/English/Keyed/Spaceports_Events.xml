@@ -33,4 +33,11 @@
     <Spaceports_MysteryCargo5>A piercing mental scream emits from the shuttle as you approach. A psychic charge!</Spaceports_MysteryCargo5>
     <Spaceports_MysteryCargo6>The shuttle's airlock springs open when you approach, and a small attack party from {0} pours out!</Spaceports_MysteryCargo6>
     <Spaceports_MysteryCargo7>The shuttle's reactor begins to wail louder and louder as you approach. It's a bomb!</Spaceports_MysteryCargo7>
+
+    <!--Prisoner Transfer-->
+    <Spaceports_PrisonerTransfer>Prisoner transfer</Spaceports_PrisonerTransfer>
+    <Spaceports_PrisonerTransferLetter>You’ve just received a proposition from {0} of {1}. It seems they have a surfeit of prisoners at some of their bases, and as such, they’re looking to offload a few - on commission, of course.\n\n{0} says that they still have two batches of prisoners to transfer - one low-security, the other high-security. If you accept, the payment and prisoners will be unconditionally and permanently transferred to you via shuttlecraft.\n\nLow-sec payment: {2}\nHigh-sec payment: {3}</Spaceports_PrisonerTransferLetter>
+    <Spaceports_PrisonerTransferLowSec>Take the low-security batch.</Spaceports_PrisonerTransferLowSec>
+    <Spaceports_PrisonerTransferHighSec>Take the high-security batch.</Spaceports_PrisonerTransferHighSec>
+    <Spaceports_PrisonerTransferDeny>Turn down the offer.</Spaceports_PrisonerTransferDeny>
 </LanguageData>

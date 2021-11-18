@@ -51,4 +51,18 @@
       <baseChance>1.0</baseChance>
       <minRefireDays>60</minRefireDays>
   </IncidentDef>
+
+  <IncidentDef>
+    <defName>Spaceports_PrisonerTransfer</defName>
+    <label>prisoner transfer</label>
+    <category>Misc</category>
+    <targetTags>
+      <li>Map_PlayerHome</li>
+    </targetTags>
+    <workerClass>Spaceports.Incidents.IncidentWorker_PrisonerTransfer</workerClass>
+    <letterDef>Spaceports_PrisonerTransfer</letterDef>
+    <letterLabel>Prisoner transfer</letterLabel>
+    <baseChance>1.0</baseChance>
+    <minRefireDays>60</minRefireDays>
+</IncidentDef>
 </Defs>

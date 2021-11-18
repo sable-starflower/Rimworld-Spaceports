@@ -197,7 +197,7 @@ namespace Spaceports
 		//Generates an inbound shuttle of random appearance and sets up its job queue
 		//Required arguments: List of passenger pawns, target cell
 		//Optional arguments: a specific TransportShipDef to use, whether or not the shuttle should ever leave
-		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, List<Thing> items = null, TransportShipDef forcedType = null, bool canLeave = true) {
+		public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, List<Thing> items = null, TransportShipDef forcedType = null, bool canLeave = true, bool dropAndGo = false) {
 			TransportShip shuttle = TransportShipMaker.MakeTransportShip(SpaceportsShuttleVariants.AllShuttleVariants.RandomElement(), null);
 			if(forcedType != null)
             {
@@ -220,7 +220,7 @@ namespace Spaceports
 			ShipJob_Unload unload = new ShipJob_Unload();
 			unload.loadID = Find.UniqueIDsManager.GetNextShipJobID();
 			shuttle.AddJob(unload);
-            if (canLeave)
+            if (canLeave && !dropAndGo)
             {
 				if (pawns != null) { shuttle.ShuttleComp.requiredPawns = pawns; }
 				ShipJob_WaitForever wait = new ShipJob_WaitForever();
@@ -230,7 +230,13 @@ namespace Spaceports
 				wait.sendAwayIfAllDespawned = checkTargets;
 				shuttle.AddJob(wait);
 			}
-            else
+			else if (dropAndGo)
+            {
+				ShipJob_FlyAway leave = new ShipJob_FlyAway();
+				leave.loadID = Find.UniqueIDsManager.GetNextShipJobID();
+				shuttle.AddJob(leave);
+			}
+			else
             {
 				ShipJob_WaitForever wait = new ShipJob_WaitForever();
 				wait.loadID = Find.UniqueIDsManager.GetNextShipJobID();

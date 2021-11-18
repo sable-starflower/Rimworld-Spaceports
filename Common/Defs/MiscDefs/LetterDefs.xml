@@ -21,4 +21,9 @@
         <defName>Spaceports_MysteryCargo</defName>
         <letterClass>Spaceports.Letters.MysteryCargoLetter</letterClass>
       </LetterDef>
+
+      <LetterDef ParentName="Spaceports_NeutralEvent">
+        <defName>Spaceports_PrisonerTransfer</defName>
+        <letterClass>Spaceports.Letters.PrisonerTransferLetter</letterClass>
+      </LetterDef>
 </Defs>
