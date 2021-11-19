@@ -73,11 +73,13 @@
     <Compile Include="Buildings\Building_Shuttle.cs" />
     <Compile Include="Buildings\Building_ShuttlePad.cs" />
     <Compile Include="Buildings\Building_ShuttleSpot.cs" />
+    <Compile Include="Dialogs\Dialog_CallShuttle.cs" />
     <Compile Include="Incidents\GameCondition_KesslerSyndrome.cs" />
     <Compile Include="Incidents\IncidentWorker_InterstellarDerelict.cs" />
     <Compile Include="Incidents\IncidentWorker_MysteryCargo.cs" />
     <Compile Include="Incidents\IncidentWorker_PrisonerTransfer.cs" />
     <Compile Include="Incidents\IncidentWorker_ShuttleMedevac.cs" />
+    <Compile Include="Incidents\IncidentWorker_SpicyPawnLending.cs" />
     <Compile Include="Incidents\IncidentWorker_TraderShuttleArrival.cs" />
     <Compile Include="Incidents\IncidentWorker_VisitorShuttleArrival.cs" />
     <Compile Include="JobDrivers\JobDriver_SpaceportsKidnap.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Letters\MedevacLetter.cs" />
     <Compile Include="Letters\MysteryCargoLetter.cs" />
     <Compile Include="Letters\PrisonerTransferLetter.cs" />
+    <Compile Include="Letters\SpicyPawnLendingLetter.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleTradeWithColony.cs" />
     <Compile Include="LordJobs\LordJob_SpaceportDepart.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleVisitColony.cs" />

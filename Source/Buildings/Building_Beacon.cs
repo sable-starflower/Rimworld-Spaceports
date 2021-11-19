@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Spaceports.Buildings
@@ -12,6 +13,7 @@ namespace Spaceports.Buildings
     {
         private Utils.SpinOver RadarDish;
         private Utils.AnimateOver RimLights;
+
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -49,6 +51,144 @@ namespace Spaceports.Buildings
             }
             return info;
         }
+
+        public override IEnumerable<Gizmo> GetGizmos()
+        {
+            foreach (Gizmo gizmo in base.GetGizmos())
+            {
+                yield return gizmo;
+            }
+            yield return new Command_Toggle()
+            {
+                defaultLabel = "Spaceports_ManualAirspaceLockdown".Translate(),
+                defaultDesc = "Spaceports_ManualAirspaceLockdownTooltip".Translate(),
+                isActive = () => this.Map.GetComponent<SpaceportsMapComp>().ForcedLockdown,
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                disabled = !this.GetComp<CompPowerTrader>().PowerOn,
+                disabledReason = "Spaceports_BeaconDisabledGeneral".Translate(),
+                order = -100,
+                toggleAction = delegate ()
+                {
+                    this.Map.GetComponent<SpaceportsMapComp>().ForcedLockdown = !this.Map.GetComponent<SpaceportsMapComp>().ForcedLockdown;
+                }
+            };
+            yield return new Command_Action()
+            {
+                defaultLabel = "Spaceports_DismissAll".Translate(),
+                defaultDesc = "Spaceports_DismissAllTooltip".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                disabled = !this.GetComp<CompPowerTrader>().PowerOn,
+                disabledReason = "Spaceports_BeaconDisabledGeneral".Translate(),
+                order = -100,
+                action = delegate ()
+                {
+                    DismissAll();
+                }
+            };
+            yield return new Command_Action()
+            {
+                defaultLabel = "Spaceports_RecallAll".Translate(),
+                defaultDesc = "Spaceports_RecallAllTooltip".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                disabled = !this.GetComp<CompPowerTrader>().PowerOn,
+                disabledReason = "Spaceports_BeaconDisabledGeneral".Translate(),
+                order = -100,
+                action = delegate ()
+                {
+                    RecallAll();
+                }
+            };
+            yield return new Command_Action()
+            {
+                defaultLabel = "Spaceports_CallTaxi".Translate(),
+                defaultDesc = "Spaceports_CallTaxiTooltip".Translate(),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                disabled = IsDisabled(),
+                disabledReason = GetDisabledReason(),
+                order = -100,
+                action = delegate ()
+                {
+                    CallTaxiShuttle();
+                }
+            };
+        }
+
+        private bool IsDisabled() 
+        {
+            if (!Verse.ModsConfig.RoyaltyActive)
+            {
+                return true;
+            }
+            else if (!this.GetComp<CompPowerTrader>().PowerOn)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private string GetDisabledReason() 
+        {
+            if (!Verse.ModsConfig.RoyaltyActive)
+            {
+                return "Spaceports_CallTaxiDisabledDLC".Translate();
+            }
+            else 
+            {
+                return "Spaceports_CallTaxiDisabled".Translate();
+            }
+        }
+
+        private void CallTaxiShuttle() 
+        {
+
+            Dialogs.Dialog_CallShuttle window = new Dialogs.Dialog_CallShuttle(delegate()
+            {
+                ConfirmAction();
+            }, TradeUtility.ColonyHasEnoughSilver(this.Map, 500), Utils.AnyValidSpaceportPad(this.Map, 0));
+            Find.WindowStack.Add(window);
+        }
+
+        private void ConfirmAction()
+        {
+            TradeUtility.LaunchSilver(this.Map, 500);
+            Thing thing = ThingMaker.MakeThing(SpaceportsDefOf.Spaceports_RoyaltyShuttle);
+            IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, null, 0);
+            thing.TryGetComp<CompShuttle>().permitShuttle = true;
+            TransportShip transportShip = TransportShipMaker.MakeTransportShip(TransportShipDefOf.Ship_Shuttle, null, thing);
+            transportShip.ArriveAt(pad, this.Map.Parent);
+            transportShip.AddJobs(ShipJobDefOf.WaitForever, ShipJobDefOf.Unload, ShipJobDefOf.FlyAway);
+        }
+
+        private void DismissAll() 
+        {
+            foreach (Building b in this.Map.listerBuildings.allBuildingsNonColonist)
+            {
+                Buildings.Building_Shuttle target = b as Spaceports.Buildings.Building_Shuttle;
+                if (target != null)
+                {
+                    if (!target.disabled)
+                    {
+                        target.ForceImmediateDeparture();
+                    }
+                }
+            }
+        }
+
+        private void RecallAll() 
+        {
+            foreach (Building b in this.Map.listerBuildings.allBuildingsNonColonist)
+            {
+                Buildings.Building_Shuttle target = b as Spaceports.Buildings.Building_Shuttle;
+                if (target != null)
+                {
+                    if (!target.disabled)
+                    {
+                        target.RecallParty();
+                    }
+                }
+            }
+        }
+
         public override void Draw()
         {
             base.Draw();

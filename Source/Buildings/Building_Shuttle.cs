@@ -67,14 +67,14 @@ namespace Spaceports.Buildings
             };
         }
 
-        private void ForceImmediateDeparture() {
+        public void ForceImmediateDeparture() {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
             ShipJob_FlyAway leave = new ShipJob_FlyAway();
             leave.loadID = Find.UniqueIDsManager.GetNextShipJobID();
             shuttleComp.shipParent.ForceJob(leave);
         }
 
-        private void RecallParty() {
+        public void RecallParty() {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
             List<Pawn> partyPawns = shuttleComp.requiredPawns;
             if (partyPawns != null)

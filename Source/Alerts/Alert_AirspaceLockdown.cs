@@ -20,6 +20,10 @@ namespace Spaceports
                         {
                             output = output + "- " + map.info.parent.Label + "\n";
                         }
+                        if (map.GetComponent<SpaceportsMapComp>().ForcedLockdown)
+                        {
+                            output = output + "- " + map.info.parent.Label + "\n";
+                        }
                     }
                 }
                 return output;
@@ -49,6 +53,10 @@ namespace Spaceports
             for (int i = 0; i < maps.Count; i++)
             {
                 if (maps[i].IsPlayerHome && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(maps[i], true) && Utils.CheckIfSpaceport(maps[i]))
+                {
+                    return true;
+                }
+                if (maps[i].GetComponent<SpaceportsMapComp>().ForcedLockdown)
                 {
                     return true;
                 }

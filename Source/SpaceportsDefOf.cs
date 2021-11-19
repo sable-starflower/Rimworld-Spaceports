@@ -12,6 +12,7 @@ namespace Spaceports
     {
         public static ThingDef Spaceports_ShuttleLandingPad;
         public static ThingDef ShuttleA_Crashing;
+        public static ThingDef Spaceports_RoyaltyShuttle;
         public static ThingDef Spaceports_Shrapnel;
 
         public static TransportShipDef Spaceports_ShuttleA;

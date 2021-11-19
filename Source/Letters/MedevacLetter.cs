@@ -1,9 +1,5 @@
-﻿using System;
+﻿using RimWorld;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using Verse;
 using Verse.AI.Group;
 
@@ -11,95 +7,101 @@ namespace Spaceports.Letters
 {
     public class MedevacTracker : Utils.Tracker
     {
-		private Pawn hurtPawn;
-		private Thing shuttle;
+        private Pawn hurtPawn;
+        private Thing shuttle;
 
-		public MedevacTracker(Pawn pawn, Thing shuttle)
+        public MedevacTracker(Pawn pawn, Thing shuttle)
         {
-			hurtPawn = pawn;
-			this.shuttle = shuttle;
+            hurtPawn = pawn;
+            this.shuttle = shuttle;
         }
 
         public override bool Check()
         {
-			if (!hurtPawn.Downed && hurtPawn.Spawned)
-			{
-				List<Pawn> list = new List<Pawn>();
-				list.Add(hurtPawn);
-				LordJob lordJob = new LordJobs.LordJob_SpaceportDepart(shuttle);
-				LordMaker.MakeNewLord(hurtPawn.Faction, lordJob, hurtPawn.Map, list);
-
-				if(Rand.RangeInclusive(1, 100) <= 50)
-                {
-					IncidentQueue stQueue = Find.Storyteller.incidentQueue;
-					IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(SpaceportsDefOf.Spaceports_MedevacReward.category, hurtPawn.Map);
-					var qi = new QueuedIncident(new FiringIncident(SpaceportsDefOf.Spaceports_MedevacReward, null, incidentParms), (int)(Find.TickManager.TicksGame + GenDate.TicksPerDay * 15));
-					stQueue.Add(qi);
-				}
-
-				return true;
-			}
-			else if (hurtPawn.Dead)
+            if (!hurtPawn.Downed && hurtPawn.Spawned)
             {
-				return true;
-            }
-			return false;
-		}
-    }
+                List<Pawn> list = new List<Pawn>();
+                list.Add(hurtPawn);
+                LordJob lordJob = new LordJobs.LordJob_SpaceportDepart(shuttle);
+                LordMaker.MakeNewLord(hurtPawn.Faction, lordJob, hurtPawn.Map, list);
 
-	internal class MedevacLetter : ChoiceLetter
-    {
-		public Faction faction;
-		public Map map;
-		public override IEnumerable<DiaOption> Choices
-		{
-			get
-			{
-				if (base.ArchivedOnly)
-				{
-					yield return base.Option_Close;
-					yield break;
-				}
-				DiaOption diaAccept = new DiaOption("Spaceports_ShuttleMedevacAccept".Translate());
-				DiaOption diaDeny = new DiaOption("Spacepots_ShuttleMedevacDeny".Translate());
-				diaAccept.action = delegate
-				{
-					IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
-					Pawn pawn = PawnGenerator.GeneratePawn(faction.RandomPawnKind(), faction);
-					HealthUtility.DamageUntilDowned(pawn);
-					List<Pawn> list = new List<Pawn>();
-					list.Add(pawn);
-					TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad);
-					map.GetComponent<SpaceportsMapComp>().LoadTracker(new MedevacTracker(pawn, shuttle.shipThing));
-					Buildings.Building_Shuttle b = shuttle.shipThing as Buildings.Building_Shuttle;
-					if(b != null)
-                    {
-						b.disabled = true;
-                    }
-					Find.LetterStack.RemoveLetter(this);
-				};
-				diaAccept.resolveTree = true;
-				diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
-				if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                if (Rand.RangeInclusive(1, 100) <= 50)
                 {
-					diaAccept.disabled = true;
+                    IncidentQueue stQueue = Find.Storyteller.incidentQueue;
+                    IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(SpaceportsDefOf.Spaceports_MedevacReward.category, hurtPawn.Map);
+                    var qi = new QueuedIncident(new FiringIncident(SpaceportsDefOf.Spaceports_MedevacReward, null, incidentParms), (int)(Find.TickManager.TicksGame + GenDate.TicksPerDay * 15));
+                    stQueue.Add(qi);
                 }
-				diaDeny.action = delegate
-				{
-					Find.LetterStack.RemoveLetter(this);
-				};
-				diaDeny.resolveTree = true;
-				yield return diaAccept;
-				yield return diaDeny;
-				yield return base.Option_Postpone;
-			}
-		}
+
+                return true;
+            }
+            else if (hurtPawn.Dead)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public override void ExposeData()
         {
-			Scribe_References.Look(ref faction, "faction");
-			Scribe_References.Look(ref map, "map");
-			base.ExposeData();
+            Scribe_References.Look(ref hurtPawn, "hurtPawn");
+            Scribe_References.Look(ref shuttle, "shuttle");
+        }
+    }
+
+    internal class MedevacLetter : ChoiceLetter
+    {
+        public Faction faction;
+        public Map map;
+        public override IEnumerable<DiaOption> Choices
+        {
+            get
+            {
+                if (base.ArchivedOnly)
+                {
+                    yield return base.Option_Close;
+                    yield break;
+                }
+                DiaOption diaAccept = new DiaOption("Spaceports_ShuttleMedevacAccept".Translate());
+                DiaOption diaDeny = new DiaOption("Spacepots_ShuttleMedevacDeny".Translate());
+                diaAccept.action = delegate
+                {
+                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
+                    Pawn pawn = PawnGenerator.GeneratePawn(faction.RandomPawnKind(), faction);
+                    HealthUtility.DamageUntilDowned(pawn);
+                    List<Pawn> list = new List<Pawn>();
+                    list.Add(pawn);
+                    TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad);
+                    map.GetComponent<SpaceportsMapComp>().LoadTracker(new MedevacTracker(pawn, shuttle.shipThing));
+                    Buildings.Building_Shuttle b = shuttle.shipThing as Buildings.Building_Shuttle;
+                    if (b != null)
+                    {
+                        b.disabled = true;
+                    }
+                    Find.LetterStack.RemoveLetter(this);
+                };
+                diaAccept.resolveTree = true;
+                diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
+                if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                {
+                    diaAccept.disabled = true;
+                }
+                diaDeny.action = delegate
+                {
+                    Find.LetterStack.RemoveLetter(this);
+                };
+                diaDeny.resolveTree = true;
+                yield return diaAccept;
+                yield return diaDeny;
+                yield return base.Option_Postpone;
+            }
+        }
+
+        public override void ExposeData()
+        {
+            Scribe_References.Look(ref faction, "faction");
+            Scribe_References.Look(ref map, "map");
+            base.ExposeData();
         }
     }
 }

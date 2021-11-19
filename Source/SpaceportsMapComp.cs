@@ -17,8 +17,8 @@ namespace Spaceports
         private float visitorInterval = 0f;
         private float traderInterval = 0f;
         private int nextQueueInspection;
-
         private List<Utils.Tracker> trackers = new List<Utils.Tracker>();
+        public bool ForcedLockdown = false;
 
 		public SpaceportsMapComp(Map map) : base(map) { 
             
@@ -32,6 +32,7 @@ namespace Spaceports
             Scribe_Values.Look(ref visitorInterval, "visitorInterval", 0f);
             Scribe_Values.Look(ref traderInterval, "traderInterval", 0f);
             Scribe_Collections.Look(ref trackers, "trackers", LookMode.Deep);
+            Scribe_Values.Look(ref ForcedLockdown, "ForcedLockdown", false);
 			base.ExposeData();
         }
 

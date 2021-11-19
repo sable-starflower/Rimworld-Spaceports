@@ -20,9 +20,11 @@ namespace Spaceports
 
 		//The desired Tracker derivative should be instantiated in the IncidentWorker and passed into the appropriate instance of
 		//SpaceportsMapComp using the LoadTracker() method. 
-		public abstract class Tracker 
+		public abstract class Tracker : IExposable
         {
 			public abstract bool Check();
+
+			public abstract void ExposeData();
         }
 
 		public class SpinOver
@@ -242,6 +244,11 @@ namespace Spaceports
 				wait.loadID = Find.UniqueIDsManager.GetNextShipJobID();
 				wait.showGizmos = false;
 				shuttle.AddJob(wait);
+				Buildings.Building_Shuttle b = shuttle.shipThing as Buildings.Building_Shuttle;
+				if(b != null)
+                {
+					b.disabled = true;
+                }
 			}
 			return shuttle;
 		}
@@ -357,11 +364,16 @@ namespace Spaceports
 			{
 				return false;
 			}
-			if (!Utils.AnyValidSpaceportPad(map, 0))
+            if (map.GetComponent<SpaceportsMapComp>().ForcedLockdown)
+            {
+				return false;
+            }
+			if (!Utils.AnyValidSpaceportPad(map, typeVal))
 			{
 				return false;
 			}
-			if (AtShuttleCapacity(map)) {
+			if (AtShuttleCapacity(map)) 
+			{
 				return false;
 			}
 

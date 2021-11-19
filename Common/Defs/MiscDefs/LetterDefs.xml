@@ -26,4 +26,9 @@
         <defName>Spaceports_PrisonerTransfer</defName>
         <letterClass>Spaceports.Letters.PrisonerTransferLetter</letterClass>
       </LetterDef>
+
+      <LetterDef ParentName="Spaceports_NeutralEvent">
+        <defName>Spaceports_SpicyPawnLending</defName>
+        <letterClass>Spaceports.Letters.SpicyPawnLendingLetter</letterClass>
+      </LetterDef>
 </Defs>

@@ -38,7 +38,6 @@ namespace Spaceports.Incidents
             letter.faction = faction;
             letter.LowSecReward = LowReward;
             letter.HighSecReward = HighReward;
-            letter.StartTimeout(5000);
             Find.LetterStack.ReceiveLetter(letter);
             return true;
         }

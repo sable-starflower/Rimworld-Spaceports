@@ -40,4 +40,31 @@
     <Spaceports_PrisonerTransferLowSec>Take the low-security batch.</Spaceports_PrisonerTransferLowSec>
     <Spaceports_PrisonerTransferHighSec>Take the high-security batch.</Spaceports_PrisonerTransferHighSec>
     <Spaceports_PrisonerTransferDeny>Turn down the offer.</Spaceports_PrisonerTransferDeny>
+
+    <!--Spicy Pawn Lending-->
+    <Spaceports_SpicyPawnLending>{0} requests professional help</Spaceports_SpicyPawnLending>
+    <!--
+        0 - faction
+        1 - skill type
+        2 - pawn nick
+        3 - pawn pronoun
+        4 - job fluff text
+    -->
+    <Spaceports_SpicyPawnLendingLetter>You've just received a proposition from {0}. It seems they need some professional help with a particularly complex and risky {1} job, and they think one of your colonists - {2} - is exactly who they've been looking for.\n\nIf you accept, {0} will send a shuttle to ferry {2} to the worksite, where {3} will {4} The job will take 10 to 15 days, after which {2} will be ferried back on a second shuttle alongside the promised reward.\n\nHowever, {0} warns that while they can say {2} isn't at risk of death, they can't guarantee {2}'s general safety and health while they're on the job.\n\nIf you choose to accept, {0} offers the following reward: {5}</Spaceports_SpicyPawnLendingLetter>
+    <Spaceports_SpicyPawnLendingAccept>Take the job.</Spaceports_SpicyPawnLendingAccept>
+    <Spaceports_SpicyPawnLendingDeny>Turn down the job - it's too risky.</Spaceports_SpicyPawnLendingDeny>
+    <Spaceports_PickupInbound>A shuttle is landing to pick up {0}.</Spaceports_PickupInbound>
+    <Spaceports_ShootingFluff>be tasked with hunting down herds of dangerous megafauna that have been terrorizing a small settlement.</Spaceports_ShootingFluff>
+    <Spaceports_MeleeFluff>teach new recipients of military bionics hand-to-hand combat skills.</Spaceports_MeleeFluff>
+    <Spaceports_ConstructionFluff>assist in the construction of a new low-orbit spingrav station.</Spaceports_ConstructionFluff>
+    <Spaceports_MiningFluff>help spin up a new low-orbit asteroid mining operation.</Spaceports_MiningFluff>
+    <Spaceports_CookingFluff>provide catering at an upcoming summit with an enemy faction, with whom tensions are especially high.</Spaceports_CookingFluff>
+    <Spaceports_PlantsFluff>harvest valuable byproducts from a field of particularly predatory megaflora.</Spaceports_PlantsFluff>
+    <Spaceports_AnimalsFluff>take part in a massive Thrumbo taming operation.</Spaceports_AnimalsFluff>
+    <Spaceports_CraftingFluff>help disassemble volatile ultratech antimatter technology.</Spaceports_CraftingFluff>
+    <Spaceports_ArtisticFluff>assist in the construction of a massive skyscraper monument.</Spaceports_ArtisticFluff>
+    <Spaceports_MedicalFluff>act as a combat medic on the outskirts of a mechanoid hive siege.</Spaceports_MedicalFluff>
+    <Spaceports_SocialFluff>act as an intermediary at an upcoming summit with an enemy faction, with whom tensions are especially high.</Spaceports_SocialFluff>
+    <Spaceports_IntellectualFluff>help defeat a rogue persona AI by jacking into its system with an ultratech brain-computer interface.</Spaceports_IntellectualFluff>
+    <Spaceports_SpicyPawnLendingReturnSafe>{0} has returned safely from their job.</Spaceports_SpicyPawnLendingReturnSafe>
 </LanguageData>

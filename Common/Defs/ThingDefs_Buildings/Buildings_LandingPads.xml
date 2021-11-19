@@ -23,7 +23,7 @@
     <size>(7,5)</size>
     <designationCategory>Misc</designationCategory>
     <passability>Standable</passability>
-    <pathCost>100</pathCost>
+    <pathCost>75</pathCost>
     <clearBuildingArea>true</clearBuildingArea>
     <costList>
       <Steel>100</Steel>

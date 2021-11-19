@@ -143,6 +143,10 @@ namespace Spaceports.Buildings
                     Messages.Message("Spaceports_MysteryCargo7".Translate(), MessageTypeDefOf.NegativeEvent);
                     this.GetComp<CompExplosive>().StartWick();
                     break;
+
+                default:
+                    Log.Error("[Spaceports] Invalid surprise type!");
+                    break;
             }
         }
 
