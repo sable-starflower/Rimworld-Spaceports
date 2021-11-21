@@ -49,6 +49,7 @@
         2 - pawn nick
         3 - pawn pronoun
         4 - job fluff text
+        5 - reward info
     -->
     <Spaceports_SpicyPawnLendingLetter>You've just received a proposition from {0}. It seems they need some professional help with a particularly complex and risky {1} job, and they think one of your colonists - {2} - is exactly who they've been looking for.\n\nIf you accept, {0} will send a shuttle to ferry {2} to the worksite, where {3} will {4} The job will take 10 to 15 days, after which {2} will be ferried back on a second shuttle alongside the promised reward.\n\nHowever, {0} warns that while they can say {2} isn't at risk of death, they can't guarantee {2}'s general safety and health while they're on the job.\n\nIf you choose to accept, {0} offers the following reward: {5}</Spaceports_SpicyPawnLendingLetter>
     <Spaceports_SpicyPawnLendingAccept>Take the job.</Spaceports_SpicyPawnLendingAccept>
@@ -67,4 +68,7 @@
     <Spaceports_SocialFluff>act as an intermediary at an upcoming summit with an enemy faction, with whom tensions are especially high.</Spaceports_SocialFluff>
     <Spaceports_IntellectualFluff>help defeat a rogue persona AI by jacking into its system with an ultratech brain-computer interface.</Spaceports_IntellectualFluff>
     <Spaceports_SpicyPawnLendingReturnSafe>{0} has returned safely from their job.</Spaceports_SpicyPawnLendingReturnSafe>
+    <Spaceports_SpicyPawnLendingInjured>{0} was injured on the job! They're badly beat up, {1}.</Spaceports_SpicyPawnLendingInjured>
+    <Spaceports_SpicyPawnLendingNoAddlInjury>but other than that, they are fortunately intact.</Spaceports_SpicyPawnLendingNoAddlInjury>
+    <Spaceports_SpicyPawnLendingAddlInjury>and it seems they've also suffered the following: </Spaceports_SpicyPawnLendingAddlInjury>
 </LanguageData>

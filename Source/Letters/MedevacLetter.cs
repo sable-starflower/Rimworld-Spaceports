@@ -68,6 +68,7 @@ namespace Spaceports.Letters
                 {
                     IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
                     Pawn pawn = PawnGenerator.GeneratePawn(faction.RandomPawnKind(), faction);
+                    Utils.StripPawn(pawn);
                     HealthUtility.DamageUntilDowned(pawn);
                     List<Pawn> list = new List<Pawn>();
                     list.Add(pawn);

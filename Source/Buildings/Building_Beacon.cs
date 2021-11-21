@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using SharpUtils;
 
 namespace Spaceports.Buildings
 {
     class Building_Beacon : Building
     {
-        private Utils.SpinOver RadarDish;
-        private Utils.AnimateOver RimLights;
-
+        private SharpAnim.SpinOver RadarDish;
+        private SharpAnim.AnimateOver RimLights;
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            RadarDish = new Utils.SpinOver(SpaceportsFrames.BeaconRadarDish, this, 3f, 3f, 1.5f, powerDependent: true);
-            RimLights = new Utils.AnimateOver(SpaceportsFramesLists.BeaconRimFrames, 30, this, 3f, 3f);
+            RadarDish = new SharpAnim.SpinOver(SpaceportsMats.RadarDish, this, 1.5f, 3f, 3f, PowerDependent: true);
+            RimLights = new SharpAnim.AnimateOver(SpaceportsMats.BeaconLights, this, 30, 3f, 3f);
             base.SpawnSetup(map, respawningAfterLoad);
         }
 
@@ -63,7 +63,7 @@ namespace Spaceports.Buildings
                 defaultLabel = "Spaceports_ManualAirspaceLockdown".Translate(),
                 defaultDesc = "Spaceports_ManualAirspaceLockdownTooltip".Translate(),
                 isActive = () => this.Map.GetComponent<SpaceportsMapComp>().ForcedLockdown,
-                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/Lockdown", true),
                 disabled = !this.GetComp<CompPowerTrader>().PowerOn,
                 disabledReason = "Spaceports_BeaconDisabledGeneral".Translate(),
                 order = -100,
@@ -76,7 +76,7 @@ namespace Spaceports.Buildings
             {
                 defaultLabel = "Spaceports_DismissAll".Translate(),
                 defaultDesc = "Spaceports_DismissAllTooltip".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/FuckOff", true),
                 disabled = !this.GetComp<CompPowerTrader>().PowerOn,
                 disabledReason = "Spaceports_BeaconDisabledGeneral".Translate(),
                 order = -100,
@@ -89,7 +89,7 @@ namespace Spaceports.Buildings
             {
                 defaultLabel = "Spaceports_RecallAll".Translate(),
                 defaultDesc = "Spaceports_RecallAllTooltip".Translate(),
-                icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
+                icon = ContentFinder<Texture2D>.Get("UI/Buttons/ComeBack", true),
                 disabled = !this.GetComp<CompPowerTrader>().PowerOn,
                 disabledReason = "Spaceports_BeaconDisabledGeneral".Translate(),
                 order = -100,
@@ -192,10 +192,10 @@ namespace Spaceports.Buildings
         public override void Draw()
         {
             base.Draw();
-            RadarDish.FrameStep();
+            RadarDish.Draw();
             if (this.GetComp<CompPowerTrader>().PowerOn)
             {
-                RimLights.FrameStep();
+                RimLights.Draw();
             }
         }
     }

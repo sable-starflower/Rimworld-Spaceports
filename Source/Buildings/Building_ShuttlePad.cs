@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using SharpUtils;
 
 namespace Spaceports.Buildings
 {
@@ -16,10 +17,10 @@ namespace Spaceports.Buildings
 
         private int AccessState = 0; //-1 for none, 0 for all, 1 for visitors, 2 for traders, 3 for hospitality guests
 
-        private Utils.AnimateOver landingPatternAnimation;
-        private Utils.AnimateOver rimLightAnimation;
-        private Utils.DrawOver holdingPattern;
-        private Utils.DrawOver blockedPattern;
+        private SharpAnim.AnimateOver landingPatternAnimation;
+        private SharpAnim.AnimateOver rimLightAnimation;
+        private SharpAnim.DrawOver holdingPattern;
+        private SharpAnim.DrawOver blockedPattern;
 
         public override string GetInspectString()
         {
@@ -33,10 +34,10 @@ namespace Spaceports.Buildings
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            landingPatternAnimation = new Utils.AnimateOver(SpaceportsFramesLists.LandingPatternFrames, 30, this, 7f, 5f);
-            rimLightAnimation = new Utils.AnimateOver(SpaceportsFramesLists.RimPatternFrames, 30, this, 7f, 5f);
-            holdingPattern = new Utils.DrawOver(SpaceportsFrames.HoldingPatternGraphic, 30, this, 7f, 5f);
-            blockedPattern = new Utils.DrawOver(SpaceportsFrames.BlockedPatternGraphic, 30, this, 7f, 5f);
+            landingPatternAnimation = new SharpAnim.AnimateOver(SpaceportsMats.LandingPadTouchdownLights, this, 30, 7f, 5f);
+            rimLightAnimation = new SharpAnim.AnimateOver(SpaceportsMats.LandingPadRimLights, this, 30, 7f, 5f);
+            holdingPattern = new SharpAnim.DrawOver(SpaceportsMats.HoldingPatternGraphic, this, 7f, 5f);
+            blockedPattern = new SharpAnim.DrawOver(SpaceportsMats.BlockedPatternGraphic, this, 7f, 5f);
             base.SpawnSetup(map, respawningAfterLoad);
         }
 
@@ -54,24 +55,24 @@ namespace Spaceports.Buildings
                 {
                     if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations)
                     {
-                        landingPatternAnimation.FrameStep();
+                        landingPatternAnimation.Draw();
                     }
                     if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().rimLightsAnimations)
                     {
-                        rimLightAnimation.FrameStep();
+                        rimLightAnimation.Draw();
                     }
                 }
                 if (IsShuttleOnPad())
                 {
-                    holdingPattern.FrameStep();
+                    holdingPattern.Draw();
                 }
                 if (!IsShuttleOnPad() && !IsUnroofed())
                 {
-                    blockedPattern.FrameStep();
+                    blockedPattern.Draw();
                 }
                 if (AccessState == -1)
                 {
-                    blockedPattern.FrameStep();
+                    blockedPattern.Draw();
                 }
             }
 

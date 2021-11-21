@@ -4,24 +4,25 @@ using System.Threading.Tasks;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using SharpUtils;
 
 namespace Spaceports.Buildings
 {
     class Building_ShuttleSpot : Building
     {
         private int AccessState = 0;
-        private Utils.DrawOver AllAllowed;
-        private Utils.DrawOver NoneAllowed;
-        private Utils.DrawOver VisitorsAllowed;
-        private Utils.DrawOver TradersAllowed;
+        private SharpAnim.DrawOver AllAllowed;
+        private SharpAnim.DrawOver NoneAllowed;
+        private SharpAnim.DrawOver VisitorsAllowed;
+        private SharpAnim.DrawOver TradersAllowed;
 
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            AllAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_All, 30, this, 1f, 1f);
-            NoneAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_None, 30, this, 1f, 1f);
-            VisitorsAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_Visitors, 30, this, 1f, 1f);
-            TradersAllowed = new Utils.DrawOver(SpaceportsFrames.ChillSpot_Traders, 30, this, 1f, 1f);
+            AllAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_All, this, 1f, 1f);
+            NoneAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_None, this, 1f, 1f);
+            VisitorsAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_Visitors, this, 1f, 1f);
+            TradersAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_Traders, this, 1f, 1f);
             base.SpawnSetup(map, respawningAfterLoad);
         }
 
@@ -36,19 +37,19 @@ namespace Spaceports.Buildings
             base.Draw();
             if (AccessState == -1) 
             {
-                NoneAllowed.FrameStep();
+                NoneAllowed.Draw();
             }
             if (AccessState == 0) 
             {
-                AllAllowed.FrameStep();
+                AllAllowed.Draw();
             }
             if (AccessState == 1)
             {
-                VisitorsAllowed.FrameStep();
+                VisitorsAllowed.Draw();
             }
             if (AccessState == 2) 
             {
-                TradersAllowed.FrameStep();
+                TradersAllowed.Draw();
             }
         }
 

@@ -87,7 +87,7 @@ namespace Spaceports.Letters
             {
 				Pawn p = PawnGenerator.GeneratePawn(prisonerFaction.RandomPawnKind(), prisonerFaction);
 				HealthUtility.TryAnesthetize(p);
-				StripPawn(p);
+				Utils.StripPawn(p);
 				pawns.Add(p);
 			}
 			return pawns;
@@ -102,26 +102,10 @@ namespace Spaceports.Letters
 				Pawn p = PawnGenerator.GeneratePawn(prisonerFaction.RandomPawnKind(), prisonerFaction);
 				BadifyPawn(p);
 				HealthUtility.TryAnesthetize(p);
-				StripPawn(p);
+				Utils.StripPawn(p);
 				pawns.Add(p);
 			}
 			return pawns;
-		}
-
-		private void StripPawn(Pawn p)
-        {
-			if (p.inventory != null)
-			{
-				p.inventory.DestroyAll();
-			}
-			if (p.apparel != null)
-			{
-				p.apparel.DestroyAll();
-			}
-			if (p.equipment != null)
-			{
-				p.equipment.DestroyAllEquipment();
-			}
 		}
 
 		private void BadifyPawn(Pawn p)

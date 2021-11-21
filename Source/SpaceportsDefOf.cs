@@ -4,6 +4,7 @@ using UnityEngine;
 using Verse;
 using Verse.AI;
 using static Spaceports.Utils;
+using SharpUtils;
 
 namespace Spaceports
 {
@@ -48,25 +49,21 @@ namespace Spaceports
     }
 
     [StaticConstructorOnStartup]
-    public static class SpaceportsFrames //Material constants used in animations/visual changes. Spun up at runtime.
+    public static class SpaceportsMats //Material constants used in animations/visual changes. Spun up at runtime.
     {
-        public static readonly Material HoldingPatternGraphic = MaterialPool.MatFrom("Animations/HoldingPattern", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material BlockedPatternGraphic = MaterialPool.MatFrom("Animations/BlockedPattern", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material LandingPatternAlpha = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsA", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material LandingPatternBeta = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsB", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material LandingPatternGamma = MaterialPool.MatFrom("Animations/TouchdownLights/TouchdownLightsC", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material RimPatternOn = MaterialPool.MatFrom("Animations/RimLights/RimLights_On", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material RimPatternOff = MaterialPool.MatFrom("Animations/RimLights/RimLights_Off", ShaderDatabase.TransparentPostLight, Color.white);
+        public static readonly SharpAnim.Frame ChillSpot_All = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_all");
+        public static readonly SharpAnim.Frame ChillSpot_None = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_none");
+        public static readonly SharpAnim.Frame ChillSpot_Visitors = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_visitors");
+        public static readonly SharpAnim.Frame ChillSpot_Traders = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_traders");
+        public static readonly SharpAnim.Frame ChillSpot_Guests = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_guests");
 
-        public static readonly Material ChillSpot_All = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_all");
-        public static readonly Material ChillSpot_None = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_none");
-        public static readonly Material ChillSpot_Visitors = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_visitors");
-        public static readonly Material ChillSpot_Traders = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_traders");
-        public static readonly Material ChillSpot_Guests = MaterialPool.MatFrom("Buildings/SpaceportChillSpot/ChillSpot_guests");
-
-        public static readonly Material BeaconRadarDish = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_Dish");
-        public static readonly Material BeaconLightsOn = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_LightsOn", ShaderDatabase.TransparentPostLight, Color.white);
-        public static readonly Material BeaconLightsOff = MaterialPool.MatFrom("Animations/Beacon/SpaceportBeacon_LightsOff", ShaderDatabase.TransparentPostLight, Color.white);
+        public static readonly SharpAnim.Frame HoldingPatternGraphic = SharpAnim.ConstructFrame("Animations/HoldingPattern", ShaderDatabase.TransparentPostLight);
+        public static readonly SharpAnim.Frame BlockedPatternGraphic = SharpAnim.ConstructFrame("Animations/BlockedPattern", ShaderDatabase.TransparentPostLight);
+        public static readonly SharpAnim.FrameStack LandingPadRimLights = SharpAnim.ConstructFrameStack("Animations/LandingPad/RimLights", ShaderDatabase.TransparentPostLight);
+        public static readonly SharpAnim.FrameStack LandingPadTouchdownLights = SharpAnim.ConstructFrameStack("Animations/LandingPad/TouchdownLights", ShaderDatabase.TransparentPostLight);
+        
+        public static readonly SharpAnim.Frame RadarDish = SharpAnim.ConstructFrame("Animations/Beacon/SpaceportBeaconDish");
+        public static readonly SharpAnim.FrameStack BeaconLights = SharpAnim.ConstructFrameStack("Animations/Beacon/SpaceportBeaconLights", ShaderDatabase.TransparentPostLight);
     }
 
     [StaticConstructorOnStartup]
@@ -76,26 +73,6 @@ namespace Spaceports
         static SpaceportsShuttleVariants()
         {
             AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_ShuttleA);
-        }
-    }
-
-    [StaticConstructorOnStartup]
-    public static class SpaceportsFramesLists //Compiles Material Lists used in building animations at runtime.
-    {
-        public static List<Material> LandingPatternFrames = new List<Material>();
-        public static List<Material> RimPatternFrames = new List<Material>();
-        public static List<Material> BeaconRimFrames = new List<Material>();
-        static SpaceportsFramesLists()
-        {
-            LandingPatternFrames.Add(SpaceportsFrames.LandingPatternAlpha);
-            LandingPatternFrames.Add(SpaceportsFrames.LandingPatternBeta);
-            LandingPatternFrames.Add(SpaceportsFrames.LandingPatternGamma);
-
-            RimPatternFrames.Add(SpaceportsFrames.RimPatternOn);
-            RimPatternFrames.Add(SpaceportsFrames.RimPatternOff);
-
-            BeaconRimFrames.Add(SpaceportsFrames.BeaconLightsOn);
-            BeaconRimFrames.Add(SpaceportsFrames.BeaconLightsOff);
         }
     }
 }

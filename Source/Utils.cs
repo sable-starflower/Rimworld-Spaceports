@@ -27,154 +27,6 @@ namespace Spaceports
 			public abstract void ExposeData();
         }
 
-		public class SpinOver
-        {
-			private Material spinner;
-			private Thing thing;
-			private float xSize;
-			private float ySize;
-			private float curRotationInt;
-			private float degreesPerTick;
-			private int direction; //0 for cw, 1 for ccw
-			private bool powerDependent;
-
-			public SpinOver(Material spinner, Thing thing, float xSize, float ySize, float degreesPerTick, int direction = 0, bool powerDependent=false)
-            {
-				this.spinner = spinner;
-				this.thing = thing;
-				this.xSize = xSize;
-				this.ySize = ySize;
-				this.degreesPerTick = degreesPerTick;
-				this.direction = direction;
-				this.powerDependent = powerDependent;
-            }
-
-			public float CurRotation
-			{
-				get
-				{
-					return curRotationInt;
-				}
-				set
-				{
-					if(powerDependent && !thing.TryGetComp<CompPowerTrader>().PowerOn)
-                    {
-						return;
-                    }
-
-					curRotationInt = value;
-					if (curRotationInt > 360f)
-					{
-						curRotationInt -= 360f;
-					}
-					if (curRotationInt < 0f)
-					{
-						curRotationInt += 360f;
-					}
-				}
-			}
-
-			public void FrameStep()
-			{
-				if(!Find.TickManager.Paused)
-                {
-					if (direction == 0)
-					{
-						CurRotation += degreesPerTick * Find.TickManager.TickRateMultiplier;
-					}
-					else
-					{
-						CurRotation -= degreesPerTick * Find.TickManager.TickRateMultiplier;
-					}
-				}
-
-				DrawOverlayTex();
-			}
-
-			private void DrawOverlayTex()
-			{
-				Matrix4x4 matrix = default(Matrix4x4);
-				Vector3 pos = thing.TrueCenter();
-				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
-				matrix.SetTRS(pos + Altitudes.AltIncVect, CurRotation.ToQuat(), s);
-				Graphics.DrawMesh(MeshPool.plane10, matrix, spinner, 0);
-			}
-
-
-		}
-
-		public class AnimateOver
-		{
-			private List<Material> frames;
-			private int currentFrame = 0;
-			private int ticksPerFrame = 30;
-			private int ticksPrev;
-			private Thing thing;
-			private float xSize;
-			private float ySize;
-
-			public AnimateOver(List<Material> frames, int ticksPerFrame, Thing thing, float xSize, float ySize) {
-				this.frames = frames;
-				this.ticksPerFrame = ticksPerFrame;
-				this.thing = thing;
-				this.xSize = xSize;
-				this.ySize = ySize;
-			}
-
-			public void FrameStep() {
-				int ticksCurrent = Find.TickManager.TicksGame;
-				if (ticksCurrent >= this.ticksPrev + ticksPerFrame)
-				{
-					this.ticksPrev = ticksCurrent;
-					currentFrame++;
-				}
-				if (currentFrame >= frames.Count)
-				{
-					currentFrame = 0;
-				}
-				DrawOverlayTex(currentFrame);
-			}
-
-			private void DrawOverlayTex(int currFrame)
-			{
-				Matrix4x4 matrix = default(Matrix4x4);
-				Vector3 pos = thing.TrueCenter();
-				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
-				matrix.SetTRS(pos + Altitudes.AltIncVect, thing.Rotation.AsQuat, s);
-				Graphics.DrawMesh(MeshPool.plane10, matrix, frames[currFrame], 0);
-			}
-		}
-
-		public class DrawOver
-		{
-			private Material frame;
-			private Thing thing;
-			private float xSize;
-			private float ySize;
-
-			public DrawOver(Material frame, int ticksPerFrame, Thing thing, float xSize, float ySize)
-			{
-				this.frame = frame;
-				this.thing = thing;
-				this.xSize = xSize;
-				this.ySize = ySize;
-			}
-
-			public void FrameStep()
-			{
-				DrawOverlayTex();
-			}
-
-			private void DrawOverlayTex()
-			{
-				Matrix4x4 matrix = default(Matrix4x4);
-				Vector3 pos = thing.TrueCenter();
-				Vector3 s = new Vector3(xSize, 1f, ySize); //x and z should correspond to the DrawSize values of the base building
-				matrix.SetTRS(pos + Altitudes.AltIncVect, thing.Rotation.AsQuat, s);
-				Graphics.DrawMesh(MeshPool.plane10, matrix, frame, 0);
-			}
-		}
-
 		//abstraction class for restricting chillspots and pads
 		public class AccessControlState
         {
@@ -426,6 +278,22 @@ namespace Spaceports
 				}
 			}
 			return false;
+		}
+
+		public static void StripPawn(Pawn p)
+		{
+			if (p.inventory != null)
+			{
+				p.inventory.DestroyAll();
+			}
+			if (p.apparel != null)
+			{
+				p.apparel.DestroyAll();
+			}
+			if (p.equipment != null)
+			{
+				p.equipment.DestroyAllEquipment();
+			}
 		}
 
 	}
