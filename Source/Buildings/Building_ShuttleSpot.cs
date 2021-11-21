@@ -11,18 +11,11 @@ namespace Spaceports.Buildings
     class Building_ShuttleSpot : Building
     {
         private int AccessState = 0;
-        private SharpAnim.DrawOver AllAllowed;
-        private SharpAnim.DrawOver NoneAllowed;
-        private SharpAnim.DrawOver VisitorsAllowed;
-        private SharpAnim.DrawOver TradersAllowed;
-
+        private SharpAnim.DrawOverMulti AccessOverlay;
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            AllAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_All, this, 1f, 1f);
-            NoneAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_None, this, 1f, 1f);
-            VisitorsAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_Visitors, this, 1f, 1f);
-            TradersAllowed = new SharpAnim.DrawOver(SpaceportsMats.ChillSpot_Traders, this, 1f, 1f);
+            AccessOverlay = new SharpAnim.DrawOverMulti(SpaceportsMats.ChillSpot, this, 1f, 1f);
             base.SpawnSetup(map, respawningAfterLoad);
         }
 
@@ -37,20 +30,21 @@ namespace Spaceports.Buildings
             base.Draw();
             if (AccessState == -1) 
             {
-                NoneAllowed.Draw();
+                AccessOverlay.SetFrame(0);
             }
             if (AccessState == 0) 
             {
-                AllAllowed.Draw();
+                AccessOverlay.SetFrame(1);
             }
             if (AccessState == 1)
             {
-                VisitorsAllowed.Draw();
+                AccessOverlay.SetFrame(2);
             }
             if (AccessState == 2) 
             {
-                TradersAllowed.Draw();
+                AccessOverlay.SetFrame(3);
             }
+            AccessOverlay.Draw();
         }
 
         public override IEnumerable<Gizmo> GetGizmos()
@@ -115,19 +109,19 @@ namespace Spaceports.Buildings
         {
             if (AccessState == -1)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_none", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_a", true);
             }
             else if (AccessState == 0)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_all", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_b", true);
             }
             else if (AccessState == 1)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_visitors", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_c", true);
             }
             else if (AccessState == 2)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_traders", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_d", true);
             }
             return null;
         }

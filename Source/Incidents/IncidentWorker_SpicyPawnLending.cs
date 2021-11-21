@@ -40,9 +40,28 @@ namespace Spaceports.Incidents
             letter.faction = faction;
             letter.RequestedPawn = pawn;
             letter.rewards = rewards;
+            letter.WasInjured = WillBeInjured(pawn, skill);
 
             Find.LetterStack.ReceiveLetter(letter);
             return true;
+        }
+
+        private bool WillBeInjured(Pawn pawn, string skill)
+        {
+            Pawn_SkillTracker PawnSkills = pawn.skills;
+            if (PawnSkills != null)
+            {
+                for (int i = 0; i < PawnSkills.skills.Count; i++)
+                {
+                    if (PawnSkills.skills[i].def.defName == skill)
+                    {
+                        float chance = (20 - PawnSkills.skills[i].Level - 10) * 0.025f;
+                        chance = 0.50f - chance;
+                        return Rand.Chance(chance);
+                    }
+                }
+            }
+            return false;
         }
 
         private Pawn TrySelectSkilledPawn(Map map, string skill)

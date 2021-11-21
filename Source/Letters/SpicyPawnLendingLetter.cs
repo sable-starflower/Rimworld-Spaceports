@@ -16,14 +16,15 @@ namespace Spaceports.Letters
         private int TicksPassed = 0;
         private int ReturnAfterTicks;
         private List<Thing> rewards;
+        private bool WasInjured;
 
-        public LoanedPawnTracker(Pawn pawn, Map map, List<Thing> rewards)
+        public LoanedPawnTracker(Pawn pawn, Map map, List<Thing> rewards, bool WasInjured)
         {
             LoanedPawn = pawn;
             this.map = map;
             this.rewards = rewards;
-            ReturnAfterTicks = 15000;//Rand.RangeInclusive(GenDate.TicksPerDay * 10, GenDate.TicksPerDay * 15);
-            Log.Message("[Spaceports] Lent pawn will return in " + ReturnAfterTicks / 60000 + "d");
+            this.WasInjured = WasInjured;
+            ReturnAfterTicks = Rand.RangeInclusive(GenDate.TicksPerDay * 10, GenDate.TicksPerDay * 15);
         }
 
         public override bool Check()
@@ -35,7 +36,7 @@ namespace Spaceports.Letters
             }
             else if(TicksPassed >= ReturnAfterTicks && Utils.AnyValidSpaceportPad(map, 0))
             {
-                if (true)
+                if (WasInjured)
                 {
                     try
                     {
@@ -148,6 +149,7 @@ namespace Spaceports.Letters
         public Map map;
         public Pawn RequestedPawn;
         public List<Thing> rewards;
+        public bool WasInjured;
         public override IEnumerable<DiaOption> Choices
         {
             get
@@ -167,7 +169,7 @@ namespace Spaceports.Letters
                     pawn.Add(RequestedPawn);
                     shuttle.ShuttleComp.requiredPawns = pawn;
                     Messages.Message("Spaceports_PickupInbound".Translate(RequestedPawn.Name + ""), new LookTargets(shuttle.shipThing), MessageTypeDefOf.NeutralEvent);
-                    map.GetComponent<SpaceportsMapComp>().LoadTracker(new LoanedPawnTracker(RequestedPawn, map, rewards));
+                    map.GetComponent<SpaceportsMapComp>().LoadTracker(new LoanedPawnTracker(RequestedPawn, map, rewards, WasInjured));
                     Find.LetterStack.RemoveLetter(this);
                 };
                 diaAccept.resolveTree = true;

@@ -51,11 +51,7 @@ namespace Spaceports
     [StaticConstructorOnStartup]
     public static class SpaceportsMats //Material constants used in animations/visual changes. Spun up at runtime.
     {
-        public static readonly SharpAnim.Frame ChillSpot_All = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_all");
-        public static readonly SharpAnim.Frame ChillSpot_None = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_none");
-        public static readonly SharpAnim.Frame ChillSpot_Visitors = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_visitors");
-        public static readonly SharpAnim.Frame ChillSpot_Traders = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_traders");
-        public static readonly SharpAnim.Frame ChillSpot_Guests = SharpAnim.ConstructFrame("Buildings/SpaceportChillSpot/ChillSpot_guests");
+        public static readonly SharpAnim.FrameStack ChillSpot = SharpAnim.ConstructFrameStack("Buildings/SpaceportChillSpot/ChillSpotOverlay");
 
         public static readonly SharpAnim.Frame HoldingPatternGraphic = SharpAnim.ConstructFrame("Animations/HoldingPattern", ShaderDatabase.TransparentPostLight);
         public static readonly SharpAnim.Frame BlockedPatternGraphic = SharpAnim.ConstructFrame("Animations/BlockedPattern", ShaderDatabase.TransparentPostLight);

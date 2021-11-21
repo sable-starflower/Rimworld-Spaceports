@@ -40,6 +40,7 @@
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(3,3)</drawSize>
     </graphicData>
+    <uiIconPath>Buildings/SpaceportBeacon/SpaceportBeacon</uiIconPath>
     <tickerType>Normal</tickerType>
     <drawerType>RealtimeOnly</drawerType>
     <altitudeLayer>Building</altitudeLayer>

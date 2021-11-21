@@ -34,7 +34,7 @@
 	<Spaceports_CallTaxiDisabledDLC>this feature requires the Royalty DLC.</Spaceports_CallTaxiDisabledDLC>
 	<Spaceports_Uplink>Uplink established...</Spaceports_Uplink>
 	<Spaceports_CallTaxiInfo>Service: One-way automated taxi shuttle\nFare: 500 silver\nBoarding: first open pad</Spaceports_CallTaxiInfo>
-	<Spaceports_CannotProceedSilver>\nCannot proceed: insufficent silver.</Spaceports_CannotProceedSilver>
+	<Spaceports_CannotProceedSilver>\nCannot proceed: insufficent silver. (Is it not within a trade beacon zone?)</Spaceports_CannotProceedSilver>
 	<Spaceports_CannotProceedNoPads>\nCannot proceed: no open pads.</Spaceports_CannotProceedNoPads>
 	<Spaceports_CallTaxiCancel>Cancel</Spaceports_CallTaxiCancel>
 	<Spaceports_CallTaxiConfirm>Call!</Spaceports_CallTaxiConfirm>

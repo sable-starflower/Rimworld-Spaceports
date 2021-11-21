@@ -147,8 +147,13 @@ namespace Spaceports
 				{
 					closestValidSpot = spot;
 				}
+			}
+
+			if(closestValidSpot != null)
+			{
 				return closestValidSpot.Position;
 			}
+
 			IntVec3 fallbackChillspot = originCell;
 			fallbackChillspot.z = fallbackChillspot.z - 2;
 			return fallbackChillspot;

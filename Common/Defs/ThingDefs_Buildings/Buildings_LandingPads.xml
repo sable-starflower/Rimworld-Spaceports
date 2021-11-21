@@ -43,8 +43,8 @@
         <basePowerConsumption>100</basePowerConsumption>
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3</glowRadius>
-        <glowColor>(150,100,255,0)</glowColor>
+        <glowRadius>5</glowRadius>
+        <glowColor>(255,255,255,0)</glowColor>
       </li>
     </comps>
   </ThingDef>
