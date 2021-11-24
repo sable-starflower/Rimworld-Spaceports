@@ -17,6 +17,10 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
+            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().eventsEnabled || !LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().SpicyPawnLending)
+            {
+                return false;
+            }
             if (!Utils.CheckIfSpaceport((Map)parms.target) || !AnySufficientlySkilledPawn((Map)parms.target))
             {
                 return false;

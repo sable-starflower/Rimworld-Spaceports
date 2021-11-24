@@ -10,6 +10,13 @@ namespace Spaceports.Incidents
 {
     public class GameCondition_KesslerSyndrome : GameCondition
     {
-        //literally does nothing besides exist
+        public override void PostMake()
+        {
+            base.PostMake();
+            if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().eventsEnabled || !LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().KesslerSyndrome)
+            {
+                End();
+            }
+        }
     }
 }

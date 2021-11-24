@@ -53,24 +53,24 @@ namespace Spaceports.Buildings
             if (IsPowered()) {
                 if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().padAnimationsGlobal)
                 {
-                    if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations)
+                    if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations && IsPowered())
                     {
                         landingPatternAnimation.Draw();
                     }
-                    if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().rimLightsAnimations)
+                    if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().rimLightsAnimations && IsPowered())
                     {
                         rimLightAnimation.Draw();
                     }
                 }
-                if (IsShuttleOnPad())
+                if (IsShuttleOnPad() && IsPowered())
                 {
                     holdingPattern.Draw();
                 }
-                if (!IsShuttleOnPad() && !IsUnroofed())
+                if (!IsShuttleOnPad() && !IsUnroofed() && IsPowered())
                 {
                     blockedPattern.Draw();
                 }
-                if (AccessState == -1)
+                if (AccessState == -1 && IsPowered())
                 {
                     blockedPattern.Draw();
                 }

@@ -16,17 +16,18 @@ namespace Spaceports
         public static ThingDef Spaceports_RoyaltyShuttle;
         public static ThingDef Spaceports_Shrapnel;
 
+        public static TransportShipDef Spaceports_RoyaltyShuttleTS;
         public static TransportShipDef Spaceports_ShuttleA;
         public static TransportShipDef Spaceports_ShuttleInert;
         public static TransportShipDef Spaceports_SurpriseShuttle;
 
         public static IncidentDef Spaceports_VisitorShuttleArrival;
         public static IncidentDef Spaceports_TraderShuttleArrival;
+        public static GameConditionDef Spaceports_KesslerSyndrome;
         public static IncidentDef Spaceports_MedevacReward;
 
         public static DutyDef Spaceports_TryShuttleWoundedGuest;
         public static JobDef Spaceports_Kidnap;
-        public static GameConditionDef Spaceports_KesslerSyndrome;
 
         public static ThoughtDef Spaceports_PsychicCharge;
     }
@@ -68,6 +69,10 @@ namespace Spaceports
         public static List<TransportShipDef> AllShuttleVariants = new List<TransportShipDef>();
         static SpaceportsShuttleVariants()
         {
+            if (ModsConfig.RoyaltyActive)
+            {
+                AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_RoyaltyShuttleTS);
+            }
             AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_ShuttleA);
         }
     }

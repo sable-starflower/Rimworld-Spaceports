@@ -13,7 +13,7 @@
             <clipPath>Idle_TypeAB</clipPath>
           </li>
         </grains>
-        <volumeRange>10</volumeRange>
+        <volumeRange>100</volumeRange>
         <distRange>10~30</distRange>
       </li>
     </subSounds>
@@ -32,7 +32,7 @@
             <clipPath>Idle_TypeCD</clipPath>
           </li>
         </grains>
-        <volumeRange>10</volumeRange>
+        <volumeRange>100</volumeRange>
         <distRange>10~30</distRange>
       </li>
     </subSounds>

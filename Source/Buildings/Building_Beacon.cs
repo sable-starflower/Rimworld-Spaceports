@@ -13,11 +13,13 @@ namespace Spaceports.Buildings
     class Building_Beacon : Building
     {
         private SharpAnim.SpinOver RadarDish;
+        private SharpAnim.DrawOver RadarDishStill;
         private SharpAnim.AnimateOver RimLights;
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
             RadarDish = new SharpAnim.SpinOver(SpaceportsMats.RadarDish, this, 1.5f, 3f, 3f, PowerDependent: true);
+            RadarDishStill = new SharpAnim.DrawOver(SpaceportsMats.RadarDish, this, 3f, 3f);
             RimLights = new SharpAnim.AnimateOver(SpaceportsMats.BeaconLights, this, 30, 3f, 3f);
             base.SpawnSetup(map, respawningAfterLoad);
         }
@@ -192,11 +194,22 @@ namespace Spaceports.Buildings
         public override void Draw()
         {
             base.Draw();
-            RadarDish.Draw();
-            if (this.GetComp<CompPowerTrader>().PowerOn)
+            if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().beaconAnimationsGlobal)
             {
-                RimLights.Draw();
+                if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().beaconRadarAnimations)
+                {
+                    RadarDish.Draw();
+                }
+                if (this.GetComp<CompPowerTrader>().PowerOn && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().beaconRimAnimations)
+                {
+                    RimLights.Draw();
+                }
             }
+            else
+            {
+                RadarDishStill.Draw();
+            }
+
         }
     }
 }

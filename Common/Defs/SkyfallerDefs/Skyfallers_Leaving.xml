@@ -16,7 +16,7 @@
           <shadowSize>(5.5,3.5)</shadowSize>
           <motesPerCell>1</motesPerCell>
           <reversed>true</reversed>
-          <anticipationSound>Shuttle_Leaving</anticipationSound>
+          <anticipationSound>Spaceports_LeavingA</anticipationSound>
           <anticipationSoundTicks>-10</anticipationSoundTicks>
           <ticksToImpactRange>-40~-15</ticksToImpactRange>
           <moteSpawnTime>0.05</moteSpawnTime>
@@ -49,13 +49,22 @@
       </ThingDef>
 
       <ThingDef ParentName="Spaceports_SkyfallerLeavingBase">
+        <defName>RoyaltyShuttle_Leaving</defName>
+        <graphicData>
+          <graphicClass>Graphic_Single</graphicClass>
+          <shaderType>CutoutFlying</shaderType>
+          <drawSize>(6,3)</drawSize>
+          <color>(162,164,149)</color>
+        </graphicData>
+    </ThingDef>
+
+      <ThingDef ParentName="Spaceports_SkyfallerLeavingBase">
         <defName>ShuttleA_Leaving</defName>
         <graphicData>
           <texPath>Buildings/Shuttles/ShuttleA</texPath>
           <graphicClass>Graphic_Single</graphicClass>
           <shaderType>CutoutFlying</shaderType>
           <drawSize>(6,3)</drawSize>
-          <color>(162,164,149)</color>
         </graphicData>
     </ThingDef>
 </Defs>

@@ -16,6 +16,10 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
+            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().eventsEnabled || !LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().PrisonerTransfer)
+            {
+                return false;
+            }
             if (!Utils.CheckIfSpaceport((Map)parms.target))
             {
                 return false;

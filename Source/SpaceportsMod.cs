@@ -8,8 +8,6 @@ using RimWorld;
 
 namespace Spaceports
 {
-
-    
     public class SpaceportsSettings : ModSettings
     {   
         public bool airspaceLockdown;
@@ -33,8 +31,17 @@ namespace Spaceports
         public bool padAnimationsGlobal;
         public bool rimLightsAnimations;
         public bool landingAnimations;
+        public bool beaconAnimationsGlobal;
+        public bool beaconRadarAnimations;
+        public bool beaconRimAnimations;
 
         public bool eventsEnabled;
+        public bool KesslerSyndrome;
+        public bool InterstellarDerelict;
+        public bool MysteryCargo;
+        public bool PrisonerTransfer;
+        public bool ShuttleMedevac;
+        public bool SpicyPawnLending;
 
         public int page = 1;
 
@@ -61,8 +68,18 @@ namespace Spaceports
             Scribe_Values.Look(ref padAnimationsGlobal, "padAnimationsGlobal", true);
             Scribe_Values.Look(ref rimLightsAnimations, "rimLightsAnimations", true);
             Scribe_Values.Look(ref landingAnimations, "landingAnimations", true);
+            Scribe_Values.Look(ref beaconAnimationsGlobal, "beaconAnimationsGlobal", true);
+            Scribe_Values.Look(ref beaconRadarAnimations, "beaconRadarAnimations", true);
+            Scribe_Values.Look(ref beaconRimAnimations, "beaconRimAnimations", true);
 
             Scribe_Values.Look(ref eventsEnabled, "eventsEnabled", true);
+            Scribe_Values.Look(ref KesslerSyndrome, "KesslerSyndrome", true);
+            Scribe_Values.Look(ref InterstellarDerelict, "InterstellarDerelict", true);
+            Scribe_Values.Look(ref MysteryCargo, "MysteryCargo", true);
+            Scribe_Values.Look(ref PrisonerTransfer, "PrisonerTransfer", true);
+            Scribe_Values.Look(ref ShuttleMedevac, "ShuttleMedevac", true);
+            Scribe_Values.Look(ref SpicyPawnLending, "SpicyPawnLending", true);
+
 
             base.ExposeData();
         }
@@ -162,10 +179,27 @@ namespace Spaceports
                     listingStandard.CheckboxLabeled("Spaceports_RimLightsToggle".Translate(), ref settings.rimLightsAnimations, "Spaceports_RimLightsToggleTooltip".Translate());
                     listingStandard.CheckboxLabeled("Spaceports_LandingPatternToggle".Translate(), ref settings.landingAnimations, "Spaceports_LandingPatternToggleTooltip".Translate());
                 }
+
+                listingStandard.CheckboxLabeled("Spaceports_BeaconAnimationToggle".Translate(), ref settings.beaconAnimationsGlobal, "Spaceports_BeaconAnimationTooltip".Translate());
+                if (settings.beaconAnimationsGlobal)
+                {
+                    listingStandard.CheckboxLabeled("Spaceports_BeaconDishToggle".Translate(), ref settings.beaconRadarAnimations, "Spaceports_BeaconDishTooltip".Translate());
+                    listingStandard.CheckboxLabeled("Spaceports_BeaconRimLightsToggle".Translate(), ref settings.beaconRimAnimations, "Spaceports_BeaconRimLightsTooltip".Translate());
+                }
+
                 listingStandard.GapLine();
 
                 listingStandard.Label("Spaceports_EventHeader".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_EventToggle".Translate(), ref settings.eventsEnabled, "Spaceports_EventToggleTooltip".Translate());
+                if (settings.eventsEnabled)
+                {
+                    listingStandard.CheckboxLabeled("Spaceports_KesslerSyndromeToggle".Translate(), ref settings.KesslerSyndrome);
+                    listingStandard.CheckboxLabeled("Spaceports_InterstellarDerelictToggle".Translate(), ref settings.InterstellarDerelict);
+                    listingStandard.CheckboxLabeled("Spaceports_MysteryCargoToggle".Translate(), ref settings.MysteryCargo);
+                    listingStandard.CheckboxLabeled("Spaceports_PrisonerTransferToggle".Translate(), ref settings.PrisonerTransfer);
+                    listingStandard.CheckboxLabeled("Spaceports_ShuttleMedevacToggle".Translate(), ref settings.ShuttleMedevac);
+                    listingStandard.CheckboxLabeled("Spaceports_SpicyPawnLendingToggle".Translate(), ref settings.SpicyPawnLending);
+                }
 
                 listingStandard.GapLine();
 
@@ -192,8 +226,17 @@ namespace Spaceports
                     settings.padAnimationsGlobal = true;
                     settings.rimLightsAnimations = true;
                     settings.landingAnimations = true;
+                    settings.beaconAnimationsGlobal = true;
+                    settings.beaconRadarAnimations = true;
+                    settings.beaconRimAnimations = true;
 
                     settings.eventsEnabled = true;
+                    settings.KesslerSyndrome = true;
+                    settings.InterstellarDerelict = true;
+                    settings.MysteryCargo = true;
+                    settings.PrisonerTransfer = true;
+                    settings.ShuttleMedevac = true;
+                    settings.SpicyPawnLending = true;
                 }
             }
             listingStandard.End();

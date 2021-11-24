@@ -38,10 +38,22 @@
 	<Spaceports_RimLightsToggleTooltip>Toggle rim light animation on shuttle landing pads (the four red lights in the corners.)</Spaceports_RimLightsToggleTooltip>
 	<Spaceports_LandingPatternToggle>Enable landing pattern animation?</Spaceports_LandingPatternToggle>
 	<Spaceports_LandingPatternToggleTooltip>Toggle landing pattern animation on shuttle landing pads (the inward-moving green dots that activate when a shuttle is incoming.)</Spaceports_LandingPatternToggleTooltip>
+	<Spaceports_BeaconAnimationToggle>Enable beacon animations?</Spaceports_BeaconAnimationToggle>
+	<Spaceports_BeaconAnimationTooltip>When enabled, spaceport beacons will display dynamic animations. Disable this if you find it annoying or have concerns regarding performance or epilepsy.</Spaceports_BeaconAnimationTooltip>
+	<Spaceports_BeaconDishToggle>Enable beacon radar dish animation?</Spaceports_BeaconDishToggle>
+	<Spaceports_BeaconDishTooltip>Toggle the spinning radar dish on spaceport beacons.</Spaceports_BeaconDishTooltip>
+	<Spaceports_BeaconRimLightsToggle>Enable beacon rim light animation?</Spaceports_BeaconRimLightsToggle>
+	<Spaceports_BeaconRimLightsTooltip>Toggle rim light animation on spaceport beacons (the four red lights in the corners.)</Spaceports_BeaconRimLightsTooltip>
 	<!--Event Settings-->
 	<Spaceports_EventHeader><![CDATA[<i>Event Settings</i>]]></Spaceports_EventHeader>
-	<Spaceports_EventToggle>Enable extra events and quests?</Spaceports_EventToggle>
+	<Spaceports_EventToggle>Enable new events?</Spaceports_EventToggle>
 	<Spaceports_EventToggleTooltip>Toggles the new events added by Spaceports.</Spaceports_EventToggleTooltip>
+	<Spaceports_KesslerSyndromeToggle>Enable Kessler Syndrome event?</Spaceports_KesslerSyndromeToggle>
+	<Spaceports_InterstellarDerelictToggle>Enable Interstellar Derelict event?</Spaceports_InterstellarDerelictToggle>
+	<Spaceports_MysteryCargoToggle>Enable Mysterious Cargo event?</Spaceports_MysteryCargoToggle>
+	<Spaceports_PrisonerTransferToggle>Enable Prisoner Transfer event?</Spaceports_PrisonerTransferToggle>
+	<Spaceports_ShuttleMedevacToggle>Enable Shuttle Medevac event?</Spaceports_ShuttleMedevacToggle>
+	<Spaceports_SpicyPawnLendingToggle>Enable Professional Help event?</Spaceports_SpicyPawnLendingToggle>
 	<!--Reset to Default-->
 	<Spaceports_ResetToDefault>Reset all to default</Spaceports_ResetToDefault>
 </LanguageData>

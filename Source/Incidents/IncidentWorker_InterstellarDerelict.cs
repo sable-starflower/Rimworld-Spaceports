@@ -16,6 +16,10 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
+            if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().eventsEnabled || !LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().InterstellarDerelict) 
+            {
+                return false;
+            }
             if (!Utils.CheckIfSpaceport((Map)parms.target)) //TODO consider edge case of full pads?
             {
                 return false;

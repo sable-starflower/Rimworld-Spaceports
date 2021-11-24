@@ -15,7 +15,7 @@
           <shadow>Things/Skyfaller/SkyfallerShadowRectangle</shadow>
           <shadowSize>(5.5,3.5)</shadowSize>
           <motesPerCell>1</motesPerCell>
-          <anticipationSound>Spaceports_Landing</anticipationSound>
+          <anticipationSound>Spaceports_LandingA</anticipationSound>
           <anticipationSoundTicks>250</anticipationSoundTicks>
           <ticksToImpactRange>200~250</ticksToImpactRange>
           <angleCurve>
@@ -46,6 +46,16 @@
           </speedCurve>
         </skyfaller>
       </ThingDef>
+
+      <ThingDef ParentName="Spaceports_SkyfallerIncomingBase">
+        <defName>RoyaltyShuttle_Incoming</defName>
+        <graphicData>
+          <graphicClass>Graphic_Single</graphicClass>
+          <shaderType>CutoutFlying</shaderType>
+          <drawSize>(6,3)</drawSize>
+          <color>(162,164,149)</color>
+        </graphicData>
+    </ThingDef>
       
       <ThingDef ParentName="Spaceports_SkyfallerIncomingBase">
         <defName>ShuttleA_Incoming</defName>
@@ -54,7 +64,6 @@
           <graphicClass>Graphic_Single</graphicClass>
           <shaderType>CutoutFlying</shaderType>
           <drawSize>(6,3)</drawSize>
-          <color>(162,164,149)</color>
         </graphicData>
     </ThingDef>
 </Defs>

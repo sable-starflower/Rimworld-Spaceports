@@ -42,8 +42,8 @@
     <building>
       <claimable>false</claimable>
       <isEdifice>false</isEdifice>
-      <soundAmbient MayRequire="Ludeon.RimWorld.Ideology">ShuttleIdle_Ambience</soundAmbient>
-      <destroySound MayRequire="Ludeon.RimWorld.Ideology">BuildingDestroyed_Metal_Big</destroySound>
+      <soundAmbient>Spaceports_ShuttleAmbianceA</soundAmbient>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
     </building>
     <comps>
       <li Class="CompProperties_Shuttle" />
@@ -52,8 +52,8 @@
         <max1PerGroup>true</max1PerGroup>
         <canChangeAssignedThingsAfterStarting>true</canChangeAssignedThingsAfterStarting>
         <showOverallStats>false</showOverallStats>
-        <pawnLoadedSound MayRequire="Ludeon.RimWorld.Ideology">Shuttle_PawnLoaded</pawnLoadedSound>
-        <pawnExitSound MayRequire="Ludeon.RimWorld.Ideology">Shuttle_PawnExit</pawnExitSound>
+        <pawnLoadedSound MayRequire="Ludeon.RimWorld.Royalty">Shuttle_PawnLoaded</pawnLoadedSound>
+        <pawnExitSound MayRequire="Ludeon.RimWorld.Royalty">Shuttle_PawnExit</pawnExitSound>
       </li>
     </comps>
     <interactionCellOffset>(0,0,-2)</interactionCellOffset>
@@ -66,6 +66,10 @@
     <graphicData>
       <color>(162,164,149)</color>
     </graphicData>
+    <building>
+      <soundAmbient>Spaceports_ShuttleAmbianceA</soundAmbient>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+    </building>
   </ThingDef>
 
   <ThingDef ParentName="Spaceports_ShuttleBase">
