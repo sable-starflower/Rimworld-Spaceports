@@ -77,7 +77,7 @@ namespace Spaceports.Buildings
         public void RecallParty() {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
             List<Pawn> partyPawns = shuttleComp.requiredPawns;
-            if (partyPawns != null)
+            if (partyPawns != null && partyPawns[0] != null)
             {
                 Lord lord = partyPawns[0].GetLord();
                 if(lord != null)
@@ -89,7 +89,7 @@ namespace Spaceports.Buildings
                         {
                             if (trigger is Trigger_TicksPassed)
                             {
-                                transition.triggers.Add(new Trigger_TicksPassed(5));
+                                transition.triggers.Add(new Trigger_TicksPassed(20));
                                 TaggedString notifText = "Spaceports_VisitorsLeaving".Translate(partyPawns[0].Faction.Name);
                                 Messages.Message(notifText, MessageTypeDefOf.NeutralEvent, false);
                                 PartyRecalled = true;

@@ -163,6 +163,7 @@ namespace Spaceports.Buildings
 
         private void DismissAll() 
         {
+            List<Building_Shuttle> shuttles = new List<Building_Shuttle>();
             foreach (Building b in this.Map.listerBuildings.allBuildingsNonColonist)
             {
                 Buildings.Building_Shuttle target = b as Spaceports.Buildings.Building_Shuttle;
@@ -170,14 +171,19 @@ namespace Spaceports.Buildings
                 {
                     if (!target.disabled)
                     {
-                        target.ForceImmediateDeparture();
+                        shuttles.Add(target);
                     }
                 }
+            }
+            foreach(Building_Shuttle b in shuttles)
+            {
+                b.ForceImmediateDeparture();
             }
         }
 
         private void RecallAll() 
         {
+            List<Building_Shuttle> shuttles = new List<Building_Shuttle>();
             foreach (Building b in this.Map.listerBuildings.allBuildingsNonColonist)
             {
                 Buildings.Building_Shuttle target = b as Spaceports.Buildings.Building_Shuttle;
@@ -185,9 +191,13 @@ namespace Spaceports.Buildings
                 {
                     if (!target.disabled)
                     {
-                        target.RecallParty();
+                        shuttles.Add(target);
                     }
                 }
+            }
+            foreach (Building_Shuttle b in shuttles)
+            {
+                b.RecallParty();
             }
         }
 
