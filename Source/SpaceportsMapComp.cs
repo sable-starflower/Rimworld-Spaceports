@@ -82,11 +82,13 @@ namespace Spaceports
                 {
                     IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(visitorIncident.category, this.map);
                     QueueIncident(new FiringIncident(visitorIncident, null, incidentParms), LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().visitorFrequencyDays, incidentQueueVisitors);
+                    Log.Message("Visitor added to queue");
                 }
                 if (incidentQueueTraders.Count <= 1 && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularTraders)
                 {
                     IncidentParms incidentParms = StorytellerUtility.DefaultParmsNow(traderIncident.category, this.map);
                     QueueIncident(new FiringIncident(traderIncident, null, incidentParms), LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().traderFrequencyDays, incidentQueueTraders);
+                    Log.Message("Trader added to queue");
                 }
             }
         }

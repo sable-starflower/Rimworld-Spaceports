@@ -140,12 +140,15 @@ namespace Spaceports
 			Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
 			foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
 			{
-				if (closestValidSpot == null && spot.CheckAccessGranted(accessVal)) {
+				if (closestValidSpot == null && spot.CheckAccessGranted(accessVal) && spot != null) {
 					closestValidSpot = spot;
 				}
-				else if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal))
-				{
-					closestValidSpot = spot;
+				else if(closestValidSpot != null)
+                {
+					if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal) && spot != null)
+					{
+						closestValidSpot = spot;
+					}
 				}
 			}
 
