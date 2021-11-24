@@ -197,19 +197,19 @@ namespace Spaceports.Buildings
         {
             if (AccessState == -1)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_none", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_a", true);
             }
             else if (AccessState == 0)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_all", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_b", true);
             }
             else if (AccessState == 1)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_visitors", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_c", true);
             }
             else if (AccessState == 2)
             {
-                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpot_traders", true);
+                return ContentFinder<Texture2D>.Get("Buildings/SpaceportChillSpot/ChillSpotOverlay/ChillSpot_d", true);
             }
             else if (AccessState == 3)
             {
