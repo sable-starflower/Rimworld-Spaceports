@@ -5,4 +5,4 @@ A mod for filling the heavens above your colony with commerce.
 
 **License:** MIT License
 
-[**Steam Workshop Page**](https://google.com)
+[**Steam Workshop Page**](https://steamcommunity.com/sharedfiles/filedetails/?id=2663999215)
