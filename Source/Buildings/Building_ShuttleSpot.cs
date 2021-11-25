@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
+﻿using SharpUtils;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
-using SharpUtils;
 
 namespace Spaceports.Buildings
 {
@@ -28,11 +25,11 @@ namespace Spaceports.Buildings
         public override void Draw()
         {
             base.Draw();
-            if (AccessState == -1) 
+            if (AccessState == -1)
             {
                 AccessOverlay.SetFrame(0);
             }
-            if (AccessState == 0) 
+            if (AccessState == 0)
             {
                 AccessOverlay.SetFrame(1);
             }
@@ -40,7 +37,7 @@ namespace Spaceports.Buildings
             {
                 AccessOverlay.SetFrame(2);
             }
-            if (AccessState == 2) 
+            if (AccessState == 2)
             {
                 AccessOverlay.SetFrame(3);
             }
@@ -67,7 +64,7 @@ namespace Spaceports.Buildings
 
                     foreach (Utils.AccessControlState state in SpaceportsMisc.AccessStates)
                     {
-                        if(state.getValue() != 3)
+                        if (state.getValue() != 3)
                         {
                             string label = state.GetLabel();
                             FloatMenuOption option = new FloatMenuOption(label, delegate ()

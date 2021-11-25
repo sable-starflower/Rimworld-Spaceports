@@ -1,12 +1,8 @@
-﻿using System;
+﻿using RimWorld;
+using SharpUtils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using UnityEngine;
 using Verse;
-using SharpUtils;
 
 namespace Spaceports.Buildings
 {
@@ -25,7 +21,7 @@ namespace Spaceports.Buildings
         public override string GetInspectString()
         {
             string text = base.GetInspectString();
-            if (IsUnroofed() == false) 
+            if (IsUnroofed() == false)
             {
                 text += "Pad blocked by roofing.";
             }
@@ -50,7 +46,8 @@ namespace Spaceports.Buildings
 
         public override void Draw()
         {
-            if (IsPowered()) {
+            if (IsPowered())
+            {
                 if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().padAnimationsGlobal)
                 {
                     if (ShuttleInbound && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().landingAnimations && IsPowered())
@@ -81,13 +78,14 @@ namespace Spaceports.Buildings
 
         public override void Tick()
         {
-            if (IsShuttleOnPad()) {
+            if (IsShuttleOnPad())
+            {
                 ShuttleInbound = false;
             }
             if (ShuttleInbound)
             {
                 ticksSinceReserved++;
-                if(ticksSinceReserved > 500) //fallback if a shuttle fails to spawn, stops the pad from being locked up forever
+                if (ticksSinceReserved > 500) //fallback if a shuttle fails to spawn, stops the pad from being locked up forever
                 {
                     ShuttleInbound = false;
                 }
@@ -132,31 +130,36 @@ namespace Spaceports.Buildings
 
         }
 
-        public void NotifyIncoming() 
+        public void NotifyIncoming()
         {
             ShuttleInbound = true;
             ticksSinceReserved = 0;
         }
 
-        public bool IsAvailable() 
+        public bool IsAvailable()
         {
-            if (!IsUnroofed() || IsShuttleOnPad() || ShuttleInbound || !IsPowered()) {
+            if (!IsUnroofed() || IsShuttleOnPad() || ShuttleInbound || !IsPowered())
+            {
                 return false;
             }
-            if (CheckAirspaceLockdown()) {
+            if (CheckAirspaceLockdown())
+            {
                 return false;
             }
             return true;
         }
 
-        public bool IsPowered() {
+        public bool IsPowered()
+        {
             return this.GetComp<CompPowerTrader>().PowerOn;
         }
 
-        public bool IsUnroofed() 
+        public bool IsUnroofed()
         {
-            foreach (IntVec3 cell in this.OccupiedRect().Cells) {
-                if (cell.Roofed(this.Map)) {
+            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            {
+                if (cell.Roofed(this.Map))
+                {
                     return false;
                 }
             }
@@ -165,18 +168,22 @@ namespace Spaceports.Buildings
 
         private bool IsShuttleOnPad()
         {
-            if (this.Position.GetFirstThingWithComp<CompShuttle>(this.Map) != null) {
+            if (this.Position.GetFirstThingWithComp<CompShuttle>(this.Map) != null)
+            {
                 return true;
             }
             return false;
         }
 
-        private void SetAccessState(int val) {
+        private void SetAccessState(int val)
+        {
             AccessState = val;
         }
 
-        public bool CheckAccessGranted(int val) {
-            if (AccessState == -1) {
+        public bool CheckAccessGranted(int val)
+        {
+            if (AccessState == -1)
+            {
                 return false;
             }
             if (AccessState == 0 || val == 0)
@@ -186,8 +193,10 @@ namespace Spaceports.Buildings
             else return AccessState == val;
         }
 
-        private bool CheckAirspaceLockdown() {
-            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown) {
+        private bool CheckAirspaceLockdown()
+        {
+            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown)
+            {
                 return false;
             }
             return GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true);

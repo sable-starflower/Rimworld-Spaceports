@@ -1,11 +1,7 @@
-﻿using System;
+﻿using RimWorld;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
-using Verse;
 using UnityEngine;
+using Verse;
 
 namespace Spaceports.Incidents
 {
@@ -90,11 +86,11 @@ namespace Spaceports.Incidents
             return null;
         }
 
-        private List<string> PotentialSkills(Map map) 
+        private List<string> PotentialSkills(Map map)
         {
             List<string> skills = new List<string>();
             List<Pawn> PlayerPawns = map.mapPawns.PawnsInFaction(Faction.OfPlayer);
-            foreach(Pawn p in PlayerPawns)
+            foreach (Pawn p in PlayerPawns)
             {
                 Pawn_SkillTracker PawnSkills = p.skills;
                 if (PawnSkills != null)
@@ -111,17 +107,17 @@ namespace Spaceports.Incidents
             return skills;
         }
 
-        private bool AnySufficientlySkilledPawn(Map map) 
+        private bool AnySufficientlySkilledPawn(Map map)
         {
             List<Pawn> PlayerPawns = map.mapPawns.PawnsInFaction(Faction.OfPlayer);
             foreach (Pawn p in PlayerPawns)
             {
                 Pawn_SkillTracker PawnSkills = p.skills;
-                if(PawnSkills != null)
+                if (PawnSkills != null)
                 {
                     for (int i = 0; i < PawnSkills.skills.Count; i++)
                     {
-                        if(PawnSkills.skills[i].Level >= 10)
+                        if (PawnSkills.skills[i].Level >= 10)
                         {
                             return true;
                         }
@@ -131,13 +127,13 @@ namespace Spaceports.Incidents
             return false;
         }
 
-        private string GetFluffText(string skill) 
+        private string GetFluffText(string skill)
         {
             string body = "";
 
-            switch(skill)
+            switch (skill)
             {
-                case "Shooting" :
+                case "Shooting":
                     body += "Spaceports_ShootingFluff".Translate();
                     break;
 

@@ -1,15 +1,12 @@
-﻿using System;
+﻿using HarmonyLib;
+using RimWorld;
+using Spaceports.LordToils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using Verse;
-using HarmonyLib;
-using System.Runtime.CompilerServices;
-using Verse.AI.Group;
-using Spaceports.LordToils;
 using Verse.AI;
+using Verse.AI.Group;
 
 namespace Spaceports
 {
@@ -17,7 +14,8 @@ namespace Spaceports
     public static class SpaceportsHarmony
     {
 
-        static SpaceportsHarmony() {
+        static SpaceportsHarmony()
+        {
             DoPatches();
         }
         public static void DoPatches()
@@ -114,45 +112,6 @@ namespace Spaceports
             }
 
         }
-
-
-        //Postfix to CompShuttle's Tick() that checks to see if any required pawns are despawned (e.g. left the map through alternate means) and removes them
-        //from the shuttle's required list accordingly
-        //This actually fixes a bug in the base game as well - ty Tynan very cool
-        /*[HarmonyPatch(typeof(CompShuttle), nameof(CompShuttle.CompTick))]
-        private static class Harmony_CompShuttle_CompTick
-        {
-            static void Postfix(List<Pawn> ___requiredPawns, TransportShip ___shipParent)
-            {
-                List<Pawn> targetPawns = new List<Pawn>();
-                foreach (Pawn pawn in ___requiredPawns) {
-                    if (!pawn.Spawned && !___shipParent.TransporterComp.innerContainer.Contains(pawn) && pawn.CarriedBy == null) {
-                        targetPawns.Add(pawn);
-                    }
-                }
-                foreach (Pawn pawn in targetPawns)
-                {
-                    ___requiredPawns.Remove(pawn);
-                }
-            }
-        }*/
-
-        //Postfix to vanilla's GetBestShuttleLandingSpot method. Tries to reroute Imperial shuttles to type 0/1 landing pads.
-        /*[HarmonyPatch(typeof(DropCellFinder), nameof(DropCellFinder.GetBestShuttleLandingSpot), new[] { typeof(Map), typeof(Faction), typeof(Thing) })]
-        private static class Harmony_DropCellFinder_GetBestShuttleLandingSpot
-        {
-            static void Postfix(Map map, Faction faction, ref IntVec3 __result)
-            {
-                if(!Utils.CheckIfClearForLanding(map, 1))
-                {
-                    return;
-                }
-                else
-                {
-                    __result = Utils.FindValidSpaceportPad(map, faction, 1);
-                }
-            }
-        }*/
     }
 
 }

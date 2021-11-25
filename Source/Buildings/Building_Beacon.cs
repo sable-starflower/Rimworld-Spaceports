@@ -1,12 +1,8 @@
-﻿using System;
+﻿using RimWorld;
+using SharpUtils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using UnityEngine;
 using Verse;
-using SharpUtils;
 
 namespace Spaceports.Buildings
 {
@@ -43,7 +39,7 @@ namespace Spaceports.Buildings
             {
                 info += "Spaceports_BeaconAtCap".Translate();
             }
-            else if(!Utils.AnyValidSpaceportPad(this.Map, 0))
+            else if (!Utils.AnyValidSpaceportPad(this.Map, 0))
             {
                 info += "Spaceports_BeaconPadsFull".Translate();
             }
@@ -115,7 +111,7 @@ namespace Spaceports.Buildings
             };
         }
 
-        private bool IsDisabled() 
+        private bool IsDisabled()
         {
             if (!Verse.ModsConfig.RoyaltyActive)
             {
@@ -128,22 +124,22 @@ namespace Spaceports.Buildings
             return false;
         }
 
-        private string GetDisabledReason() 
+        private string GetDisabledReason()
         {
             if (!Verse.ModsConfig.RoyaltyActive)
             {
                 return "Spaceports_CallTaxiDisabledDLC".Translate();
             }
-            else 
+            else
             {
                 return "Spaceports_CallTaxiDisabled".Translate();
             }
         }
 
-        private void CallTaxiShuttle() 
+        private void CallTaxiShuttle()
         {
 
-            Dialogs.Dialog_CallShuttle window = new Dialogs.Dialog_CallShuttle(delegate()
+            Dialogs.Dialog_CallShuttle window = new Dialogs.Dialog_CallShuttle(delegate ()
             {
                 ConfirmAction();
             }, TradeUtility.ColonyHasEnoughSilver(this.Map, 500), Utils.AnyValidSpaceportPad(this.Map, 0));
@@ -161,7 +157,7 @@ namespace Spaceports.Buildings
             transportShip.AddJobs(ShipJobDefOf.WaitForever, ShipJobDefOf.Unload, ShipJobDefOf.FlyAway);
         }
 
-        private void DismissAll() 
+        private void DismissAll()
         {
             List<Building_Shuttle> shuttles = new List<Building_Shuttle>();
             foreach (Building b in this.Map.listerBuildings.allBuildingsNonColonist)
@@ -175,13 +171,13 @@ namespace Spaceports.Buildings
                     }
                 }
             }
-            foreach(Building_Shuttle b in shuttles)
+            foreach (Building_Shuttle b in shuttles)
             {
                 b.ForceImmediateDeparture();
             }
         }
 
-        private void RecallAll() 
+        private void RecallAll()
         {
             List<Building_Shuttle> shuttles = new List<Building_Shuttle>();
             foreach (Building b in this.Map.listerBuildings.allBuildingsNonColonist)

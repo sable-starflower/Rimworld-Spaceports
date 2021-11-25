@@ -1,9 +1,7 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -44,7 +42,7 @@ namespace Spaceports.Buildings
             return "Spaceports_MysteryCargoContents".Translate();
         }
 
-        public void DoSurprise() 
+        public void DoSurprise()
         {
             SurpriseFired = true;
             Thing t = this as Thing;
@@ -108,7 +106,7 @@ namespace Spaceports.Buildings
                 case 4:
                     Messages.Message("Spaceports_MysteryCargo4".Translate(), MessageTypeDefOf.NeutralEvent);
                     int skeletons = Rand.RangeInclusive(3, 11);
-                    for(int i = 0; i < skeletons; i++)
+                    for (int i = 0; i < skeletons; i++)
                     {
                         SpawnCorpse(PawnKindDefOf.AncientSoldier, this.InteractionCell, new IntRange(180000000, 720000000).RandomInRange, this.Map);
                     }
@@ -165,7 +163,7 @@ namespace Spaceports.Buildings
             predicate = (Thing t) => (t as Pawn)?.RaceProps.Humanlike ?? false;
             Thing t = null;
             t = GenClosest.ClosestThingReachable(this.InteractionCell, this.Map, ThingRequest.ForGroup(ThingRequestGroup.Pawn), PathEndMode.OnCell, TraverseParms.For(TraverseMode.NoPassClosedDoors), 7f, predicate);
-            if(t != null)
+            if (t != null)
             {
                 DoSurprise();
             }

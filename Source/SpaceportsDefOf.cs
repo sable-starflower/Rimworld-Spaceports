@@ -1,10 +1,9 @@
 ﻿using RimWorld;
+using SharpUtils;
 using System.Collections.Generic;
-using UnityEngine;
 using Verse;
 using Verse.AI;
 using static Spaceports.Utils;
-using SharpUtils;
 
 namespace Spaceports
 {
@@ -58,7 +57,7 @@ namespace Spaceports
         public static readonly SharpAnim.Frame BlockedPatternGraphic = SharpAnim.ConstructFrame("Animations/BlockedPattern", ShaderDatabase.TransparentPostLight);
         public static readonly SharpAnim.FrameStack LandingPadRimLights = SharpAnim.ConstructFrameStack("Animations/LandingPad/RimLights", ShaderDatabase.TransparentPostLight);
         public static readonly SharpAnim.FrameStack LandingPadTouchdownLights = SharpAnim.ConstructFrameStack("Animations/LandingPad/TouchdownLights", ShaderDatabase.TransparentPostLight);
-        
+
         public static readonly SharpAnim.Frame RadarDish = SharpAnim.ConstructFrame("Animations/Beacon/SpaceportBeaconDish");
         public static readonly SharpAnim.FrameStack BeaconLights = SharpAnim.ConstructFrameStack("Animations/Beacon/SpaceportBeaconLights", ShaderDatabase.TransparentPostLight);
     }

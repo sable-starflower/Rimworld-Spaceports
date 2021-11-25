@@ -1,11 +1,7 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using Verse;
-using SharpUtils;
 
 namespace Spaceports.Letters
 {
@@ -29,12 +25,12 @@ namespace Spaceports.Letters
 
         public override bool Check()
         {
-            if(TicksPassed < ReturnAfterTicks)
+            if (TicksPassed < ReturnAfterTicks)
             {
                 TicksPassed++;
                 return false;
             }
-            else if(TicksPassed >= ReturnAfterTicks && Utils.AnyValidSpaceportPad(map, 0))
+            else if (TicksPassed >= ReturnAfterTicks && Utils.AnyValidSpaceportPad(map, 0))
             {
                 if (WasInjured)
                 {
@@ -54,7 +50,7 @@ namespace Spaceports.Letters
                             LoanedPawn.apparel.Wear(ap);
                         }
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Log.Warning("[Spaceports] Caught exception " + e + " when attempting to injure pawn!");
                     }

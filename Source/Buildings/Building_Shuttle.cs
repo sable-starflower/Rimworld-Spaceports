@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RimWorld;
 using UnityEngine;
 using Verse;
 using Verse.AI.Group;
@@ -22,7 +20,7 @@ namespace Spaceports.Buildings
 
         public override void Tick()
         {
-            if(this.Map != null)
+            if (this.Map != null)
             {
                 if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().autoEvacuate && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true) && !PartyRecalled)
                 {
@@ -67,20 +65,22 @@ namespace Spaceports.Buildings
             };
         }
 
-        public void ForceImmediateDeparture() {
+        public void ForceImmediateDeparture()
+        {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
             ShipJob_FlyAway leave = new ShipJob_FlyAway();
             leave.loadID = Find.UniqueIDsManager.GetNextShipJobID();
             shuttleComp.shipParent.ForceJob(leave);
         }
 
-        public void RecallParty() {
+        public void RecallParty()
+        {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
             List<Pawn> partyPawns = shuttleComp.requiredPawns;
             if (partyPawns != null && partyPawns[0] != null)
             {
                 Lord lord = partyPawns[0].GetLord();
-                if(lord != null)
+                if (lord != null)
                 {
                     List<Transition> transitions = lord.Graph.transitions.ToList();
                     foreach (Transition transition in transitions)

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using RimWorld;
+﻿using RimWorld;
+using System.Collections.Generic;
 using Verse;
 
 
@@ -8,8 +8,10 @@ namespace Spaceports
     public class Alert_AirspaceLockdown : Alert_Critical
     {
 
-        private static string ColoniesUnderLockdown {
-            get {
+        private static string ColoniesUnderLockdown
+        {
+            get
+            {
                 string output = "Spaceports_AirspaceLockdownDesc".Translate();
                 List<Map> maps = Find.Maps;
                 if (maps != null)
@@ -29,7 +31,7 @@ namespace Spaceports
                 return output;
             }
         }
-        
+
         public Alert_AirspaceLockdown()
         {
             defaultLabel = "Spaceports_AirspaceLockdown".Translate();
@@ -42,7 +44,8 @@ namespace Spaceports
 
         public override AlertReport GetReport()
         {
-            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown) {
+            if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().airspaceLockdown)
+            {
                 return false;
             }
             if (Find.AnyPlayerHomeMap == null)

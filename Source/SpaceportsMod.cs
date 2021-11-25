@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using Verse;
-using UnityEngine;
-using HarmonyLib;
-using System.Reflection;
+﻿using HarmonyLib;
 using System;
-using RimWorld;
+using System.Reflection;
+using UnityEngine;
+using Verse;
 
 namespace Spaceports
 {
     public class SpaceportsSettings : ModSettings
-    {   
+    {
         public bool airspaceLockdown;
         public bool autoEvacuate;
         public bool enableShuttleLimit;
@@ -162,14 +160,14 @@ namespace Spaceports
 
                 if (Verse.ModLister.HasActiveModWithName("Hospitality"))
                 {
-                listingStandard.Label("Spaceports_HospitalityHeader".Translate());
-                listingStandard.CheckboxLabeled("Spaceports_HospitalityModeToggle".Translate(), ref settings.hospitalityEnabled, "Spaceports_HospitalityModeToggleTooltip".Translate());
-                if (settings.hospitalityEnabled)
-                {
-                    listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
-                    settings.hospitalityChance = listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f);
-                }
-                listingStandard.GapLine();
+                    listingStandard.Label("Spaceports_HospitalityHeader".Translate());
+                    listingStandard.CheckboxLabeled("Spaceports_HospitalityModeToggle".Translate(), ref settings.hospitalityEnabled, "Spaceports_HospitalityModeToggleTooltip".Translate());
+                    if (settings.hospitalityEnabled)
+                    {
+                        listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
+                        settings.hospitalityChance = listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f);
+                    }
+                    listingStandard.GapLine();
                 }
 
                 listingStandard.Label("Spaceports_AnimHeader".Translate());
