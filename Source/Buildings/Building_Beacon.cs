@@ -101,39 +101,14 @@ namespace Spaceports.Buildings
                 defaultLabel = "Spaceports_CallTaxi".Translate(),
                 defaultDesc = "Spaceports_CallTaxiTooltip".Translate(),
                 icon = ContentFinder<Texture2D>.Get("UI/Buttons/CallTaxi", true),
-                disabled = IsDisabled(),
-                disabledReason = GetDisabledReason(),
+                disabled = !this.GetComp<CompPowerTrader>().PowerOn,
+                disabledReason = "Spaceports_CallTaxiDisabled".Translate(),
                 order = -100,
                 action = delegate ()
                 {
                     CallTaxiShuttle();
                 }
             };
-        }
-
-        private bool IsDisabled()
-        {
-            if (!Verse.ModsConfig.RoyaltyActive)
-            {
-                return true;
-            }
-            else if (!this.GetComp<CompPowerTrader>().PowerOn)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private string GetDisabledReason()
-        {
-            if (!Verse.ModsConfig.RoyaltyActive)
-            {
-                return "Spaceports_CallTaxiDisabledDLC".Translate();
-            }
-            else
-            {
-                return "Spaceports_CallTaxiDisabled".Translate();
-            }
         }
 
         private void CallTaxiShuttle()

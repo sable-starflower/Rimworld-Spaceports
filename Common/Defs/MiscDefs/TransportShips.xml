@@ -39,4 +39,5 @@
         <worldObject>Spaceports_ShuttleWO</worldObject>
         <maxLaunchDistance>70</maxLaunchDistance>
       </TransportShipDef>
+
 </Defs>
