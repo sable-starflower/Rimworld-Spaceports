@@ -45,7 +45,6 @@ namespace Spaceports
 
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref bugfix, "bugfix", true);
             Scribe_Values.Look(ref airspaceLockdown, "airspaceLockdown", true);
             Scribe_Values.Look(ref autoEvacuate, "autoEvacuate", true);
             Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", false);
