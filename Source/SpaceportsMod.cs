@@ -8,38 +8,38 @@ namespace Spaceports
 {
     public class SpaceportsSettings : ModSettings
     {
-        public bool airspaceLockdown;
-        public bool autoEvacuate;
-        public bool enableShuttleLimit;
-        public int shuttleLimit;
+        public bool airspaceLockdown = true;
+        public bool autoEvacuate = true;
+        public bool enableShuttleLimit = false;
+        public int shuttleLimit = 5;
 
-        public bool regularVisitors;
-        public bool visitorNotifications;
-        public float visitorFrequencyDays;
-        public float visitorMaxTime;
+        public bool regularVisitors = true;
+        public bool visitorNotifications = false;
+        public float visitorFrequencyDays = 1.0f;
+        public float visitorMaxTime = 1.0f;
 
-        public bool regularTraders;
-        public bool traderNotifications;
-        public float traderFrequencyDays;
-        public float traderMaxTime;
+        public bool regularTraders = false;
+        public bool traderNotifications = false;
+        public float traderFrequencyDays = 1.0f;
+        public float traderMaxTime = 1.0f;
 
-        public bool hospitalityEnabled;
-        public float hospitalityChance;
+        public bool hospitalityEnabled = true;
+        public float hospitalityChance = 0.5f;
 
-        public bool padAnimationsGlobal;
-        public bool rimLightsAnimations;
-        public bool landingAnimations;
-        public bool beaconAnimationsGlobal;
-        public bool beaconRadarAnimations;
-        public bool beaconRimAnimations;
+        public bool padAnimationsGlobal = true;
+        public bool rimLightsAnimations = true;
+        public bool landingAnimations = true;
+        public bool beaconAnimationsGlobal = true;
+        public bool beaconRadarAnimations = true;
+        public bool beaconRimAnimations = true;
 
-        public bool eventsEnabled;
-        public bool KesslerSyndrome;
-        public bool InterstellarDerelict;
-        public bool MysteryCargo;
-        public bool PrisonerTransfer;
-        public bool ShuttleMedevac;
-        public bool SpicyPawnLending;
+        public bool eventsEnabled = true;
+        public bool KesslerSyndrome = true;
+        public bool InterstellarDerelict = true;
+        public bool MysteryCargo = true;
+        public bool PrisonerTransfer = true;
+        public bool ShuttleMedevac = true;
+        public bool SpicyPawnLending = true;
 
         public int page = 1;
 
