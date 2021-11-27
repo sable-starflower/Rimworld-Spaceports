@@ -4,6 +4,7 @@ using Spaceports.LordToils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -18,8 +19,10 @@ namespace Spaceports
         {
             DoPatches();
         }
+
         public static void DoPatches()
         {
+
             if (Verse.ModLister.HasActiveModWithName("Hospitality")) //conditional patch to Hospitality
             {
                 Harmony harmony = new Harmony("Spaceports_Plus_Hospitality");
@@ -111,6 +114,28 @@ namespace Spaceports
                 return;
             }
 
+        }
+
+        [DebugAction("General", null, false, false, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        private static void ClearBuggedTransportShips()
+        {
+            List<TransportShip> ships = Find.TransportShipManager.AllTransportShips;
+            Log.Message("[Spaceports Emergency Patch] Patch running.");
+            for(int i = 0; i < 50; i++)
+            {
+                for (int num = 0; num < ships.Count; num++)
+                {
+                    try
+                    {
+                        ships[num].Tick();
+                    }
+                    catch (NullReferenceException)
+                    {
+                        Log.Message("[Spaceports Emergency Patch] Killed bugged TS.");
+                        ships.RemoveAt(num);
+                    }
+                }
+            }
         }
 
     }

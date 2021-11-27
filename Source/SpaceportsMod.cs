@@ -1,5 +1,7 @@
 ﻿using HarmonyLib;
+using RimWorld;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using Verse;
@@ -89,7 +91,7 @@ namespace Spaceports
         public SpaceportsMod(ModContentPack content) : base(content)
         {
             this.settings = GetSettings<SpaceportsSettings>();
-            Log.Message("[Spaceports] Okay, showtime!");
+            Log.Message("[Spaceports v1.1] Okay, showtime!");
             Harmony har = new Harmony("Spaceports");
             har.PatchAll(Assembly.GetExecutingAssembly());
         }
