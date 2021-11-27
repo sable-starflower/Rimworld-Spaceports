@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using Spaceports.LordToils;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -10,6 +11,11 @@ namespace Spaceports.LordJobs
         private bool addFleeToil = true;
         public override bool AddFleeToil => addFleeToil;
         public override bool RemoveDownedPawns => false;
+
+        public LordJob_SpaceportDepart()
+        {
+            
+        }
 
         public LordJob_SpaceportDepart(Thing shuttle, bool addFleeToil = true)
         {
@@ -23,7 +29,7 @@ namespace Spaceports.LordJobs
             LordToil_Wait lordToil_Wait = new LordToil_Wait();
             stateGraph.AddToil(lordToil_Wait);
             stateGraph.StartingToil = lordToil_Wait;
-            LordToil_EnterShuttleOrLeave lordToil_EnterShuttleOrLeave = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Sprint, interruptCurrentJob: true);
+            LordToil_EnterShuttleOrLeaveNullChecked lordToil_EnterShuttleOrLeave = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Sprint, interruptCurrentJob: true);
             stateGraph.AddToil(lordToil_EnterShuttleOrLeave);
             Transition transition = new Transition(lordToil_Wait, lordToil_EnterShuttleOrLeave);
             transition.AddPreAction(new TransitionAction_Custom(InitializeLoading));

@@ -45,6 +45,7 @@ namespace Spaceports
 
         public override void ExposeData()
         {
+            Scribe_Values.Look(ref bugfix, "bugfix", true);
             Scribe_Values.Look(ref airspaceLockdown, "airspaceLockdown", true);
             Scribe_Values.Look(ref autoEvacuate, "autoEvacuate", true);
             Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", false);
@@ -203,41 +204,46 @@ namespace Spaceports
 
                 if (listingStandard.ButtonText("Spaceports_ResetToDefault".Translate()))
                 {
-                    settings.airspaceLockdown = true;
-                    settings.autoEvacuate = true;
-                    settings.enableShuttleLimit = false;
-                    settings.shuttleLimit = 5;
-
-                    settings.regularVisitors = true;
-                    settings.visitorNotifications = false;
-                    settings.visitorFrequencyDays = 1.0f;
-                    settings.visitorMaxTime = 1.0f;
-
-                    settings.regularTraders = false;
-                    settings.traderNotifications = false;
-                    settings.traderFrequencyDays = 1.0f;
-                    settings.traderMaxTime = 1.0f;
-
-                    settings.hospitalityEnabled = true;
-                    settings.hospitalityChance = 0.5f;
-
-                    settings.padAnimationsGlobal = true;
-                    settings.rimLightsAnimations = true;
-                    settings.landingAnimations = true;
-                    settings.beaconAnimationsGlobal = true;
-                    settings.beaconRadarAnimations = true;
-                    settings.beaconRimAnimations = true;
-
-                    settings.eventsEnabled = true;
-                    settings.KesslerSyndrome = true;
-                    settings.InterstellarDerelict = true;
-                    settings.MysteryCargo = true;
-                    settings.PrisonerTransfer = true;
-                    settings.ShuttleMedevac = true;
-                    settings.SpicyPawnLending = true;
+                    ResetToDefaults();
                 }
             }
             listingStandard.End();
+        }
+
+        public void ResetToDefaults()
+        {
+            settings.airspaceLockdown = true;
+            settings.autoEvacuate = true;
+            settings.enableShuttleLimit = false;
+            settings.shuttleLimit = 5;
+
+            settings.regularVisitors = true;
+            settings.visitorNotifications = false;
+            settings.visitorFrequencyDays = 1.0f;
+            settings.visitorMaxTime = 1.0f;
+
+            settings.regularTraders = false;
+            settings.traderNotifications = false;
+            settings.traderFrequencyDays = 1.0f;
+            settings.traderMaxTime = 1.0f;
+
+            settings.hospitalityEnabled = true;
+            settings.hospitalityChance = 0.5f;
+
+            settings.padAnimationsGlobal = true;
+            settings.rimLightsAnimations = true;
+            settings.landingAnimations = true;
+            settings.beaconAnimationsGlobal = true;
+            settings.beaconRadarAnimations = true;
+            settings.beaconRimAnimations = true;
+
+            settings.eventsEnabled = true;
+            settings.KesslerSyndrome = true;
+            settings.InterstellarDerelict = true;
+            settings.MysteryCargo = true;
+            settings.PrisonerTransfer = true;
+            settings.ShuttleMedevac = true;
+            settings.SpicyPawnLending = true;
         }
 
         public override string SettingsCategory()

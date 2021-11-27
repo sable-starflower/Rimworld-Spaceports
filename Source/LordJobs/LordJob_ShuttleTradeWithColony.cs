@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using Spaceports.LordToils;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -12,6 +13,11 @@ namespace Spaceports.LordJobs
         private IntVec3 chillSpot;
 
         public Thing shuttle;
+
+        public LordJob_ShuttleTradeWithColony()
+        {
+
+        }
         public LordJob_ShuttleTradeWithColony(Faction faction, IntVec3 chillSpot, Thing shuttle)
         {
             this.faction = faction;
@@ -28,10 +34,10 @@ namespace Spaceports.LordJobs
             LordToil_DefendTraderCaravan lordToil_DefendTraderCaravan2 = new LordToil_DefendTraderCaravan(chillSpot);
             stateGraph.AddToil(lordToil_DefendTraderCaravan2);
 
-            LordToil_EnterShuttleOrLeave lordToil_ExitMapAndEscortCarriers = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Walk, canDig: true);
-            LordToil_EnterShuttleOrLeave lordToil_ExitMap = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Walk, canDig: true);
-            LordToil_EnterShuttleOrLeave lordToil_ExitMap2 = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Walk, canDig: true);
-            LordToil_EnterShuttleOrLeave lordToil_ExitMapTraderFighting = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Walk, canDig: true);
+            LordToil_EnterShuttleOrLeaveNullChecked lordToil_ExitMapAndEscortCarriers = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
+            LordToil_EnterShuttleOrLeaveNullChecked lordToil_ExitMap = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
+            LordToil_EnterShuttleOrLeaveNullChecked lordToil_ExitMap2 = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
+            LordToil_EnterShuttleOrLeaveNullChecked lordToil_ExitMapTraderFighting = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
 
             stateGraph.AddToil(lordToil_ExitMapAndEscortCarriers);
             stateGraph.AddToil(lordToil_ExitMap);

@@ -40,9 +40,9 @@ namespace Spaceports.LordJobs
             stateGraph.AddToil(lordToil_TakeWoundedGuest);
             exitSubgraph = new LordJob_SpaceportDepart(shuttle).CreateGraph();
             LordToil target = exitSubgraph.lordToils[1];
-            LordToil startingToil2 = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Walk, canDig: true);
+            LordToil startingToil2 = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
             stateGraph.AddToil(startingToil2);
-            LordToil_EnterShuttleOrLeave lordToil_ExitMap = new LordToil_EnterShuttleOrLeave(shuttle, LocomotionUrgency.Walk, canDig: true);
+            LordToil_EnterShuttleOrLeaveNullChecked lordToil_ExitMap = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
             stateGraph.AddToil(lordToil_ExitMap);
 
             Transition transition = new Transition(lordToil, startingToil2);
