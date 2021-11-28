@@ -316,5 +316,28 @@ namespace Spaceports
             }
         }
 
+        //Custom devmode action to clear null transportships from a save's TS tracker
+        [DebugAction("General", null, false, false, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        private static void ClearBuggedTransportShips()
+        {
+            List<TransportShip> ships = Find.TransportShipManager.AllTransportShips;
+            Log.Message("[Spaceports Emergency Patch] Patch running.");
+            for (int i = 0; i < 50; i++)
+            {
+                for (int num = 0; num < ships.Count; num++)
+                {
+                    try
+                    {
+                        ships[num].Tick();
+                    }
+                    catch (NullReferenceException)
+                    {
+                        Log.Message("[Spaceports Emergency Patch] Killed bugged TS.");
+                        ships.RemoveAt(num);
+                    }
+                }
+            }
+        }
+
     }
 }

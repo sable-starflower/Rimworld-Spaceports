@@ -172,6 +172,10 @@ namespace Spaceports.Buildings
             {
                 return true;
             }
+            if (!this.Position.Standable(this.Map))
+            {
+                return true;
+            }
             return false;
         }
 

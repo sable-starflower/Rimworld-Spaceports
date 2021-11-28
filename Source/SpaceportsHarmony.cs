@@ -17,10 +17,13 @@ namespace Spaceports
 
         static SpaceportsHarmony()
         {
-            DoPatches();
+            Log.Message("[Spaceports] Okay, showtime!");
+            Harmony har = new Harmony("Spaceports_Base");
+            har.PatchAll(Assembly.GetExecutingAssembly());
+            TryModPatches();
         }
 
-        public static void DoPatches()
+        public static void TryModPatches()
         {
 
             if (Verse.ModLister.HasActiveModWithName("Hospitality")) //conditional patch to Hospitality
@@ -32,19 +35,58 @@ namespace Spaceports
 
                 if (mOriginal != null)
                 {
-                    var hospPatch = new HarmonyMethod(mPostfix);
+                    var patch = new HarmonyMethod(mPostfix);
                     Log.Message("[Spaceports] Attempting to postfix Hospitality.IncidentWorker_VisitorGroup.CreateLord...");
-                    harmony.Patch(mOriginal, postfix: hospPatch);
+                    harmony.Patch(mOriginal, postfix: patch);
                 }
             }
             else
             {
                 Log.Message("[Spaceports] Hospitality not found, patches bypassed.");
             }
+
+            if (Verse.ModLister.HasActiveModWithName("Trader ships") || Verse.ModLister.HasActiveModWithName("Rim-Effect: Themis Traders"))
+            {
+                Harmony harmony = new Harmony("Spaceports_Plus_TraderShips");
+                Log.Message("[Spaceports] Trader Ships/Themis Traders FOUND, attempting to patch...");
+                var mOriginal = AccessTools.Method("TraderShips.IncidentWorkerTraderShip:FindCloseLandingSpot");
+                var mPostfix = typeof(SpaceportsHarmony).GetMethod("FindCloseLandingSpotPostfix");
+
+                if (mOriginal != null)
+                {
+                    var patch = new HarmonyMethod(mPostfix);
+                    Log.Message("[Spaceports] Attempting to postfix TraderShips.IncidentWorkerTraderShip.FindCloseLandingSpot...");
+                    harmony.Patch(mOriginal, postfix: patch);
+                }
+            }
+            else
+            {
+                Log.Message("[Spaceports] Trader Ships not found, patches bypassed.");
+            }
+
+            //MTODO SOS2 patch(es)
+            //MTODO Rimeffect patches
         }
 
-        [HarmonyPostfix] //Black magic fuckery w/ Lords
-        public static void CreateLordPostfix(Faction faction, IntVec3 chillSpot, List<Pawn> pawns, Map map, bool showLetter, bool getUpsetWhenLost, int duration)
+        [HarmonyPatch(typeof(DropCellFinder), "GetBestShuttleLandingSpot", new Type[] { typeof(Map), typeof(Faction) })] //Royalty shuttle patch
+        public static class Harmony_DropCellFinder_GetBestShuttleLandingSpot
+        {
+            static void Postfix(Map map, Faction factionForFindingSpot, ref IntVec3 __result)
+            {
+                if (!Utils.CheckIfClearForLanding(map, 0))
+                {
+                    return;
+                }
+                else
+                {
+                    __result = Utils.FindValidSpaceportPad(map, factionForFindingSpot, 0);
+                }
+                return;
+            }
+        }
+
+        [HarmonyPostfix] //Hospitality patch
+        public static void CreateLordPostfix(Faction faction, List<Pawn> pawns, Map map)
         {
             //Conditional check
             //IF rand in range 1-100 is less than or equal to configured chance
@@ -52,7 +94,7 @@ namespace Spaceports
             //AND we are clear for landing
             //AND the faction is not neolithic
             //AND Kessler Syndrome is not in effect
-            if (Rand.RangeInclusive(1, 100) <= (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance * 100) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
+            if (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
                 if (pawns != null)
                 {
@@ -116,26 +158,18 @@ namespace Spaceports
 
         }
 
-        [DebugAction("General", null, false, false, allowedGameStates = AllowedGameStates.PlayingOnMap)]
-        private static void ClearBuggedTransportShips()
+        [HarmonyPostfix] //Trader Ships/Themis Traders patch
+        public static void FindCloseLandingSpotPostfix(Map map, Faction faction, ref IntVec3 spot)
         {
-            List<TransportShip> ships = Find.TransportShipManager.AllTransportShips;
-            Log.Message("[Spaceports Emergency Patch] Patch running.");
-            for(int i = 0; i < 50; i++)
+            if(!Utils.CheckIfClearForLanding(map, 2))
             {
-                for (int num = 0; num < ships.Count; num++)
-                {
-                    try
-                    {
-                        ships[num].Tick();
-                    }
-                    catch (NullReferenceException)
-                    {
-                        Log.Message("[Spaceports Emergency Patch] Killed bugged TS.");
-                        ships.RemoveAt(num);
-                    }
-                }
+                return;
             }
+            else
+            {
+                spot = Utils.FindValidSpaceportPad(map, faction, 2);
+            }
+            return;
         }
 
     }
