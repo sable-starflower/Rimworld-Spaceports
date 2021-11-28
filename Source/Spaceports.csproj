@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Alerts\Alert_AirspaceLockdown.cs" />
     <Compile Include="Alerts\Alert_AutoEvacInProgress.cs" />
+    <Compile Include="Buildings\Buildings_Fueling.cs" />
     <Compile Include="Buildings\Building_Beacon.cs" />
     <Compile Include="Buildings\Building_SurpriseShuttle.cs" />
     <Compile Include="Buildings\Building_Shuttle.cs" />
