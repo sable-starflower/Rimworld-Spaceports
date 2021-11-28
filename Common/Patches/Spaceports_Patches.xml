@@ -1,0 +1,39 @@
+<Patch>
+
+    <!--Compat patch for Trader Ships-->
+    <!--Makes trader ships non-edifices so they can land on pads, and nukes their FillPercent to prevent an error-->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Trader ships</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[defName="TraderShipsShip"]/building</xpath> 
+            <value>
+                <isEdifice>false</isEdifice>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Trader ships</li>
+        </mods>
+        <match Class="PatchOperationRemove">
+            <xpath>/Defs/ThingDef[defName="TraderShipsShip"]/fillPercent</xpath> 
+        </match>
+    </Operation>
+
+    <!--Compat patches for Royalty shuttles-->
+    <!--Makes them non-edifices so they can land on pads, and nukes their FillPercent to prevent an error-->
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[defName="Shuttle"]/building</xpath>
+        <value>
+            <isEdifice>false</isEdifice>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationRemove">
+        <xpath>/Defs/ThingDef[defName="Shuttle"]/fillPercent</xpath>
+    </Operation>
+
+</Patch>
