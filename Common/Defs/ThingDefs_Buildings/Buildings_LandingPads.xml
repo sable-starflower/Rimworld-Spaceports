@@ -46,6 +46,11 @@
         <glowRadius>5</glowRadius>
         <glowColor>(255,255,255,0)</glowColor>
       </li>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>Spaceports_FuelDispenser</li>
+        </linkableFacilities>
+      </li>
     </comps>
   </ThingDef>
 

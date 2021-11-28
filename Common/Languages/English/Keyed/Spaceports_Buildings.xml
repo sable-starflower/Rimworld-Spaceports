@@ -1,0 +1,8 @@
+<LanguageData>
+
+    <Spaceports_TotalFuelProduced>Lifetime fusion fuel production: {0}</Spaceports_TotalFuelProduced>
+    <Spaceports_FuelLevel>Fusion fuel level: {0}</Spaceports_FuelLevel>
+    <Spaceports_TotalSales>Lifetime fuel sales silver total: {0}</Spaceports_TotalSales>
+    <Spaceports_NetworkInfo>There are {0} tanks on the network holding a total of {1} fusion fuel.</Spaceports_NetworkInfo>
+
+</LanguageData>

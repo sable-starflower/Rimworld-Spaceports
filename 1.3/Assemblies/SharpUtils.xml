@@ -144,7 +144,7 @@
             </summary>
             <param name="pawn"></param>
         </member>
-        <member name="T:SharpUtils.SharpRand">
+        <member name="T:SharpUtils.SharpGen">
             <summary>
             Tools and generators useful for implementing random behavior.
             </summary>

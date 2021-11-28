@@ -5,19 +5,92 @@ using System.Text;
 using System.Threading.Tasks;
 using RimWorld;
 using Verse;
+using SharpUtils;
 
 namespace Spaceports.Buildings
 {
     public class Building_FuelProcessor : Building
     {
-        //Large building
-        //Must be placed adjacent to at least nine continguous water tiles and fueled with chemfuel plus a good chunk of power
+        //Large building (3x3?)
+        //Must be fueled with chemfuel plus a good chunk of power
         //This in turn "fills" linked fuel tanks with units of "fusion fuel"
+        private int TotalProduced = 0;
+        private const int UnitsPerRareTick = 6;
+
+        public override void ExposeData()
+        {
+            Scribe_Values.Look(ref TotalProduced, "TotalProduced", 0);
+            base.ExposeData();
+        }
+
+        public override string GetInspectString()
+        {
+            string str = base.GetInspectString();
+            str += "\n" + "Spaceports_TotalFuelProduced".Translate(TotalProduced);
+            return str;
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+            if(Find.TickManager.TicksGame % 250 == 0)
+            {
+                RareTick();
+            }
+        }
+
+        public void RareTick()
+        {
+            CompRefuelable FuelComp = this.GetComp<CompRefuelable>();
+            if(FuelComp != null)
+            {
+                if (FuelComp.HasFuel && this.GetComp<CompPowerTrader>().PowerOn)
+                {
+                    TotalProduced += UnitsPerRareTick;
+                    TryDistributeFuel();
+                }
+            }
+        }
+
+        private List<Building_FuelTank> GetLinkedTanks()
+        {
+            List<Building_FuelTank> LinkedTanks = new List<Building_FuelTank>();
+            foreach (Thing t in this.GetComp<CompAffectedByFacilities>().LinkedFacilitiesListForReading)
+            {
+                Building_FuelTank tank = t as Building_FuelTank;
+                if (t != null)
+                {
+                    LinkedTanks.Add(tank);
+                }
+            }
+            return LinkedTanks;
+        }
+
+        private void TryDistributeFuel()
+        {
+            Log.Message("Trying to distribute fuel.");
+            int DropsRemaining = UnitsPerRareTick;
+            while(DropsRemaining > 0)
+            {
+                foreach (Building_FuelTank tank in GetLinkedTanks())
+                {
+                    if (DropsRemaining > 0 && tank.CanAcceptFuelNow(1))
+                    {
+                        tank.AddFuel(1);
+                        DropsRemaining--;
+                    }
+                    else if(DropsRemaining <= 0)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public class Building_FuelTank : Building
     {
-        //Medium building
+        //Medium building (2x2)
         //Basically inert on its own
         //Has an internal fuel counter that can be ticked up by a linked and operating fuel processor,
         //or siphoned out by fuel dispeners on the same powernet
@@ -32,7 +105,32 @@ namespace Spaceports.Buildings
 
         public override string GetInspectString()
         {
-            return base.GetInspectString();
+            string str = base.GetInspectString();
+            str += "\n" + "Spaceports_FuelLevel".Translate(FusionFuelLevel);
+            return str;
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+
+            if (Find.TickManager.TicksGame % 250 == 0)
+            {
+                RareTick();
+            }
+        }
+
+        public void RareTick()
+        {
+            if (!this.GetComp<CompPowerTrader>().PowerOn && this.FusionFuelLevel >= 4)
+            {
+                this.FusionFuelLevel -= 4;
+            }
+        }
+
+        public int FuelLevel()
+        {
+            return FusionFuelLevel;
         }
 
         public bool CanAcceptFuelNow(int amount = 0)
@@ -73,7 +171,7 @@ namespace Spaceports.Buildings
 
     public class Building_FuelDispenser : Building
     {
-        //Small building
+        //Small building (1x1)
         //Draws fusion fuel units from tanks on the same powernet and "sells" it to landing shuttles
         //the amount taken (and therefore amount of silver made) varies randomly within locked bounds
         private int TotalSales = 0;
@@ -86,13 +184,103 @@ namespace Spaceports.Buildings
 
         public override string GetInspectString()
         {
-            return base.GetInspectString();
+            string str = base.GetInspectString();
+            str += "\n" + "Spaceports_TotalSales".Translate(TotalSales);
+            str += "\n" + GetNetworkInfo();
+            return str;
+        }
+
+        private string GetNetworkInfo()
+        {
+            string result = "";
+            int NetworkFuelLevel = 0;
+            List<Building_FuelTank> tanks = new List<Building_FuelTank>();
+
+            foreach (Building_FuelTank tank in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_FuelTank>())
+            {
+                if (tank.PowerComp.PowerNet == this.PowerComp.PowerNet)
+                {
+                    tanks.Add(tank);
+                    NetworkFuelLevel += tank.FuelLevel();
+                }
+            }
+
+            result += "Spaceports_NetworkInfo".Translate(tanks.Count, NetworkFuelLevel);
+            return result;
+        }
+
+        private Thing GenSilver(int amount)
+        {
+            Thing product = ThingMaker.MakeThing(ThingDefOf.Silver);
+            product.stackCount = amount;
+            return product;
         }
 
         public bool TrySellFuel()
         {
             int FuelRequested = Rand.RangeInclusive(100, 500);
-            return true;
+            List<Building_FuelTank> tanks = new List<Building_FuelTank>();
+
+            foreach(Building_FuelTank tank in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_FuelTank>())
+            {
+                if(tank.PowerComp.PowerNet == this.PowerComp.PowerNet)
+                {
+                    tanks.Add(tank);
+                }
+            }
+
+            foreach(Building_FuelTank tank in tanks)
+            {
+                if (tank.CanDrainFuelNow(FuelRequested))
+                {
+                    tank.DrainFuel(FuelRequested);
+                    this.TotalSales += (int)(FuelRequested * 0.5f);
+                    Thing silver = GenSilver((int)(FuelRequested * 0.5f));
+                    GenPlace.TryPlaceThing(silver, this.InteractionCell, this.Map, ThingPlaceMode.Near);
+                    return true;
+                }
+            }
+
+            List<Building_FuelTank> TankPool = new List<Building_FuelTank>();
+            int PoolSize = 0;
+            foreach(Building_FuelTank tank in tanks)
+            {
+                if(tank.FuelLevel() > 0)
+                {
+                    TankPool.Add(tank);
+                    PoolSize += tank.FuelLevel();
+                    if(PoolSize >= FuelRequested)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if(PoolSize >= FuelRequested)
+            {
+                this.TotalSales += (int)(FuelRequested * 0.5f);
+                Thing silver = GenSilver((int)(FuelRequested * 0.5f));
+                GenPlace.TryPlaceThing(silver, this.InteractionCell, this.Map, ThingPlaceMode.Near);
+                foreach (Building_FuelTank tank in TankPool)
+                {
+                    if(FuelRequested >= tank.FuelLevel() && tank.CanDrainFuelNow(tank.FuelLevel()))
+                    {
+                        FuelRequested -= tank.FuelLevel();
+                        tank.DrainFuel(tank.FuelLevel());
+                    }
+                    else if(FuelRequested < tank.FuelLevel() && tank.CanDrainFuelNow(tank.FuelLevel() - FuelRequested))
+                    {
+                        FuelRequested -= tank.FuelLevel() - FuelRequested;
+                        tank.DrainFuel(tank.FuelLevel() - FuelRequested);
+                    }
+                    if(FuelRequested <= 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

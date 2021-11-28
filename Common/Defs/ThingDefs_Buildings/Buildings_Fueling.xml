@@ -1,0 +1,160 @@
+<Defs>
+    <ThingDef ParentName="BuildingBase">
+        <defName>Spaceports_FuelProcessor</defName>
+        <label>fusion fuel processor</label>
+        <description>A spacer-tech fuel processor. Volatiles from chemfuel are combined with atmospheric water in its massive reaction tank and energized, setting off a complex chain of chemical reactions that ultimately resolve into a common variety of liquid fusion fuel.</description>
+        <thingClass>Spaceports.Buildings.Building_FuelProcessor</thingClass>
+        <category>Building</category>
+        <graphicData>
+          <texPath>Things/Building/Misc/CaravanHitchingSpot</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+          <drawSize>(3,3)</drawSize>
+        </graphicData>
+        <uiIconPath>Things/Building/Misc/CaravanHitchingSpot</uiIconPath>
+        <tickerType>Normal</tickerType>
+        <drawerType>RealtimeOnly</drawerType>
+        <altitudeLayer>Building</altitudeLayer>
+        <pathCost>50</pathCost>
+        <statBases>
+          <WorkToBuild>2000</WorkToBuild>
+          <MaxHitPoints>500</MaxHitPoints>
+        </statBases>
+        <scatterableOnMapGen>false</scatterableOnMapGen>
+        <size>(3,3)</size>
+        <designationCategory>Misc</designationCategory>
+        <passability>Impassable</passability>
+        <clearBuildingArea>true</clearBuildingArea>
+        <costList>
+          <Plasteel>100</Plasteel>
+          <ComponentSpacer>3</ComponentSpacer>
+        </costList>
+        <building>
+          <ai_chillDestination>false</ai_chillDestination>
+          <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+        </building>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <researchPrerequisites>
+          <li>Fabrication</li>
+        </researchPrerequisites>
+        <comps>
+          <li Class="CompProperties_Power">
+            <compClass>CompPowerTrader</compClass>
+            <basePowerConsumption>1000</basePowerConsumption>
+          </li>
+          <li Class="CompProperties_Flickable"/>
+          <li Class="CompProperties_AffectedByFacilities">
+            <linkableFacilities>
+              <li>Spaceports_FuelTank</li>
+            </linkableFacilities>
+          </li>
+          <li Class="CompProperties_Refuelable">
+            <fuelConsumptionRate>75.0</fuelConsumptionRate>
+            <fuelCapacity>75.0</fuelCapacity>
+            <fuelFilter>
+              <thingDefs>
+                <li>Chemfuel</li>
+              </thingDefs>
+            </fuelFilter>
+            <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+          </li>
+        </comps>
+      </ThingDef>
+      <!--Fuel Tank-->
+      <ThingDef ParentName="BuildingBase">
+        <defName>Spaceports_FuelTank</defName>
+        <label>fusion fuel tank</label>
+        <description>A spacer-tech tank designed to hold liquid fusion fuel. Its integrated cooling systems must run at all times, or the fuel inside will begin to evaporate away.</description>
+        <thingClass>Spaceports.Buildings.Building_FuelTank</thingClass>
+        <category>Building</category>
+        <graphicData>
+          <texPath>Things/Building/Misc/CaravanHitchingSpot</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+          <drawSize>(1,2)</drawSize>
+        </graphicData>
+        <uiIconPath>Things/Building/Misc/CaravanHitchingSpot</uiIconPath>
+        <tickerType>Normal</tickerType>
+        <drawerType>RealtimeOnly</drawerType>
+        <altitudeLayer>Building</altitudeLayer>
+        <pathCost>50</pathCost>
+        <statBases>
+          <WorkToBuild>2000</WorkToBuild>
+          <MaxHitPoints>500</MaxHitPoints>
+        </statBases>
+        <scatterableOnMapGen>false</scatterableOnMapGen>
+        <size>(1,2)</size>
+        <designationCategory>Misc</designationCategory>
+        <passability>Impassable</passability>
+        <clearBuildingArea>true</clearBuildingArea>
+        <costList>
+          <Plasteel>100</Plasteel>
+          <ComponentSpacer>3</ComponentSpacer>
+        </costList>
+        <building>
+          <ai_chillDestination>false</ai_chillDestination>
+          <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+        </building>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <researchPrerequisites>
+          <li>Fabrication</li>
+        </researchPrerequisites>
+        <comps>
+          <li Class="CompProperties_Power">
+            <compClass>CompPowerTrader</compClass>
+            <basePowerConsumption>100</basePowerConsumption>
+          </li>
+          <li Class="CompProperties_Flickable"/>
+          <li Class="CompProperties_Facility">
+              <maxSimultaneous>13</maxSimultaneous>
+          </li>
+        </comps>
+      </ThingDef>
+      <!--Dispenser-->
+      <ThingDef ParentName="BuildingBase">
+        <defName>Spaceports_FuelDispenser</defName>
+        <label>fusion fuel dispenser</label>
+        <description>A spacer-tech dispenser designed to safely provide fusion fuel to small spacecraft. The pump is self-serve, and draws fuel from tanks on the same powernet automatically.</description>
+        <thingClass>Spaceports.Buildings.Building_FuelDispenser</thingClass>
+        <category>Building</category>
+        <graphicData>
+          <texPath>Things/Building/Misc/CaravanHitchingSpot</texPath>
+          <graphicClass>Graphic_Single</graphicClass>
+          <drawSize>(1,1)</drawSize>
+        </graphicData>
+        <uiIconPath>Things/Building/Misc/CaravanHitchingSpot</uiIconPath>
+        <tickerType>Normal</tickerType>
+        <drawerType>RealtimeOnly</drawerType>
+        <altitudeLayer>Building</altitudeLayer>
+        <pathCost>50</pathCost>
+        <statBases>
+          <WorkToBuild>2000</WorkToBuild>
+          <MaxHitPoints>500</MaxHitPoints>
+        </statBases>
+        <scatterableOnMapGen>false</scatterableOnMapGen>
+        <size>(1,1)</size>
+        <designationCategory>Misc</designationCategory>
+        <passability>Impassable</passability>
+        <clearBuildingArea>true</clearBuildingArea>
+        <costList>
+          <Plasteel>100</Plasteel>
+          <ComponentSpacer>3</ComponentSpacer>
+        </costList>
+        <building>
+          <ai_chillDestination>false</ai_chillDestination>
+          <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+        </building>
+        <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+        <researchPrerequisites>
+          <li>Fabrication</li>
+        </researchPrerequisites>
+        <comps>
+          <li Class="CompProperties_Power">
+            <compClass>CompPowerTrader</compClass>
+            <basePowerConsumption>50</basePowerConsumption>
+          </li>
+          <li Class="CompProperties_Flickable"/>
+          <li Class="CompProperties_Facility">
+              <maxSimultaneous>1</maxSimultaneous>
+          </li>
+        </comps>
+      </ThingDef>
+</Defs>
