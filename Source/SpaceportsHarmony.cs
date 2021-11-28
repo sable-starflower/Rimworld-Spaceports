@@ -52,7 +52,7 @@ namespace Spaceports
             //AND we are clear for landing
             //AND the faction is not neolithic
             //AND Kessler Syndrome is not in effect
-            if (Rand.RangeInclusive(1, 100) <= (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance * 100) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
+            if (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
                 if (pawns != null)
                 {
@@ -116,6 +116,7 @@ namespace Spaceports
 
         }
 
+        //Custom devmode action to clear null transportships from a save's TS tracker
         [DebugAction("General", null, false, false, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         private static void ClearBuggedTransportShips()
         {
@@ -137,7 +138,6 @@ namespace Spaceports
                 }
             }
         }
-
     }
 
 }
