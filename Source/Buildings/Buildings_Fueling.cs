@@ -34,7 +34,7 @@ namespace Spaceports.Buildings
         public override void Tick()
         {
             base.Tick();
-            if(Find.TickManager.TicksGame % 250 == 0)
+            if(Find.TickManager.TicksGame % 500 == 0)
             {
                 RareTick();
             }
@@ -69,7 +69,6 @@ namespace Spaceports.Buildings
 
         private void TryDistributeFuel()
         {
-            Log.Message("Trying to distribute fuel.");
             int DropsRemaining = UnitsPerRareTick;
             while(DropsRemaining > 0)
             {
@@ -136,7 +135,7 @@ namespace Spaceports.Buildings
 
         public bool CanAcceptFuelNow(int amount = 0)
         {
-            if(FusionFuelLevel + amount >= FuelCap)
+            if(FusionFuelLevel + amount > FuelCap)
             {
                 return false;
             }
@@ -153,7 +152,7 @@ namespace Spaceports.Buildings
 
         public bool CanDrainFuelNow(int amount = 0)
         {
-            if (FusionFuelLevel - amount <= 0)
+            if (FusionFuelLevel - amount < 0)
             {
                 return false;
             }
@@ -219,7 +218,7 @@ namespace Spaceports.Buildings
 
         public bool TrySellFuel()
         {
-            int FuelRequested = Rand.RangeInclusive(100, 500);
+            int FuelRequested = Rand.RangeInclusive(250, 750);
             List<Building_FuelTank> tanks = new List<Building_FuelTank>();
 
             foreach(Building_FuelTank tank in this.Map.listerBuildings.AllBuildingsColonistOfClass<Building_FuelTank>())
@@ -235,8 +234,8 @@ namespace Spaceports.Buildings
                 if (tank.CanDrainFuelNow(FuelRequested))
                 {
                     tank.DrainFuel(FuelRequested);
-                    this.TotalSales += (int)(FuelRequested * 0.5f);
-                    Thing silver = GenSilver((int)(FuelRequested * 0.5f));
+                    this.TotalSales += (int)(FuelRequested * 0.25f);
+                    Thing silver = GenSilver((int)(FuelRequested * 0.25f));
                     GenPlace.TryPlaceThing(silver, this.InteractionCell, this.Map, ThingPlaceMode.Near);
                     return true;
                 }
@@ -259,8 +258,8 @@ namespace Spaceports.Buildings
 
             if(PoolSize >= FuelRequested)
             {
-                this.TotalSales += (int)(FuelRequested * 0.5f);
-                Thing silver = GenSilver((int)(FuelRequested * 0.5f));
+                this.TotalSales += (int)(FuelRequested * 0.25f);
+                Thing silver = GenSilver((int)(FuelRequested * 0.25f));
                 GenPlace.TryPlaceThing(silver, this.InteractionCell, this.Map, ThingPlaceMode.Near);
                 foreach (Building_FuelTank tank in TankPool)
                 {

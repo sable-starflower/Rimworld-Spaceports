@@ -3,15 +3,15 @@
     <ThingDef ParentName="BuildingBase">
         <defName>Spaceports_FuelProcessor</defName>
         <label>fusion fuel processor</label>
-        <description>A spacer-tech fuel processor. Volatiles from chemfuel are combined with atmospheric water in its massive reaction tank and energized, setting off a complex chain of chemical reactions that ultimately resolve into a common variety of liquid fusion fuel.</description>
+        <description>A spacer-tech fuel processor. Must be placed in shallow water to operate; once activated, volatiles from supplied chemfuel are combined with siphoned water in its massive reaction tank and energized, setting off a complex chain of chemical reactions that ultimately resolve into a common variety of liquid fusion fuel.</description>
         <thingClass>Spaceports.Buildings.Building_FuelProcessor</thingClass>
         <category>Building</category>
         <graphicData>
-          <texPath>Things/Building/Misc/CaravanHitchingSpot</texPath>
+          <texPath>Buildings/Fueling/FuelProcessor</texPath>
           <graphicClass>Graphic_Single</graphicClass>
           <drawSize>(3,3)</drawSize>
         </graphicData>
-        <uiIconPath>Things/Building/Misc/CaravanHitchingSpot</uiIconPath>
+        <uiIconPath>Buildings/Fueling/FuelProcessor</uiIconPath>
         <tickerType>Normal</tickerType>
         <drawerType>RealtimeOnly</drawerType>
         <altitudeLayer>Building</altitudeLayer>
@@ -33,7 +33,8 @@
           <ai_chillDestination>false</ai_chillDestination>
           <destroySound>BuildingDestroyed_Metal_Big</destroySound>
         </building>
-        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <terrainAffordanceNeeded>ShallowWater</terrainAffordanceNeeded>
+        <rotatable>false</rotatable>
         <researchPrerequisites>
           <li>Fabrication</li>
         </researchPrerequisites>
@@ -41,6 +42,7 @@
           <li Class="CompProperties_Power">
             <compClass>CompPowerTrader</compClass>
             <basePowerConsumption>1000</basePowerConsumption>
+            <soundAmbientPowered>ChemfuelFiredGenerator_Ambience</soundAmbientPowered>
           </li>
           <li Class="CompProperties_Flickable"/>
           <li Class="CompProperties_AffectedByFacilities">
@@ -49,14 +51,18 @@
             </linkableFacilities>
           </li>
           <li Class="CompProperties_Refuelable">
-            <fuelConsumptionRate>75.0</fuelConsumptionRate>
-            <fuelCapacity>75.0</fuelCapacity>
+            <fuelConsumptionRate>150</fuelConsumptionRate>
+            <fuelCapacity>150</fuelCapacity>
             <fuelFilter>
               <thingDefs>
                 <li>Chemfuel</li>
               </thingDefs>
             </fuelFilter>
             <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+          </li>
+          <li Class="CompProperties_Glower">
+            <glowRadius>3</glowRadius>
+            <glowColor>(255,255,255,0)</glowColor>
           </li>
         </comps>
       </ThingDef>
@@ -72,7 +78,7 @@
           <graphicClass>Graphic_Multi</graphicClass>
           <drawSize>(1,2)</drawSize>
         </graphicData>
-        <uiIconPath>Buildings/Fueling/FuelTank/FuelTank_south</uiIconPath>
+        <uiIconPath>Buildings/Fueling/FuelTank/FuelTank_north</uiIconPath>
         <tickerType>Normal</tickerType>
         <drawerType>RealtimeOnly</drawerType>
         <altitudeLayer>Building</altitudeLayer>
@@ -94,7 +100,7 @@
           <ai_chillDestination>false</ai_chillDestination>
           <destroySound>BuildingDestroyed_Metal_Small</destroySound>
         </building>
-        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
         <researchPrerequisites>
           <li>Fabrication</li>
         </researchPrerequisites>
@@ -105,7 +111,8 @@
           </li>
           <li Class="CompProperties_Flickable"/>
           <li Class="CompProperties_Facility">
-              <maxSimultaneous>13</maxSimultaneous>
+              <maxSimultaneous>6</maxSimultaneous>
+              <maxDistance>20</maxDistance>
           </li>
           <li Class="CompProperties_Glower">
             <glowRadius>2</glowRadius>
@@ -152,7 +159,8 @@
           <li>Fabrication</li>
         </researchPrerequisites>
         <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-        <hasInteractionCell>true</hasInteractionCell>        <rotatable>false</rotatable>
+        <hasInteractionCell>true</hasInteractionCell>        
+        <rotatable>false</rotatable>
         <comps>
           <li Class="CompProperties_Power">
             <compClass>CompPowerTrader</compClass>
