@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RimWorld;
 using Verse;
 using SharpUtils;
+using UnityEngine;
 
 namespace Spaceports.Buildings
 {
@@ -122,9 +123,9 @@ namespace Spaceports.Buildings
 
         public void RareTick()
         {
-            if (!this.GetComp<CompPowerTrader>().PowerOn && this.FusionFuelLevel >= 4)
+            if (!this.GetComp<CompPowerTrader>().PowerOn && this.FusionFuelLevel >= 0)
             {
-                this.FusionFuelLevel -= 4;
+                this.FusionFuelLevel = Mathf.Clamp(this.FusionFuelLevel - 4, 0, 1000);
             }
         }
 

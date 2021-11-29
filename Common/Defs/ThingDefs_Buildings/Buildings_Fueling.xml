@@ -1,4 +1,5 @@
 <Defs>
+    <!--Processor-->
     <ThingDef ParentName="BuildingBase">
         <defName>Spaceports_FuelProcessor</defName>
         <label>fusion fuel processor</label>
@@ -25,8 +26,8 @@
         <passability>Impassable</passability>
         <clearBuildingArea>true</clearBuildingArea>
         <costList>
-          <Plasteel>100</Plasteel>
-          <ComponentSpacer>3</ComponentSpacer>
+          <Plasteel>150</Plasteel>
+          <ComponentSpacer>5</ComponentSpacer>
         </costList>
         <building>
           <ai_chillDestination>false</ai_chillDestination>
@@ -67,11 +68,11 @@
         <thingClass>Spaceports.Buildings.Building_FuelTank</thingClass>
         <category>Building</category>
         <graphicData>
-          <texPath>Things/Building/Misc/CaravanHitchingSpot</texPath>
-          <graphicClass>Graphic_Single</graphicClass>
+          <texPath>Buildings/Fueling/FuelTank/FuelTank</texPath>
+          <graphicClass>Graphic_Multi</graphicClass>
           <drawSize>(1,2)</drawSize>
         </graphicData>
-        <uiIconPath>Things/Building/Misc/CaravanHitchingSpot</uiIconPath>
+        <uiIconPath>Buildings/Fueling/FuelTank/FuelTank_south</uiIconPath>
         <tickerType>Normal</tickerType>
         <drawerType>RealtimeOnly</drawerType>
         <altitudeLayer>Building</altitudeLayer>
@@ -86,8 +87,8 @@
         <passability>Impassable</passability>
         <clearBuildingArea>true</clearBuildingArea>
         <costList>
-          <Plasteel>100</Plasteel>
-          <ComponentSpacer>3</ComponentSpacer>
+          <Plasteel>75</Plasteel>
+          <ComponentSpacer>2</ComponentSpacer>
         </costList>
         <building>
           <ai_chillDestination>false</ai_chillDestination>
@@ -106,21 +107,25 @@
           <li Class="CompProperties_Facility">
               <maxSimultaneous>13</maxSimultaneous>
           </li>
+          <li Class="CompProperties_Glower">
+            <glowRadius>2</glowRadius>
+            <glowColor>(255,255,255,0)</glowColor>
+          </li>
         </comps>
       </ThingDef>
       <!--Dispenser-->
       <ThingDef ParentName="BuildingBase">
         <defName>Spaceports_FuelDispenser</defName>
-        <label>fusion fuel dispenser</label>
-        <description>A spacer-tech dispenser designed to safely provide fusion fuel to small spacecraft. The pump is self-serve, and draws fuel from tanks on the same powernet automatically.</description>
+        <label>fusion fuel terminal</label>
+        <description>A terminal used to purchase fusion fuel for small shuttlecraft. Must be placed adjacent to a landing pad to work; once payment has been verified, pumps inside the pad will draw fuel from fuel tanks on the same powernet.</description>
         <thingClass>Spaceports.Buildings.Building_FuelDispenser</thingClass>
         <category>Building</category>
         <graphicData>
-          <texPath>Things/Building/Misc/CaravanHitchingSpot</texPath>
+          <texPath>Buildings/Fueling/FuelTerminal</texPath>
           <graphicClass>Graphic_Single</graphicClass>
           <drawSize>(1,1)</drawSize>
         </graphicData>
-        <uiIconPath>Things/Building/Misc/CaravanHitchingSpot</uiIconPath>
+        <uiIconPath>Buildings/Fueling/FuelTerminal</uiIconPath>
         <tickerType>Normal</tickerType>
         <drawerType>RealtimeOnly</drawerType>
         <altitudeLayer>Building</altitudeLayer>
@@ -135,8 +140,8 @@
         <passability>Impassable</passability>
         <clearBuildingArea>true</clearBuildingArea>
         <costList>
-          <Plasteel>100</Plasteel>
-          <ComponentSpacer>3</ComponentSpacer>
+          <Plasteel>25</Plasteel>
+          <ComponentIndustrial>3</ComponentIndustrial>
         </costList>
         <building>
           <ai_chillDestination>false</ai_chillDestination>
@@ -146,14 +151,21 @@
         <researchPrerequisites>
           <li>Fabrication</li>
         </researchPrerequisites>
+        <interactionCellOffset>(0,0,1)</interactionCellOffset>
+        <rotatable>false</rotatable>
         <comps>
           <li Class="CompProperties_Power">
             <compClass>CompPowerTrader</compClass>
             <basePowerConsumption>50</basePowerConsumption>
           </li>
           <li Class="CompProperties_Flickable"/>
+          <li Class="CompProperties_Glower">
+            <glowRadius>1</glowRadius>
+            <glowColor>(255,255,255,0)</glowColor>
+          </li>
           <li Class="CompProperties_Facility">
-              <maxSimultaneous>1</maxSimultaneous>
+            <maxSimultaneous>1</maxSimultaneous>
+            <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
           </li>
         </comps>
       </ThingDef>

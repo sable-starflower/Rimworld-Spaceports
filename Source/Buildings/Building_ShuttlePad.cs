@@ -80,7 +80,7 @@ namespace Spaceports.Buildings
         {
             if (IsShuttleOnPad())
             {
-                if (ShuttleInbound)
+                if (ShuttleInbound && Rand.Chance(0.70f))
                 {
                     Building_FuelDispenser dispenser = GetFuelDispenser();
                     if(dispenser != null)
