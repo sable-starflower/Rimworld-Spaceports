@@ -63,7 +63,7 @@ namespace Spaceports.Letters
                 IntVec3 pad = Utils.FindValidSpaceportPad(map, null, 0);
                 List<Pawn> pawn = new List<Pawn>();
                 pawn.Add(LoanedPawn);
-                Utils.GenerateInboundShuttle(pawn, pad, dropAndGo: true, items: rewards);
+                Utils.GenerateInboundShuttle(pawn, pad, map, dropAndGo: true, items: rewards);
                 return true;
             }
             return false;
@@ -159,8 +159,8 @@ namespace Spaceports.Letters
                 DiaOption diaDeny = new DiaOption("Spaceports_SpicyPawnLendingDeny".Translate());
                 diaAccept.action = delegate
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
-                    TransportShip shuttle = Utils.GenerateInboundShuttle(null, pad);
+                    IntVec3 pad = Utils.FindValidSpaceportPad(map, faction, 0);
+                    TransportShip shuttle = Utils.GenerateInboundShuttle(null, pad, map);
                     List<Pawn> pawn = new List<Pawn>();
                     pawn.Add(RequestedPawn);
                     shuttle.ShuttleComp.requiredPawns = pawn;
@@ -170,7 +170,7 @@ namespace Spaceports.Letters
                 };
                 diaAccept.resolveTree = true;
                 diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
-                if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                if (!Utils.AnyValidSpaceportPad(map, 0))
                 {
                     diaAccept.disabled = true;
                 }

@@ -52,7 +52,7 @@ namespace Spaceports
         //Generates an inbound shuttle of random appearance and sets up its job queue
         //Required arguments: List of passenger pawns, target cell
         //Optional arguments: a specific TransportShipDef to use, whether or not the shuttle should ever leave
-        public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, List<Thing> items = null, TransportShipDef forcedType = null, bool canLeave = true, bool dropAndGo = false)
+        public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, Map map, List<Thing> items = null, TransportShipDef forcedType = null, bool canLeave = true, bool dropAndGo = false)
         {
             TransportShip shuttle = TransportShipMaker.MakeTransportShip(SpaceportsShuttleVariants.AllShuttleVariants.RandomElement(), null);
             if (forcedType != null)
@@ -72,7 +72,7 @@ namespace Spaceports
             {
                 shuttle.TransporterComp.innerContainer.TryAddRangeOrTransfer(items);
             }
-            shuttle.ArriveAt(padCell, Find.CurrentMap.Parent);
+            shuttle.ArriveAt(padCell, map.Parent);
             ShipJob_Unload unload = new ShipJob_Unload();
             unload.loadID = Find.UniqueIDsManager.GetNextShipJobID();
             shuttle.AddJob(unload);
@@ -123,7 +123,7 @@ namespace Spaceports
                     return pad.Position;
                 }
             }
-            return DropCellFinder.GetBestShuttleLandingSpot(Find.CurrentMap, faction);
+            return DropCellFinder.GetBestShuttleLandingSpot(map, faction);
         }
 
         public static bool AnyValidSpaceportPad(Map map, int typeVal)

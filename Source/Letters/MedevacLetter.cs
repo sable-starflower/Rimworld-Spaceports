@@ -66,13 +66,13 @@ namespace Spaceports.Letters
                 DiaOption diaDeny = new DiaOption("Spacepots_ShuttleMedevacDeny".Translate());
                 diaAccept.action = delegate
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
+                    IntVec3 pad = Utils.FindValidSpaceportPad(map, faction, 0);
                     Pawn pawn = PawnGenerator.GeneratePawn(faction.RandomPawnKind(), faction);
                     Utils.StripPawn(pawn);
                     HealthUtility.DamageUntilDowned(pawn);
                     List<Pawn> list = new List<Pawn>();
                     list.Add(pawn);
-                    TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad);
+                    TransportShip shuttle = Utils.GenerateInboundShuttle(list, pad, map);
                     map.GetComponent<SpaceportsMapComp>().LoadTracker(new MedevacTracker(pawn, shuttle.shipThing));
                     Buildings.Building_Shuttle b = shuttle.shipThing as Buildings.Building_Shuttle;
                     if (b != null)
@@ -83,7 +83,7 @@ namespace Spaceports.Letters
                 };
                 diaAccept.resolveTree = true;
                 diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
-                if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                if (!Utils.AnyValidSpaceportPad(map, 0))
                 {
                     diaAccept.disabled = true;
                 }

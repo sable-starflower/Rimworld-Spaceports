@@ -151,8 +151,8 @@
         <researchPrerequisites>
           <li>Fabrication</li>
         </researchPrerequisites>
-        <interactionCellOffset>(0,0,1)</interactionCellOffset>
-        <rotatable>false</rotatable>
+        <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+        <hasInteractionCell>true</hasInteractionCell>        <rotatable>false</rotatable>
         <comps>
           <li Class="CompProperties_Power">
             <compClass>CompPowerTrader</compClass>

@@ -28,8 +28,8 @@ namespace Spaceports.Letters
 
                 diaTakeLowSec.action = delegate
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
-                    Utils.GenerateInboundShuttle(GenerateLowSecPawns(RandomEnemy()), pad, items: LowSecReward, dropAndGo: true);
+                    IntVec3 pad = Utils.FindValidSpaceportPad(map, faction, 0);
+                    Utils.GenerateInboundShuttle(GenerateLowSecPawns(RandomEnemy()), pad, map, items: LowSecReward, dropAndGo: true);
                     Find.LetterStack.RemoveLetter(this);
                 };
                 diaTakeLowSec.resolveTree = true;
@@ -37,14 +37,14 @@ namespace Spaceports.Letters
 
                 diaTakeHighSec.action = delegate
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 0);
-                    Utils.GenerateInboundShuttle(GenerateHighSecPawns(RandomEnemy()), pad, items: HighSecReward, dropAndGo: true);
+                    IntVec3 pad = Utils.FindValidSpaceportPad(map, faction, 0);
+                    Utils.GenerateInboundShuttle(GenerateHighSecPawns(RandomEnemy()), pad, map, items: HighSecReward, dropAndGo: true);
                     Find.LetterStack.RemoveLetter(this);
                 };
                 diaTakeHighSec.resolveTree = true;
                 diaTakeHighSec.disabledReason = "Spaceports_ShuttleDisabled".Translate();
 
-                if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                if (!Utils.AnyValidSpaceportPad(map, 0))
                 {
                     diaTakeLowSec.disabled = true;
                     diaTakeHighSec.disabled = true;

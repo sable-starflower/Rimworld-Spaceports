@@ -72,7 +72,7 @@ namespace Spaceports
             incidentQueueVisitors.IncidentQueueTick();
             incidentQueueTraders.IncidentQueueTick();
 
-            if (GenTicks.TicksGame > nextQueueInspection)
+            if (GenTicks.TicksGame > nextQueueInspection && Utils.CheckIfSpaceport(this.map))
             {
                 nextQueueInspection = (int)(GenTicks.TicksGame + GenDate.TicksPerDay * 0.1f);
                 if (incidentQueueVisitors.Count <= 1 && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors)
