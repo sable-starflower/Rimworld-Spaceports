@@ -65,7 +65,6 @@ namespace Spaceports
             }
 
             //MTODO SOS2 patch(es)
-            //MTODO Rimeffect patches
         }
 
         [HarmonyPatch(typeof(DropCellFinder), "GetBestShuttleLandingSpot", new Type[] { typeof(Map), typeof(Faction) })] //Royalty shuttle patch

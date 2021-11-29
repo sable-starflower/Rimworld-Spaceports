@@ -137,8 +137,8 @@ namespace Spaceports.Letters
         {
             Scribe_References.Look(ref faction, "faction");
             Scribe_References.Look(ref map, "map");
-            Scribe_Collections.Look(ref LowSecReward, "LowSecReward");
-            Scribe_Collections.Look(ref HighSecReward, "HighSecReward");
+            Scribe_Collections.Look(ref LowSecReward, "LowSecReward", LookMode.Deep);
+            Scribe_Collections.Look(ref HighSecReward, "HighSecReward", LookMode.Deep);
             base.ExposeData();
         }
     }

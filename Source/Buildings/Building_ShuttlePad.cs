@@ -80,6 +80,14 @@ namespace Spaceports.Buildings
         {
             if (IsShuttleOnPad())
             {
+                if (ShuttleInbound && Rand.Chance(0.70f))
+                {
+                    Building_FuelDispenser dispenser = GetFuelDispenser();
+                    if(dispenser != null)
+                    {
+                        dispenser.TrySellFuel();
+                    }
+                }
                 ShuttleInbound = false;
             }
             if (ShuttleInbound)
@@ -91,6 +99,20 @@ namespace Spaceports.Buildings
                 }
             }
             base.Tick();
+        }
+
+        private Building_FuelDispenser GetFuelDispenser() 
+        {
+            List<Thing> LinkedThings = this.GetComp<CompAffectedByFacilities>().LinkedFacilitiesListForReading;
+            foreach(Thing thing in LinkedThings)
+            {
+                Building_FuelDispenser d = thing as Building_FuelDispenser;
+                if(d != null)
+                {
+                    return d;
+                }
+            }
+            return null;
         }
 
         public override IEnumerable<Gizmo> GetGizmos()
