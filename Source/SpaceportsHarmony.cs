@@ -98,8 +98,8 @@ namespace Spaceports
             {
                 if (pawns != null)
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, faction, 3); //Find valid landing pad or touchdown spot
-                    TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad); //Initialize shuttle
+                    IntVec3 pad = Utils.FindValidSpaceportPad(map, faction, 3); //Find valid landing pad or touchdown spot
+                    TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad, map); //Initialize shuttle
 
                     StateGraph graphExit = new LordJobs.LordJob_SpaceportDepart(shuttle.shipThing).CreateGraph(); //Intialize patched subgraph
 

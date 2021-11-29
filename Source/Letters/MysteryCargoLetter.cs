@@ -20,13 +20,13 @@ namespace Spaceports.Letters
                 DiaOption diaDeny = new DiaOption("Spaceports_MysteryCargoDeny".Translate());
                 diaAccept.action = delegate
                 {
-                    IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, null, 0);
-                    TransportShip shuttle = Utils.GenerateInboundShuttle(null, pad, forcedType: SpaceportsDefOf.Spaceports_SurpriseShuttle, canLeave: false);
+                    IntVec3 pad = Utils.FindValidSpaceportPad(map, null, 0);
+                    TransportShip shuttle = Utils.GenerateInboundShuttle(null, pad, map, forcedType: SpaceportsDefOf.Spaceports_SurpriseShuttle, canLeave: false);
                     Find.LetterStack.RemoveLetter(this);
                 };
                 diaAccept.resolveTree = true;
                 diaAccept.disabledReason = "Spaceports_ShuttleDisabled".Translate();
-                if (!Utils.AnyValidSpaceportPad(Find.CurrentMap, 0))
+                if (!Utils.AnyValidSpaceportPad(map, 0))
                 {
                     diaAccept.disabled = true;
                 }
