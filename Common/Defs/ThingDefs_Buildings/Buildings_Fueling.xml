@@ -84,7 +84,7 @@
         <altitudeLayer>Building</altitudeLayer>
         <pathCost>50</pathCost>
         <statBases>
-          <WorkToBuild>2000</WorkToBuild>
+          <WorkToBuild>500</WorkToBuild>
           <MaxHitPoints>500</MaxHitPoints>
         </statBases>
         <scatterableOnMapGen>false</scatterableOnMapGen>
@@ -138,7 +138,7 @@
         <altitudeLayer>Building</altitudeLayer>
         <pathCost>50</pathCost>
         <statBases>
-          <WorkToBuild>2000</WorkToBuild>
+          <WorkToBuild>250</WorkToBuild>
           <MaxHitPoints>500</MaxHitPoints>
         </statBases>
         <scatterableOnMapGen>false</scatterableOnMapGen>
