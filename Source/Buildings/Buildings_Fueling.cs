@@ -16,11 +16,13 @@ namespace Spaceports.Buildings
         //Must be fueled with chemfuel plus a good chunk of power
         //This in turn "fills" linked fuel tanks with units of "fusion fuel"
         private int TotalProduced = 0;
+        private int ProductionCache = 0;
         private const int UnitsPerRareTick = 6;
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref TotalProduced, "TotalProduced", 0);
+            Scribe_Values.Look(ref ProductionCache, "ProductionCache", 0);
             base.ExposeData();
         }
 
@@ -28,6 +30,7 @@ namespace Spaceports.Buildings
         {
             string str = base.GetInspectString();
             str += "\n" + "Spaceports_TotalFuelProduced".Translate(TotalProduced);
+            str += "\n" + "Spaceports_ProductionCache".Translate(ProductionCache);
             return str;
         }
 
@@ -49,6 +52,14 @@ namespace Spaceports.Buildings
                 {
                     TotalProduced += UnitsPerRareTick;
                     TryDistributeFuel();
+                }
+                else if(GetLinkedTanks().NullOrEmpty() || !CanAnyTankAcceptFuelNow())
+                {
+                    if(FuelComp.HasFuel && this.GetComp<CompPowerTrader>().PowerOn)
+                    {
+                        TotalProduced += UnitsPerRareTick;
+                        ProductionCache += UnitsPerRareTick;
+                    }
                 }
             }
         }
@@ -83,6 +94,8 @@ namespace Spaceports.Buildings
         private void TryDistributeFuel()
         {
             int DropsRemaining = UnitsPerRareTick;
+            DropsRemaining += ProductionCache;
+            ProductionCache = 0;
             while(DropsRemaining > 0)
             {
                 foreach (Building_FuelTank tank in GetLinkedTanks())
