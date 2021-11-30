@@ -38,7 +38,7 @@ namespace Spaceports.LordJobs
             stateGraph.AddToil(lordToil_DefendPoint);
             LordToil_TryShuttleWoundedGuest lordToil_TakeWoundedGuest = new LordToil_TryShuttleWoundedGuest(shuttle, LocomotionUrgency.Sprint, canDig: false);
             stateGraph.AddToil(lordToil_TakeWoundedGuest);
-            exitSubgraph = new LordJob_SpaceportDepart(shuttle).CreateGraph();
+            exitSubgraph = new LordJob_DepartSpaceport(shuttle).CreateGraph();
             LordToil target = exitSubgraph.lordToils[1];
             LordToil startingToil2 = new LordToil_EnterShuttleOrLeaveNullChecked(shuttle, LocomotionUrgency.Walk, canDig: true);
             stateGraph.AddToil(startingToil2);

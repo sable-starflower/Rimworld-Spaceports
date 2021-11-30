@@ -22,7 +22,7 @@ namespace Spaceports.Letters
             {
                 List<Pawn> list = new List<Pawn>();
                 list.Add(hurtPawn);
-                LordJob lordJob = new LordJobs.LordJob_SpaceportDepart(shuttle);
+                LordJob lordJob = new LordJobs.LordJob_DepartSpaceport(shuttle);
                 LordMaker.MakeNewLord(hurtPawn.Faction, lordJob, hurtPawn.Map, list);
 
                 if (Rand.RangeInclusive(1, 100) <= 50)

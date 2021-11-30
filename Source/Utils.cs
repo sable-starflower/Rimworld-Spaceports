@@ -50,8 +50,8 @@ namespace Spaceports
         }
 
         //Generates an inbound shuttle of random appearance and sets up its job queue
-        //Required arguments: List of passenger pawns, target cell
-        //Optional arguments: a specific TransportShipDef to use, whether or not the shuttle should ever leave
+        //Required arguments: List of passenger pawns, target cell and map
+        //Optional arguments: a specific TransportShipDef to use, whether or not the shuttle should ever leave, whether to just dump cargo and bounce
         public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, Map map, List<Thing> items = null, TransportShipDef forcedType = null, bool canLeave = true, bool dropAndGo = false)
         {
             TransportShip shuttle = TransportShipMaker.MakeTransportShip(SpaceportsShuttleVariants.AllShuttleVariants.RandomElement(), null);
@@ -271,7 +271,7 @@ namespace Spaceports
         }
 
         //Checks if a given map is considered to be a "spaceport"
-        //Qualifying conditions are A) a comms console (does not need to be powered unless you want shuttles to actually land)
+        //Qualifying conditions are A) a beacon (does not need to be powered unless you want shuttles to actually land)
         //and B) either the presence of a valid shuttlepad or rough landing being enabled
         public static bool CheckIfSpaceport(Map map)
         {

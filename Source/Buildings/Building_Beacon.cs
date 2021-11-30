@@ -56,7 +56,7 @@ namespace Spaceports.Buildings
             {
                 yield return gizmo;
             }
-            yield return new Command_Toggle()
+            yield return new Command_Toggle() //Lockdown toggle
             {
                 defaultLabel = "Spaceports_ManualAirspaceLockdown".Translate(),
                 defaultDesc = "Spaceports_ManualAirspaceLockdownTooltip".Translate(),
@@ -70,7 +70,7 @@ namespace Spaceports.Buildings
                     this.Map.GetComponent<SpaceportsMapComp>().ForcedLockdown = !this.Map.GetComponent<SpaceportsMapComp>().ForcedLockdown;
                 }
             };
-            yield return new Command_Action()
+            yield return new Command_Action() //Dismiss all shuttles command
             {
                 defaultLabel = "Spaceports_DismissAll".Translate(),
                 defaultDesc = "Spaceports_DismissAllTooltip".Translate(),
@@ -83,7 +83,7 @@ namespace Spaceports.Buildings
                     DismissAll();
                 }
             };
-            yield return new Command_Action()
+            yield return new Command_Action() //Recall all shuttle parties command
             {
                 defaultLabel = "Spaceports_RecallAll".Translate(),
                 defaultDesc = "Spaceports_RecallAllTooltip".Translate(),
@@ -96,7 +96,7 @@ namespace Spaceports.Buildings
                     RecallAll();
                 }
             };
-            yield return new Command_Action()
+            yield return new Command_Action() //Call taxi command
             {
                 defaultLabel = "Spaceports_CallTaxi".Translate(),
                 defaultDesc = "Spaceports_CallTaxiTooltip".Translate(),

@@ -23,7 +23,7 @@ namespace Spaceports.Buildings
             string text = base.GetInspectString();
             if (IsUnroofed() == false)
             {
-                text += "Pad blocked by roofing.";
+                text += "Spaceports_RoofBlocking".Translate();
             }
             return text;
         }
@@ -127,7 +127,7 @@ namespace Spaceports.Buildings
 
                 defaultLabel = "AccessControlButton".Translate(),
                 defaultDesc = "AccessControlDesc".Translate(),
-                icon = getAccessIcon(),
+                icon = GetAccessIcon(),
                 order = -100,
                 action = delegate ()
                 {
@@ -228,7 +228,7 @@ namespace Spaceports.Buildings
             return GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true);
         }
 
-        private Texture2D getAccessIcon()
+        private Texture2D GetAccessIcon()
         {
             if (AccessState == -1)
             {

@@ -45,7 +45,8 @@ namespace Spaceports
                 Log.Message("[Spaceports] Hospitality not found, patches bypassed.");
             }
 
-            if (Verse.ModLister.HasActiveModWithName("Trader ships") || Verse.ModLister.HasActiveModWithName("Rim-Effect: Themis Traders"))
+            //conditional patch to Trader Ships/Themis Traders (they use the same assembly under the hood LMFAOOO)
+            if (Verse.ModLister.HasActiveModWithName("Trader ships") || Verse.ModLister.HasActiveModWithName("Rim-Effect: Themis Traders")) 
             {
                 Harmony harmony = new Harmony("Spaceports_Plus_TraderShips");
                 Log.Message("[Spaceports] Trader Ships/Themis Traders FOUND, attempting to patch...");
@@ -88,19 +89,19 @@ namespace Spaceports
         public static void CreateLordPostfix(Faction faction, List<Pawn> pawns, Map map)
         {
             //Conditional check
-            //IF rand in range 1-100 is less than or equal to configured chance
+            //IF rand.chance of configured chance checks out
             //AND Hospitality integration is enabled
             //AND we are clear for landing
             //AND the faction is not neolithic
             //AND Kessler Syndrome is not in effect
-            if (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel.ToString() != "Neolithic" && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
+            if (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel != TechLevel.Neolithic && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
                 if (pawns != null)
                 {
                     IntVec3 pad = Utils.FindValidSpaceportPad(map, faction, 3); //Find valid landing pad or touchdown spot
                     TransportShip shuttle = Utils.GenerateInboundShuttle(pawns, pad, map); //Initialize shuttle
 
-                    StateGraph graphExit = new LordJobs.LordJob_SpaceportDepart(shuttle.shipThing).CreateGraph(); //Intialize patched subgraph
+                    StateGraph graphExit = new LordJobs.LordJob_DepartSpaceport(shuttle.shipThing).CreateGraph(); //Intialize patched subgraph
 
                     Lord lord = pawns[0].GetLord(); //Get Lord
                     List<LordToil> lordToils = lord.Graph.lordToils.ToList(); //Get and copy Lord lordToils to list
