@@ -74,10 +74,6 @@ namespace Spaceports
 
             if (GenTicks.TicksGame > nextQueueInspection && Utils.CheckIfSpaceport(this.map))
             {
-                Log.Message("QI for " + this.map.Parent.Label);
-                IncidentParms parms = StorytellerUtility.DefaultParmsNow(visitorIncident.category, this.map);
-                SpaceportsDefOf.Spaceports_VisitorShuttleArrival.Worker.TryExecute(parms); //tynan PLSSS
-
                 nextQueueInspection = (int)(GenTicks.TicksGame + GenDate.TicksPerDay * 0.1f);
                 if (incidentQueueVisitors.Count <= 1 && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors)
                 {

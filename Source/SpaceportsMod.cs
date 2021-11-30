@@ -164,7 +164,7 @@ namespace Spaceports
                     if (settings.hospitalityEnabled)
                     {
                         listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
-                        settings.hospitalityChance = listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f);
+                        settings.hospitalityChance = (float)Math.Round(listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f) * 10, MidpointRounding.ToEven) / 10;
                     }
                     listingStandard.GapLine();
                 }

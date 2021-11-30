@@ -67,6 +67,10 @@ namespace Spaceports
                     shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));
                     checkTargets.Add(p);
                 }
+                if (IsMapInSpace(map))
+                {
+                    SuitUpPawns(pawns);
+                }
             }
             if (items != null)
             {
@@ -298,6 +302,35 @@ namespace Spaceports
                 }
             }
             return false;
+        }
+
+        public static bool IsMapInSpace(Map map)//Method to check if a map is a SOS2 space map w/o assembly referencing
+        {
+            if(!Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
+            {
+                return false;
+            }
+
+            return map.Biome == DefDatabase<BiomeDef>.GetNamed("OuterSpaceBiome");
+        }
+
+        public static void SuitUpPawns(List<Pawn> pawns)//Method to equip a list of pawns with SOS2 suit + helmet w/o assembly referencing
+        { 
+            if (!Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
+            {
+                return; //emergency breakout to prevent NRE
+            }
+
+            foreach (Pawn pawn in pawns)
+            {
+                if(pawn != null && pawn.apparel != null)
+                {
+                    Apparel helmet = (Apparel)ThingMaker.MakeThing(DefDatabase<ThingDef>.GetNamed("Apparel_SpaceSuitHelmet"));
+                    Apparel suit = (Apparel)ThingMaker.MakeThing(DefDatabase<ThingDef>.GetNamed("Apparel_SpaceSuitBody"), stuff: SpaceportsDefOf.Synthread);
+                    pawn.apparel.Wear(helmet, false, true);
+                    pawn.apparel.Wear(suit, false, true);
+                }
+            }
         }
 
         public static void StripPawn(Pawn p)

@@ -12,7 +12,6 @@
         <thingClass>ShuttleIncoming</thingClass>
         <skyfaller>
           <movementType>Decelerate</movementType>
-          <hitRoof>false</hitRoof>
           <shadow>Things/Skyfaller/SkyfallerShadowRectangle</shadow>
           <shadowSize>(5.5,3.5)</shadowSize>
           <motesPerCell>1</motesPerCell>

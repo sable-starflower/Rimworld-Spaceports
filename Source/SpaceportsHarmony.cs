@@ -39,6 +39,37 @@ namespace Spaceports
                     Log.Message("[Spaceports] Attempting to postfix Hospitality.IncidentWorker_VisitorGroup.CreateLord...");
                     harmony.Patch(mOriginal, postfix: patch);
                 }
+
+                if (Verse.ModLister.HasActiveModWithName("Save Our Ship 2")) //Conditional integration patches with SOS2
+                {
+                    Log.Message("[Spaceports] Hospitality and SOS2 FOUND, attempting integration patch...");
+                    var mOriginalA = AccessTools.Method("Hospitality.ItemUtility:PocketHeadgear");
+                    var mPrefixA = typeof(SpaceportsHarmony).GetMethod("PocketHeadgearPrefix");
+                    var mOriginalB = AccessTools.Method("Hospitality.IncidentWorker_VisitorGroup:FactionCanBeGroupSource");
+                    var mPostfixB = typeof(SpaceportsHarmony).GetMethod("FactionCanBeGroupSourcePostfix");
+                    var mOriginalC = AccessTools.Method("Hospitality.IncidentWorker_VisitorGroup:CheckCanCome");
+                    var mPostfixC = typeof(SpaceportsHarmony).GetMethod("CheckCanComePostfix");
+
+                    if (mOriginalA != null)
+                    {
+                        var patch = new HarmonyMethod(mPrefixA);
+                        Log.Message("[Spaceports] Attempting to prefix Hospitality.ItemUtility.PocketHeadgear...");
+                        harmony.Patch(mOriginalA, prefix: patch);
+                    }
+                    if (mOriginalB != null)
+                    {
+                        var patch = new HarmonyMethod(mPostfixB);
+                        Log.Message("[Spaceports] Attempting to postfix Hospitality.IncidentWorker_VisitorGroup.FactionCanBeGroupSource...");
+                        harmony.Patch(mOriginalB, postfix: patch);
+                    }
+                    if (mOriginalC != null)
+                    {
+                        var patch = new HarmonyMethod(mPostfixC);
+                        Log.Message("[Spaceports] Attempting to postfix Hospitality.IncidentWorker_VisitorGroup.CheckCanCome...");
+                        harmony.Patch(mOriginalC, postfix: patch);
+                    }
+                }
+
             }
             else
             {
@@ -64,29 +95,6 @@ namespace Spaceports
             {
                 Log.Message("[Spaceports] Trader Ships not found, patches bypassed.");
             }
-
-            //conditional patch(es?) to SOS2
-            //Best guess so far: 
-            //Patch to Building_ShuttlePad that makes it ignore ship roofs in validity check
-            //Some insane Harmony bullshit to disable roof punching, so the shuttle essentially "phases" thru the roof
-            if (Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
-            {
-                Harmony harmony = new Harmony("Spaceports_Plus_SOS2");
-                Log.Message("[Spaceports] Save Our Ship 2 FOUND, attempting to patch...");
-                /*var mOriginal = AccessTools.Method("TraderShips.IncidentWorkerTraderShip:FindCloseLandingSpot");
-                var mPostfix = typeof(SpaceportsHarmony).GetMethod("FindCloseLandingSpotPostfix");
-
-                if (mOriginal != null)
-                {
-                    var patch = new HarmonyMethod(mPostfix);
-                    Log.Message("[Spaceports] Attempting to postfix TraderShips.IncidentWorkerTraderShip.FindCloseLandingSpot...");
-                    harmony.Patch(mOriginal, postfix: patch);
-                }*/
-            }
-            else
-            {
-                Log.Message("[Spaceports] Save Our Ship 2 not found, patches bypassed.");
-            }
         }
 
         [HarmonyPatch(typeof(DropCellFinder), "GetBestShuttleLandingSpot", new Type[] { typeof(Map), typeof(Faction) })] //Royalty shuttle patch
@@ -110,12 +118,12 @@ namespace Spaceports
         public static void CreateLordPostfix(Faction faction, List<Pawn> pawns, Map map)
         {
             //Conditional check
-            //IF rand.chance of configured chance checks out
+            //IF rand.chance of configured chance checks out (or if this is a space map)
             //AND Hospitality integration is enabled
             //AND we are clear for landing
             //AND the faction is not neolithic
             //AND Kessler Syndrome is not in effect
-            if (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel != TechLevel.Neolithic && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
+            if ((Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) || Utils.IsMapInSpace(map)) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel != TechLevel.Neolithic && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome))
             {
                 if (pawns != null)
                 {
@@ -177,6 +185,49 @@ namespace Spaceports
                 return;
             }
 
+        }
+
+        [HarmonyPrefix] //Hospitality/SOS2 bridge patch, stops pawns from removing their EVA helmets
+        public static bool PocketHeadgearPrefix(Pawn pawn)
+        {
+            foreach(Apparel ap in pawn.apparel.WornApparel)
+            {
+                if(ap.def.defName == "Apparel_SpaceSuitHelmet")
+                {
+                    return false; //keep that EVA helmet on you fucking idiot
+                }
+            }
+            return true;
+        }
+
+        [HarmonyPostfix] //Hospitality/SOS2 bridge patch, disqualifies neolithic factions from visiting space maps
+        public static void FactionCanBeGroupSourcePostfix(Faction f, Map map, ref bool __result)
+        {
+            if(f.def.techLevel == TechLevel.Neolithic && Utils.IsMapInSpace(map))
+            {
+                __result = false;
+            }
+        }
+
+        [HarmonyPostfix] //Hospitality/SOS2 bridge patch, stops temp concerns when trying to visit a space map
+        public static void CheckCanComePostfix(Map map, Faction faction, ref TaggedString reasons, ref bool __result)
+        {
+            if (__result || reasons == null)
+            {
+                return;
+            }
+
+            String TranslatedTemp = "- " + "Temperature".Translate();
+            if (reasons.ToString().Contains(TranslatedTemp))
+            {
+                TaggedString newstr = reasons.ToString().Replace(TranslatedTemp, "");
+                reasons = newstr;
+            }
+
+            if (!reasons.ToString().Contains("-"))
+            {
+                __result = true;
+            }
         }
 
         [HarmonyPostfix] //Trader Ships/Themis Traders patch

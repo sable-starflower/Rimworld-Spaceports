@@ -24,7 +24,10 @@ namespace Spaceports.Incidents
         {
             if (!base.CanFireNowSub(parms))
             {
-                return false;
+                if (!Utils.IsMapInSpace((Map)parms.target))
+                {
+                    return false;
+                }
             }
             if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors)
             {
@@ -48,7 +51,6 @@ namespace Spaceports.Incidents
 
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
-            Log.Message("Executing");
             Map map = (Map)parms.target;
             if (!TryResolveParms(parms))
             {
@@ -59,7 +61,6 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
-            Log.Message("Past first checks");
             bool traderExists = false;
             if (Rand.Value < 0.75f)
             {
