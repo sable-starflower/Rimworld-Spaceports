@@ -65,7 +65,24 @@ namespace Spaceports
                 Log.Message("[Spaceports] Trader Ships not found, patches bypassed.");
             }
 
-            //MTODO SOS2 patch(es)
+            if (Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
+            {
+                Harmony harmony = new Harmony("Spaceports_Plus_SOS2");
+                Log.Message("[Spaceports] Save Our Ship 2 FOUND, attempting to patch...");
+                /*var mOriginal = AccessTools.Method("TraderShips.IncidentWorkerTraderShip:FindCloseLandingSpot");
+                var mPostfix = typeof(SpaceportsHarmony).GetMethod("FindCloseLandingSpotPostfix");
+
+                if (mOriginal != null)
+                {
+                    var patch = new HarmonyMethod(mPostfix);
+                    Log.Message("[Spaceports] Attempting to postfix TraderShips.IncidentWorkerTraderShip.FindCloseLandingSpot...");
+                    harmony.Patch(mOriginal, postfix: patch);
+                }*/
+            }
+            else
+            {
+                Log.Message("[Spaceports] Save Our Ship 2 not found, patches bypassed.");
+            }
         }
 
         [HarmonyPatch(typeof(DropCellFinder), "GetBestShuttleLandingSpot", new Type[] { typeof(Map), typeof(Faction) })] //Royalty shuttle patch
