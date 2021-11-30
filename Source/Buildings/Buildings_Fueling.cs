@@ -45,7 +45,7 @@ namespace Spaceports.Buildings
             CompRefuelable FuelComp = this.GetComp<CompRefuelable>();
             if(FuelComp != null)
             {
-                if (FuelComp.HasFuel && this.GetComp<CompPowerTrader>().PowerOn)
+                if (FuelComp.HasFuel && this.GetComp<CompPowerTrader>().PowerOn && !GetLinkedTanks().NullOrEmpty() && CanAnyTankAcceptFuelNow())
                 {
                     TotalProduced += UnitsPerRareTick;
                     TryDistributeFuel();
@@ -67,6 +67,19 @@ namespace Spaceports.Buildings
             return LinkedTanks;
         }
 
+        private bool CanAnyTankAcceptFuelNow()
+        {
+            bool result = false;
+            foreach(Building_FuelTank tank in GetLinkedTanks())
+            {
+                if(tank.FuelLevel() < 1000)
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
         private void TryDistributeFuel()
         {
             int DropsRemaining = UnitsPerRareTick;
@@ -83,6 +96,10 @@ namespace Spaceports.Buildings
                     {
                         break;
                     }
+                }
+                if (!CanAnyTankAcceptFuelNow())
+                {
+                    break; //Emergency breakout to prevent game lock
                 }
             }
         }
