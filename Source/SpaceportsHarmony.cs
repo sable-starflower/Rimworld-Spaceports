@@ -65,6 +65,10 @@ namespace Spaceports
                 Log.Message("[Spaceports] Trader Ships not found, patches bypassed.");
             }
 
+            //conditional patch(es?) to SOS2
+            //Best guess so far: 
+            //Patch to Building_ShuttlePad that makes it ignore ship roofs in validity check
+            //Some insane Harmony bullshit to disable roof punching, so the shuttle essentially "phases" thru the roof
             if (Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
             {
                 Harmony harmony = new Harmony("Spaceports_Plus_SOS2");

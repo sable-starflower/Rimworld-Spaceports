@@ -62,6 +62,7 @@
 
   <ThingDef ParentName="Spaceports_ShuttleBase">
     <defName>Spaceports_RoyaltyShuttle</defName>
+    <thingClass>Building</thingClass>
     <graphicData>
       <color>(162,164,149)</color>
     </graphicData>

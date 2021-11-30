@@ -46,9 +46,9 @@ namespace Spaceports.Incidents
             return false;
         }
 
-
         protected override bool TryExecuteWorker(IncidentParms parms)
         {
+            Log.Message("Executing");
             Map map = (Map)parms.target;
             if (!TryResolveParms(parms))
             {
@@ -59,6 +59,7 @@ namespace Spaceports.Incidents
             {
                 return false;
             }
+            Log.Message("Past first checks");
             bool traderExists = false;
             if (Rand.Value < 0.75f)
             {

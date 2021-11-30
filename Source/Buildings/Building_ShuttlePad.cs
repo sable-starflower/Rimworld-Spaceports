@@ -178,14 +178,29 @@ namespace Spaceports.Buildings
 
         public bool IsUnroofed()
         {
-            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            if (Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
             {
-                if (cell.Roofed(this.Map))
+                foreach (IntVec3 cell in this.OccupiedRect().Cells)
                 {
-                    return false;
+                    if (cell.Roofed(this.Map) && !this.Map.roofGrid.RoofAt(cell).defName.Equals("RoofShip"))
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+
+            else
+            {
+                foreach (IntVec3 cell in this.OccupiedRect().Cells)
+                {
+                    if (cell.Roofed(this.Map))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         private bool IsShuttleOnPad()

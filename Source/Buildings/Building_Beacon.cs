@@ -127,7 +127,7 @@ namespace Spaceports.Buildings
             Thing thing = ThingMaker.MakeThing(SpaceportsDefOf.Spaceports_RoyaltyShuttle);
             IntVec3 pad = Utils.FindValidSpaceportPad(Find.CurrentMap, null, 0);
             thing.TryGetComp<CompShuttle>().permitShuttle = true;
-            TransportShip transportShip = TransportShipMaker.MakeTransportShip(TransportShipDefOf.Ship_Shuttle, null, thing);
+            TransportShip transportShip = TransportShipMaker.MakeTransportShip(SpaceportsDefOf.Spaceports_RoyaltyShuttleTS, null, thing);
             transportShip.ArriveAt(pad, this.Map.Parent);
             transportShip.AddJobs(ShipJobDefOf.WaitForever, ShipJobDefOf.Unload, ShipJobDefOf.FlyAway);
         }
