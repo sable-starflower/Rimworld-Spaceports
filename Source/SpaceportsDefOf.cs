@@ -10,6 +10,7 @@ namespace Spaceports
     [DefOf]
     public static class SpaceportsDefOf
     {
+        public static TerrainAffordanceDef ShallowWater;
         public static ThingDef Synthread;
         public static ThingDef Spaceports_ShuttleLandingPad;
         public static ThingDef ShuttleA_Crashing;

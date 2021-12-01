@@ -14,13 +14,33 @@ namespace Spaceports.Buildings
     {
         private int TotalProduced = 0;
         private int ProductionCache = 0;
-        private const int UnitsPerRareTick = 6;
+        private int ProductionMode = 0; //0 for wet, 1 for dry
+        private int UnitsPerRareTick
+        {
+            get
+            {
+                if(ProductionMode == 0) { return 6; }
+                else { return 3; }
+            }
+
+        }
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref TotalProduced, "TotalProduced", 0);
             Scribe_Values.Look(ref ProductionCache, "ProductionCache", 0);
+            Scribe_Values.Look(ref ProductionMode, "ProductionMode", 0);
             base.ExposeData();
+        }
+
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            if (!respawningAfterLoad)
+            {
+                ProductionMode = GetProductionMode();
+            }
+
+            base.SpawnSetup(map, respawningAfterLoad);
         }
 
         public override string GetInspectString()
@@ -59,6 +79,12 @@ namespace Spaceports.Buildings
                     }
                 }
             }
+        }
+
+        private int GetProductionMode()
+        {
+            if (Verse.ModLister.HasActiveModWithName("Dubs Bad Hygiene")) ;
+            return 0;
         }
 
         private List<Building_FuelTank> GetLinkedTanks()
@@ -112,6 +138,28 @@ namespace Spaceports.Buildings
                     break; //Emergency breakout to prevent game lock
                 }
             }
+        }
+    }
+
+    public class PlaceWorker_FuelProcessor : PlaceWorker
+    {
+        public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
+        {
+            foreach (IntVec3 item in CompPowerPlantWater.GroundCells(loc, rot))
+            {
+                if (!map.terrainGrid.TerrainAt(item).affordances.Contains(TerrainAffordanceDefOf.Heavy))
+                {
+                    return new AcceptanceReport("TerrainCannotSupport_TerrainAffordance".Translate(checkingDef, TerrainAffordanceDefOf.Heavy));
+                }
+            }
+            return true;
+        }
+
+        public override IEnumerable<TerrainAffordanceDef> DisplayAffordances()
+        {
+            yield return TerrainAffordanceDefOf.Heavy;
+            yield return TerrainAffordanceDefOf.MovingFluid;
+            yield return SpaceportsDefOf.ShallowWater;
         }
     }
 
