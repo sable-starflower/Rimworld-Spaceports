@@ -1,8 +1,11 @@
 ﻿using RimWorld;
+using Spaceports.LordToils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 namespace Spaceports
 {
@@ -50,8 +53,8 @@ namespace Spaceports
         }
 
         //Generates an inbound shuttle of random appearance and sets up its job queue
-        //Required arguments: List of passenger pawns, target cell
-        //Optional arguments: a specific TransportShipDef to use, whether or not the shuttle should ever leave
+        //Required arguments: List of passenger pawns, target cell and map
+        //Optional arguments: a specific TransportShipDef to use, whether or not the shuttle should ever leave, whether to just dump cargo and bounce
         public static TransportShip GenerateInboundShuttle(List<Pawn> pawns, IntVec3 padCell, Map map, List<Thing> items = null, TransportShipDef forcedType = null, bool canLeave = true, bool dropAndGo = false)
         {
             TransportShip shuttle = TransportShipMaker.MakeTransportShip(SpaceportsShuttleVariants.AllShuttleVariants.RandomElement(), null);
@@ -66,6 +69,10 @@ namespace Spaceports
                 {
                     shuttle.TransporterComp.innerContainer.TryAdd(p.SplitOff(1));
                     checkTargets.Add(p);
+                }
+                if (IsMapInSpace(map))
+                {
+                    SuitUpPawns(pawns);
                 }
             }
             if (items != null)
@@ -142,25 +149,38 @@ namespace Spaceports
         //If none found, defaults to tile that is z-2 below shuttle tile
         public static IntVec3 GetBestChillspot(Map map, IntVec3 originCell, int accessVal)
         {
-            Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
-            foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
+            if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().randomFlow)
             {
-                if (closestValidSpot == null && spot.CheckAccessGranted(accessVal) && spot != null)
+                foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>().InRandomOrder())
                 {
-                    closestValidSpot = spot;
-                }
-                else if (closestValidSpot != null)
-                {
-                    if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal) && spot != null)
+                    if (spot.CheckAccessGranted(accessVal))
                     {
-                        closestValidSpot = spot;
+                        return spot.Position;
                     }
                 }
             }
-
-            if (closestValidSpot != null)
+            else
             {
-                return closestValidSpot.Position;
+                Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
+                foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
+                {
+                    if (closestValidSpot == null && spot.CheckAccessGranted(accessVal) && spot != null)
+                    {
+                        closestValidSpot = spot;
+                    }
+                    else if (closestValidSpot != null)
+                    {
+                        if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal) && spot != null)
+                        {
+                            closestValidSpot = spot;
+                        }
+                    }
+                }
+
+                if (closestValidSpot != null)
+                {
+                    return closestValidSpot.Position;
+                }
             }
 
             IntVec3 fallbackChillspot = originCell;
@@ -271,7 +291,7 @@ namespace Spaceports
         }
 
         //Checks if a given map is considered to be a "spaceport"
-        //Qualifying conditions are A) a comms console (does not need to be powered unless you want shuttles to actually land)
+        //Qualifying conditions are A) a beacon (does not need to be powered unless you want shuttles to actually land)
         //and B) either the presence of a valid shuttlepad or rough landing being enabled
         public static bool CheckIfSpaceport(Map map)
         {
@@ -298,6 +318,40 @@ namespace Spaceports
                 }
             }
             return false;
+        }
+
+        public static bool IsMapInSpace(Map map)//Method to check if a map is a SOS2 space map w/o assembly referencing
+        {
+            if(!Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
+            {
+                return false;
+            }
+
+            return map.Biome == DefDatabase<BiomeDef>.GetNamed("OuterSpaceBiome");
+        }
+
+        public static void SuitUpPawns(List<Pawn> pawns)//Method to equip a list of pawns with SOS2 suit + helmet w/o assembly referencing
+        { 
+            if (!Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
+            {
+                return; //emergency breakout to prevent NRE
+            }
+
+            foreach (Pawn pawn in pawns)
+            {
+                if(pawn != null && pawn.apparel != null)
+                {
+                    Apparel helmet = (Apparel)ThingMaker.MakeThing(DefDatabase<ThingDef>.GetNamed("Apparel_SpaceSuitHelmet"));
+                    Apparel suit = (Apparel)ThingMaker.MakeThing(DefDatabase<ThingDef>.GetNamed("Apparel_SpaceSuitBody"), stuff: SpaceportsDefOf.Synthread);
+                    pawn.apparel.Wear(helmet, false, true);
+                    pawn.apparel.Wear(suit, false, true);
+                }
+            }
+        }
+
+        public static bool HospitalityShuttleCheck(Map map, Faction faction)
+        {
+            return (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) || Utils.IsMapInSpace(map)) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel != TechLevel.Neolithic && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome);
         }
 
         public static void StripPawn(Pawn p)

@@ -6,18 +6,18 @@ using Verse.AI.Group;
 
 namespace Spaceports.LordJobs
 {
-    public class LordJob_SpaceportDepart : LordJob_ExitOnShuttle
+    public class LordJob_DepartSpaceport : LordJob_ExitOnShuttle
     {
         private bool addFleeToil = true;
         public override bool AddFleeToil => addFleeToil;
         public override bool RemoveDownedPawns => false;
 
-        public LordJob_SpaceportDepart()
+        public LordJob_DepartSpaceport()
         {
             
         }
 
-        public LordJob_SpaceportDepart(Thing shuttle, bool addFleeToil = true)
+        public LordJob_DepartSpaceport(Thing shuttle, bool addFleeToil = true)
         {
             this.shuttle = shuttle;
             this.addFleeToil = addFleeToil;

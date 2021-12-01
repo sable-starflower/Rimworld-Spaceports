@@ -24,7 +24,10 @@ namespace Spaceports.Incidents
         {
             if (!base.CanFireNowSub(parms))
             {
-                return false;
+                if (!Utils.IsMapInSpace((Map)parms.target))
+                {
+                    return false;
+                }
             }
             if (!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().regularVisitors)
             {
@@ -45,7 +48,6 @@ namespace Spaceports.Incidents
             }
             return false;
         }
-
 
         protected override bool TryExecuteWorker(IncidentParms parms)
         {

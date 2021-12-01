@@ -13,6 +13,7 @@ namespace Spaceports
         public bool airspaceLockdown = true;
         public bool autoEvacuate = true;
         public bool enableShuttleLimit = false;
+        public bool randomFlow = false;
         public int shuttleLimit = 5;
 
         public bool regularVisitors = true;
@@ -50,6 +51,7 @@ namespace Spaceports
             Scribe_Values.Look(ref airspaceLockdown, "airspaceLockdown", true);
             Scribe_Values.Look(ref autoEvacuate, "autoEvacuate", true);
             Scribe_Values.Look(ref enableShuttleLimit, "enableShuttleLimit", false);
+            Scribe_Values.Look(ref randomFlow, "randomFlow", false);
             Scribe_Values.Look(ref shuttleLimit, "shuttleLimit", 5);
 
             Scribe_Values.Look(ref regularVisitors, "regularVisitors", true);
@@ -110,6 +112,7 @@ namespace Spaceports
                 listingStandard.Label("Spaceports_TCHeader".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_AirspaceLockdownToggle".Translate(), ref settings.airspaceLockdown, "Spaceports_AirspaceLockdownTooltip".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_AutoLeaveToggle".Translate(), ref settings.autoEvacuate, "Spaceports_AutoLeaveTooltip".Translate());
+                listingStandard.CheckboxLabeled("Spaceports_RandomFlow".Translate(), ref settings.randomFlow, "Spaceports_RandomFlowTooltip".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_EnableShuttleLimitToggle".Translate(), ref settings.enableShuttleLimit);
                 if (settings.enableShuttleLimit)
                 {
@@ -164,7 +167,7 @@ namespace Spaceports
                     if (settings.hospitalityEnabled)
                     {
                         listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
-                        settings.hospitalityChance = listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f);
+                        settings.hospitalityChance = (float)Math.Round(listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f) * 10, MidpointRounding.ToEven) / 10;
                     }
                     listingStandard.GapLine();
                 }
@@ -213,6 +216,7 @@ namespace Spaceports
             settings.airspaceLockdown = true;
             settings.autoEvacuate = true;
             settings.enableShuttleLimit = false;
+            settings.randomFlow = false;
             settings.shuttleLimit = 5;
 
             settings.regularVisitors = true;

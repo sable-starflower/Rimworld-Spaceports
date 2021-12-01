@@ -13,7 +13,7 @@
         </graphicData>
         <uiIconPath>Buildings/Fueling/FuelProcessor</uiIconPath>
         <tickerType>Normal</tickerType>
-        <drawerType>RealtimeOnly</drawerType>
+        <drawerType>MapMeshAndRealTime</drawerType>
         <altitudeLayer>Building</altitudeLayer>
         <pathCost>50</pathCost>
         <statBases>
@@ -80,7 +80,7 @@
         </graphicData>
         <uiIconPath>Buildings/Fueling/FuelTank/FuelTank_north</uiIconPath>
         <tickerType>Normal</tickerType>
-        <drawerType>RealtimeOnly</drawerType>
+        <drawerType>MapMeshAndRealTime</drawerType>
         <altitudeLayer>Building</altitudeLayer>
         <pathCost>50</pathCost>
         <statBases>
@@ -134,7 +134,7 @@
         </graphicData>
         <uiIconPath>Buildings/Fueling/FuelTerminal</uiIconPath>
         <tickerType>Normal</tickerType>
-        <drawerType>RealtimeOnly</drawerType>
+        <drawerType>MapMeshAndRealTime</drawerType>
         <altitudeLayer>Building</altitudeLayer>
         <pathCost>50</pathCost>
         <statBases>
