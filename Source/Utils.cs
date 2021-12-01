@@ -1,8 +1,11 @@
 ﻿using RimWorld;
+using Spaceports.LordToils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 namespace Spaceports
 {
@@ -146,25 +149,38 @@ namespace Spaceports
         //If none found, defaults to tile that is z-2 below shuttle tile
         public static IntVec3 GetBestChillspot(Map map, IntVec3 originCell, int accessVal)
         {
-            Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
-            foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
+            if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().randomFlow)
             {
-                if (closestValidSpot == null && spot.CheckAccessGranted(accessVal) && spot != null)
+                foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>().InRandomOrder())
                 {
-                    closestValidSpot = spot;
-                }
-                else if (closestValidSpot != null)
-                {
-                    if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal) && spot != null)
+                    if (spot.CheckAccessGranted(accessVal))
                     {
-                        closestValidSpot = spot;
+                        return spot.Position;
                     }
                 }
             }
-
-            if (closestValidSpot != null)
+            else
             {
-                return closestValidSpot.Position;
+                Spaceports.Buildings.Building_ShuttleSpot closestValidSpot = null;
+                foreach (Spaceports.Buildings.Building_ShuttleSpot spot in map.listerBuildings.AllBuildingsColonistOfClass<Spaceports.Buildings.Building_ShuttleSpot>())
+                {
+                    if (closestValidSpot == null && spot.CheckAccessGranted(accessVal) && spot != null)
+                    {
+                        closestValidSpot = spot;
+                    }
+                    else if (closestValidSpot != null)
+                    {
+                        if (spot.Position.DistanceTo(originCell) < closestValidSpot.Position.DistanceTo(originCell) && spot.CheckAccessGranted(accessVal) && spot != null)
+                        {
+                            closestValidSpot = spot;
+                        }
+                    }
+                }
+
+                if (closestValidSpot != null)
+                {
+                    return closestValidSpot.Position;
+                }
             }
 
             IntVec3 fallbackChillspot = originCell;
@@ -331,6 +347,11 @@ namespace Spaceports
                     pawn.apparel.Wear(suit, false, true);
                 }
             }
+        }
+
+        public static bool HospitalityShuttleCheck(Map map, Faction faction)
+        {
+            return (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) || Utils.IsMapInSpace(map)) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel != TechLevel.Neolithic && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome);
         }
 
         public static void StripPawn(Pawn p)

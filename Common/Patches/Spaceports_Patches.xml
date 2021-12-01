@@ -165,13 +165,21 @@
     <Operation Class="PatchOperationFindMod">
         <mods>
             <li>Save Our Ship 2</li>
-            <li>Hospitality</li>
         </mods>
-        <match Class="PatchOperationAdd">
-            <xpath>/Defs/IncidentDef[defName="VisitorGroup"]/targetTags</xpath> 
-            <value>
-                <li>Map_SpaceHome</li>
-            </value>
+        <match Class="PatchOperationSequence">
+            <operations>
+                <li Class="PatchOperationFindMod">
+                    <mods>
+                        <li>Hospitality</li>
+                    </mods>
+                    <match Class="PatchOperationAdd">
+                        <xpath>/Defs/IncidentDef[defName="VisitorGroup"]/targetTags</xpath> 
+                        <value>
+                            <li>Map_SpaceHome</li>
+                        </value>
+                    </match>
+                </li>
+            </operations>
         </match>
     </Operation>
 

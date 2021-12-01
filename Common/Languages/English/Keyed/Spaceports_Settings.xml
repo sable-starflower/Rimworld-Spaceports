@@ -6,6 +6,8 @@
 	<Spaceports_AirspaceLockdownTooltip>If enabled, when hostiles enter the map, your colony will automatically go into airspace lockdown. No new shuttles of any type will arrive, but any landed shuttles can still depart.\n\nIt is strongly recommended that you leave this ON to avoid diplomatic consequences from visitors being caught in crossfire.</Spaceports_AirspaceLockdownTooltip>
 	<Spaceports_AutoLeaveToggle>Enable visitors and traders automatically evacuating if hostiles enter the map?</Spaceports_AutoLeaveToggle>
 	<Spaceports_AutoLeaveTooltip>If enabled, visitors and traders (but NOT Hospitality guests) will automatically try to depart via shuttle when hostiles enter the map.\n\nIt is strongly recommended that you leave this ON to avoid diplomatic consequences from visitors being caught in the crossfire.</Spaceports_AutoLeaveTooltip>
+	<Spaceports_RandomFlow>Enable random chillspot selection?</Spaceports_RandomFlow>
+	<Spaceports_RandomFlowTooltip>If enabled, visiting parties will select an open chillspot randomly rather than using the closest one to their pad.</Spaceports_RandomFlowTooltip>
 	<Spaceports_EnableShuttleLimitToggle>Enable shuttle limit?</Spaceports_EnableShuttleLimitToggle>
 	<Spaceports_ShuttleLimitLabel>How many shuttles can be landed at your colony simultaneously.</Spaceports_ShuttleLimitLabel>
 	<!--Visitor Settings-->
