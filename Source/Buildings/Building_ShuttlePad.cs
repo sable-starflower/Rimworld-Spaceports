@@ -23,7 +23,7 @@ namespace Spaceports.Buildings
             string text = base.GetInspectString();
             if (IsUnroofed() == false)
             {
-                text += "Pad blocked by roofing.";
+                text += "Spaceports_RoofBlocking".Translate();
             }
             return text;
         }
@@ -127,7 +127,7 @@ namespace Spaceports.Buildings
 
                 defaultLabel = "AccessControlButton".Translate(),
                 defaultDesc = "AccessControlDesc".Translate(),
-                icon = getAccessIcon(),
+                icon = GetAccessIcon(),
                 order = -100,
                 action = delegate ()
                 {
@@ -178,14 +178,29 @@ namespace Spaceports.Buildings
 
         public bool IsUnroofed()
         {
-            foreach (IntVec3 cell in this.OccupiedRect().Cells)
+            if (Verse.ModLister.HasActiveModWithName("Save Our Ship 2"))
             {
-                if (cell.Roofed(this.Map))
+                foreach (IntVec3 cell in this.OccupiedRect().Cells)
                 {
-                    return false;
+                    if (cell.Roofed(this.Map) && !this.Map.roofGrid.RoofAt(cell).defName.Equals("RoofShip"))
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+
+            else
+            {
+                foreach (IntVec3 cell in this.OccupiedRect().Cells)
+                {
+                    if (cell.Roofed(this.Map))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         private bool IsShuttleOnPad()
@@ -228,7 +243,7 @@ namespace Spaceports.Buildings
             return GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true);
         }
 
-        private Texture2D getAccessIcon()
+        private Texture2D GetAccessIcon()
         {
             if (AccessState == -1)
             {

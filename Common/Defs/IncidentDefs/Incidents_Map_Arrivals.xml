@@ -9,7 +9,7 @@
     <workerClass>Spaceports.Incidents.IncidentWorker_TraderShuttleArrival</workerClass>
     <category>FactionArrival</category>
     <baseChance>0</baseChance>
-    <requireColonistsPresent>True</requireColonistsPresent>
+    <requireColonistsPresent>False</requireColonistsPresent>
   </IncidentDef>
   
   <IncidentDef>
@@ -22,7 +22,7 @@
     <category>FactionArrival</category>
     <baseChance>0</baseChance>
     <pointsScaleable>true</pointsScaleable>
-    <requireColonistsPresent>True</requireColonistsPresent>
+    <requireColonistsPresent>False</requireColonistsPresent>
   </IncidentDef>
 
 </Defs>

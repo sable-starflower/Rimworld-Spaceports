@@ -12,9 +12,6 @@ namespace Spaceports.Buildings
 {
     public class Building_FuelProcessor : Building
     {
-        //Large building (3x3?)
-        //Must be fueled with chemfuel plus a good chunk of power
-        //This in turn "fills" linked fuel tanks with units of "fusion fuel"
         private int TotalProduced = 0;
         private int ProductionCache = 0;
         private const int UnitsPerRareTick = 6;
@@ -120,10 +117,6 @@ namespace Spaceports.Buildings
 
     public class Building_FuelTank : Building
     {
-        //Medium building (2x2)
-        //Basically inert on its own
-        //Has an internal fuel counter that can be ticked up by a linked and operating fuel processor,
-        //or siphoned out by fuel dispeners on the same powernet
         private int FusionFuelLevel = 0;
         private const int FuelCap = 1000;
 
@@ -201,9 +194,6 @@ namespace Spaceports.Buildings
 
     public class Building_FuelDispenser : Building
     {
-        //Small building (1x1)
-        //Draws fusion fuel units from tanks on the same powernet and "sells" it to landing shuttles
-        //the amount taken (and therefore amount of silver made) varies randomly within locked bounds
         private int TotalSales = 0;
 
         public override void ExposeData()

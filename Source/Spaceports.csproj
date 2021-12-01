@@ -109,7 +109,7 @@
     <Compile Include="Letters\PrisonerTransferLetter.cs" />
     <Compile Include="Letters\SpicyPawnLendingLetter.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleTradeWithColony.cs" />
-    <Compile Include="LordJobs\LordJob_SpaceportDepart.cs" />
+    <Compile Include="LordJobs\LordJob_DepartSpaceport.cs" />
     <Compile Include="LordJobs\LordJob_ShuttleVisitColony.cs" />
     <Compile Include="LordToils\LordToil_DefendTraderCaravan.cs" />
     <Compile Include="LordToils\LordToil_EnterShuttleOrLeaveNullChecked.cs" />

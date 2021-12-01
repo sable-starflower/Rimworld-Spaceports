@@ -20,6 +20,12 @@ namespace Spaceports.Buildings
 
         public override void Tick()
         {
+            if(Find.TickManager.TicksGame % 500 == 0) { RareTick(); }
+            base.Tick();
+        }
+
+        public  void RareTick()
+        {
             if (this.Map != null)
             {
                 if (LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().autoEvacuate && GenHostility.AnyHostileActiveThreatToPlayer_NewTemp(this.Map, true) && !PartyRecalled)
@@ -27,8 +33,6 @@ namespace Spaceports.Buildings
                     RecallParty();
                 }
             }
-
-            base.Tick();
         }
 
         public override IEnumerable<Gizmo> GetGizmos()

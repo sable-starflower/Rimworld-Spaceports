@@ -56,7 +56,7 @@ namespace Spaceports.Buildings
 
                 defaultLabel = "AccessControlButton".Translate(),
                 defaultDesc = "AccessControlDesc".Translate(),
-                icon = getAccessIcon(),
+                icon = GetAccessIcon(),
                 order = -100,
                 action = delegate ()
                 {
@@ -102,7 +102,7 @@ namespace Spaceports.Buildings
             else return AccessState == val;
         }
 
-        private Texture2D getAccessIcon()
+        private Texture2D GetAccessIcon()
         {
             if (AccessState == -1)
             {

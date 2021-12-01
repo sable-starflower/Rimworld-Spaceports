@@ -36,4 +36,152 @@
         <xpath>/Defs/ThingDef[defName="Shuttle"]/fillPercent</xpath>
     </Operation>
 
+    <!--Compat self-patches for SOS2-->
+    <!--Arrival events-->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_VisitorShuttleArrival"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_TraderShuttleArrival"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <!--Special events-->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_ShuttleMedevac"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_MedevacReward"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_InterstellarDerelict"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_MysteryCargo"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_PrisonerTransfer"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/IncidentDef[defName="Spaceports_SpicyPawnLending"]/targetTags</xpath> 
+            <value>
+                <li>Map_SpaceHome</li>
+            </value>
+        </match>
+    </Operation>
+
+    <!--Skyfallers-->
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[@Name="Spaceports_SkyfallerIncomingBase"]/skyfaller</xpath> 
+            <value>
+                <hitRoof>false</hitRoof>
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationAdd">
+            <xpath>/Defs/ThingDef[@Name="Spaceports_SkyfallerLeavingBase"]/skyfaller</xpath> 
+            <value>
+                <hitRoof>false</hitRoof>
+            </value>
+        </match>
+    </Operation>
+
+    <!--Compat patches for SOS2/Hospitality bridge-->
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Save Our Ship 2</li>
+        </mods>
+        <match Class="PatchOperationSequence">
+            <operations>
+                <li Class="PatchOperationFindMod">
+                    <mods>
+                        <li>Hospitality</li>
+                    </mods>
+                    <match Class="PatchOperationAdd">
+                        <xpath>/Defs/IncidentDef[defName="VisitorGroup"]/targetTags</xpath> 
+                        <value>
+                            <li>Map_SpaceHome</li>
+                        </value>
+                    </match>
+                </li>
+            </operations>
+        </match>
+    </Operation>
+
+
 </Patch>
