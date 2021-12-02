@@ -100,6 +100,22 @@
   </ThingDef>
 
   <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleSkip</defName>
+    <graphicData>
+      <drawSize>(5,5)</drawSize>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+    </graphicData>
+  </ThingDef>
+
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
+    <defName>Spaceports_ShuttleSuperpod</defName>
+    <graphicData>
+      <texPath>Buildings/Shuttles/TestShuttle</texPath>
+    </graphicData>
+  </ThingDef>
+
+  <ThingDef ParentName="Spaceports_ShuttleBase">
     <defName>Spaceports_ShuttleInert</defName>
     <label>inert shuttle</label>
     <description>An ancient shuttle, scarred and worn out by endless centuries spent trawling between stars. Its reactor has been rendered useless, making it only good for scrap.</description>

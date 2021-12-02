@@ -21,6 +21,16 @@
       </TransportShipDef>
 
       <TransportShipDef>
+        <defName>Spaceports_ShuttleSkip</defName>
+        <label>shuttle</label>
+        <shipThing>Spaceports_ShuttleSkip</shipThing>
+        <arrivingSkyfaller>ShuttleSkip_Incoming</arrivingSkyfaller>
+        <leavingSkyfaller>ShuttleSkip_Leaving</leavingSkyfaller>
+        <worldObject>Spaceports_ShuttleWO</worldObject> 
+        <maxLaunchDistance>70</maxLaunchDistance>
+      </TransportShipDef>
+
+      <TransportShipDef>
         <defName>Spaceports_ShuttleInert</defName>
         <label>shuttle</label>
         <shipThing>Spaceports_ShuttleInert</shipThing>

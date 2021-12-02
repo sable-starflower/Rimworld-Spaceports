@@ -6,7 +6,6 @@
           <graphicClass>Graphic_Single</graphicClass>
           <shaderType>CutoutFlying</shaderType>
           <drawSize>(6,3)</drawSize>
-          <color>(162,164,149)</color>
         </graphicData>
         <label>shuttle (incoming)</label>
         <thingClass>ShuttleIncoming</thingClass>
@@ -66,4 +65,14 @@
           <drawSize>(6,3)</drawSize>
         </graphicData>
     </ThingDef>
+
+    <ThingDef ParentName="Spaceports_SkyfallerIncomingBase">
+      <defName>ShuttleSkip_Incoming</defName>
+      <graphicData>
+        <texPath>Buildings/Shuttles/TestShuttle</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <shaderType>CutoutFlying</shaderType>
+        <drawSize>(5,5)</drawSize>
+      </graphicData>
+  </ThingDef>
 </Defs>

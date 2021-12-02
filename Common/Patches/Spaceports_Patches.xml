@@ -201,5 +201,43 @@
         </match>
     </Operation>
 
+    <!--VE Props integration-->
+    <!--VE mods might be 90% cringe unbalanced bloat but at least their art is good-->
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Vanilla Furniture Expanded - Props and Decor</li>
+        </mods>
+        <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="Spaceports_ShuttleSkip"]/graphicData/texPath</xpath> 
+            <value>
+                <texPath>Things/Building/Spaceships/Skip/Skip_east</texPath>            
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Vanilla Furniture Expanded - Props and Decor</li>
+        </mods>
+        <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="ShuttleSkip_Incoming"]/graphicData/texPath</xpath> 
+            <value>
+                <texPath>Things/Building/Spaceships/Skip/Skip_east</texPath>            
+            </value>
+        </match>
+    </Operation>
+
+    <Operation Class="PatchOperationFindMod">
+        <mods>
+            <li>Vanilla Furniture Expanded - Props and Decor</li>
+        </mods>
+        <match Class="PatchOperationReplace">
+            <xpath>/Defs/ThingDef[defName="ShuttleSkip_Leaving"]/graphicData/texPath</xpath> 
+            <value>
+                <texPath>Things/Building/Spaceships/Skip/Skip_east</texPath>            
+            </value>
+        </match>
+    </Operation>
 
 </Patch>
