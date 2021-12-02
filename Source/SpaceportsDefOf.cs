@@ -18,6 +18,7 @@ namespace Spaceports
 
         public static TransportShipDef Spaceports_RoyaltyShuttleTS;
         public static TransportShipDef Spaceports_ShuttleA;
+        public static TransportShipDef Spaceports_ShuttleSkip;
         public static TransportShipDef Spaceports_ShuttleInert;
         public static TransportShipDef Spaceports_SurpriseShuttle;
 
@@ -72,6 +73,10 @@ namespace Spaceports
             if (ModsConfig.RoyaltyActive)
             {
                 AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_RoyaltyShuttleTS);
+            }
+            if(Verse.ModLister.HasActiveModWithName("Vanilla Furniture Expanded - Props and Decor"))
+            {
+                AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_ShuttleSkip);
             }
             AllShuttleVariants.Add(SpaceportsDefOf.Spaceports_ShuttleA);
         }
