@@ -28,6 +28,7 @@ namespace Spaceports
 
         public bool hospitalityEnabled = true;
         public float hospitalityChance = 0.5f;
+        public bool dbhEnabled = true;
 
         public bool padAnimationsGlobal = true;
         public bool rimLightsAnimations = true;
@@ -66,6 +67,7 @@ namespace Spaceports
 
             Scribe_Values.Look(ref hospitalityEnabled, "hospitalityEnabled", true);
             Scribe_Values.Look(ref hospitalityChance, "hospitalityChance", 0.5f);
+            Scribe_Values.Look(ref dbhEnabled, "dbhEnabled", true);
 
             Scribe_Values.Look(ref padAnimationsGlobal, "padAnimationsGlobal", true);
             Scribe_Values.Look(ref rimLightsAnimations, "rimLightsAnimations", true);
@@ -103,7 +105,7 @@ namespace Spaceports
 
             if (settings.page == 1)
             {
-                if (listingStandard.ButtonText("Spaceports_NextPage".Translate()))
+                if (listingStandard.ButtonText("Spaceports_NextPageA".Translate()))
                 {
                     settings.page++;
                 }
@@ -152,25 +154,13 @@ namespace Spaceports
 
             }
 
-            else if (settings.page == 2)
+            else if(settings.page == 2)
             {
-                if (listingStandard.ButtonText("Spaceports_PrevPage".Translate()))
+                if (listingStandard.ButtonText("Spaceports_NextPageB".Translate()))
                 {
-                    settings.page--;
+                    settings.page++;
                 }
                 listingStandard.GapLine();
-
-                if (Verse.ModLister.HasActiveModWithName("Hospitality"))
-                {
-                    listingStandard.Label("Spaceports_HospitalityHeader".Translate());
-                    listingStandard.CheckboxLabeled("Spaceports_HospitalityModeToggle".Translate(), ref settings.hospitalityEnabled, "Spaceports_HospitalityModeToggleTooltip".Translate());
-                    if (settings.hospitalityEnabled)
-                    {
-                        listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
-                        settings.hospitalityChance = (float)Math.Round(listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f) * 10, MidpointRounding.ToEven) / 10;
-                    }
-                    listingStandard.GapLine();
-                }
 
                 listingStandard.Label("Spaceports_AnimHeader".Translate());
                 listingStandard.CheckboxLabeled("Spaceports_GlobalAnimationToggle".Translate(), ref settings.padAnimationsGlobal, "Spaceports_GlobalAnimationToggle_Label".Translate());
@@ -202,7 +192,33 @@ namespace Spaceports
                 }
 
                 listingStandard.GapLine();
+            }
 
+            else if (settings.page == 3)
+            {
+                if (listingStandard.ButtonText("Spaceports_PrevPage".Translate()))
+                {
+                    settings.page = 1;
+                }
+                listingStandard.GapLine();
+
+                if (Verse.ModLister.HasActiveModWithName("Hospitality"))
+                {
+                    listingStandard.Label("Spaceports_HospitalityHeader".Translate());
+                    listingStandard.CheckboxLabeled("Spaceports_HospitalityModeToggle".Translate(), ref settings.hospitalityEnabled, "Spaceports_HospitalityModeToggleTooltip".Translate());
+                    if (settings.hospitalityEnabled)
+                    {
+                        listingStandard.Label("Spaceports_HospitalityModeFreqSlider".Translate() + "Spaceports_VisitorFreqSlider_Count".Translate() + settings.hospitalityChance);
+                        settings.hospitalityChance = (float)Math.Round(listingStandard.Slider(settings.hospitalityChance, 0.01f, 1f) * 10, MidpointRounding.ToEven) / 10;
+                    }
+                    listingStandard.GapLine();
+                }
+                if (Verse.ModLister.HasActiveModWithName("Dubs Bad Hygiene"))
+                {
+                    listingStandard.Label("Spaceports_DBHHeader".Translate());
+                    listingStandard.CheckboxLabeled("Spaceports_DBHReflection".Translate(), ref settings.dbhEnabled, "Spaceports_DBHReflectionTooltip".Translate());
+                    listingStandard.GapLine();
+                }
                 if (listingStandard.ButtonText("Spaceports_ResetToDefault".Translate()))
                 {
                     ResetToDefaults();
@@ -231,6 +247,7 @@ namespace Spaceports
 
             settings.hospitalityEnabled = true;
             settings.hospitalityChance = 0.5f;
+            settings.dbhEnabled = true;
 
             settings.padAnimationsGlobal = true;
             settings.rimLightsAnimations = true;
