@@ -1,9 +1,12 @@
 ﻿using RimWorld;
 using SharpUtils;
+using System.Reflection;
+using System.Runtime;
 using System.Collections.Generic;
 using Verse;
 using Verse.AI;
 using static Spaceports.Utils;
+using System;
 
 namespace Spaceports
 {
@@ -37,6 +40,11 @@ namespace Spaceports
     public static class SpaceportsMisc //Misc complex constants 
     {
         public static List<AccessControlState> AccessStates = new List<AccessControlState>();
+        public static Type CompPipe = null;
+        public static Type PlumbingNet = null;
+        public static FieldInfo PipeNet = null;
+        public static MethodInfo PullWater = null;
+        public static MethodInfo CompPipeGetter = null;
         static SpaceportsMisc()
         {
             AccessStates.Add(new AccessControlState("Spaceports_None", -1));
@@ -46,6 +54,17 @@ namespace Spaceports
             if (Verse.ModLister.HasActiveModWithName("Hospitality"))
             {
                 AccessStates.Add(new AccessControlState("Spaceports_JustGuests", 3));
+            }
+            if (Verse.ModLister.HasActiveModWithName("Dubs Bad Hygiene"))
+            {
+                Log.Message("[Spaceports] Fucking around with reflection and DBH...");
+                CompPipe = Type.GetType("DubsBadHygiene.CompPipe, BadHygiene, Version=2.7.7273.33335, Culture=neutral, PublicKeyToken=null");
+                PlumbingNet = Type.GetType("DubsBadHygiene.PlumbingNet, BadHygiene, Version=2.7.7273.33335, Culture=neutral, PublicKeyToken=null");
+                PipeNet = CompPipe.GetField("pipeNetRef");
+                PullWater = PlumbingNet.GetMethod("PullWater");
+
+                MethodInfo method = typeof(ThingWithComps).GetMethod(nameof(ThingWithComps.GetComp));
+                CompPipeGetter = method.MakeGenericMethod(CompPipe);
             }
         }
     }

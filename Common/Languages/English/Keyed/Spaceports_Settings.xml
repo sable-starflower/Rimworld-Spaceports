@@ -32,6 +32,10 @@
 	<Spaceports_HospitalityModeToggle>Enable shuttles as an arrival method for Hospitality guests?</Spaceports_HospitalityModeToggle>
 	<Spaceports_HospitalityModeToggleTooltip>When enabled, a configurable percentage of Hospitality visitors will arrive via shuttle instead of on foot.\n\nNote that this percentage will not be exact, as tribal faction guests will always arrive on foot.</Spaceports_HospitalityModeToggleTooltip>
 	<Spaceports_HospitalityModeFreqSlider>What percentage of Hospitality visitor events will arrive via shuttle.</Spaceports_HospitalityModeFreqSlider>
+	<!--DBH settings-->
+	<Spaceports_DBHHeader><![CDATA[<i>DBH Integration Settings</i>]]></Spaceports_DBHHeader>
+	<Spaceports_DBHReflection>Enable DBH integration for fuel processors?</Spaceports_DBHReflection>
+	<Spaceports_DBHReflectionTooltip>When enabled, fusion fuel processors will pull the water they need for wet mode from the DBH plumbing network.\n\nSince this feature uses C# reflection to safely perform conditional access to DBH's code, it can have a minor performance impact that scales with each processor built. </Spaceports_DBHReflectionTooltip>
 	<!--Animation Settings-->
 	<Spaceports_AnimHeader><![CDATA[<i>Animation Settings</i>]]></Spaceports_AnimHeader>
 	<Spaceports_GlobalAnimationToggle>Enable landing pad animations?</Spaceports_GlobalAnimationToggle>

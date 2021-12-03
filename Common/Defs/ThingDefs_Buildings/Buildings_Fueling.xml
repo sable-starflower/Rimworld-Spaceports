@@ -33,7 +33,10 @@
           <ai_chillDestination>false</ai_chillDestination>
           <destroySound>BuildingDestroyed_Metal_Big</destroySound>
         </building>
-        <terrainAffordanceNeeded>ShallowWater</terrainAffordanceNeeded>
+        <terrainAffordanceNeeded></terrainAffordanceNeeded>
+        <placeWorkers>
+          <li>Spaceports.Buildings.PlaceWorker_FuelProcessor</li>
+        </placeWorkers>
         <rotatable>false</rotatable>
         <researchPrerequisites>
           <li>Fabrication</li>
