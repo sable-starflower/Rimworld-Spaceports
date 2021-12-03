@@ -36,7 +36,7 @@
         <xpath>/Defs/ThingDef[defName="Shuttle"]/fillPercent</xpath>
     </Operation>
     
-    <!-- Rimefeller Pipes Added to Fuel Processor Below -->
+    <!-- Rimefeller Pipes patch -->
 		<Operation Class="PatchOperationFindMod">
 			<mods>
 				<li>Rimefeller</li>
@@ -52,7 +52,25 @@
 				</operations>
 			</match>
 		</Operation>
-	<!-- Rimefeller Pipes Added to Fuel Processor Above -->
+
+        <!-- DBH plumbing patch -->
+		<Operation Class="PatchOperationFindMod">
+			<mods>
+				<li>Dubs Bad Hygiene</li>
+			</mods>
+			<match Class="PatchOperationSequence">
+				<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="Spaceports_FuelProcessor"]/comps</xpath>
+						<value>
+                            <li Class="DubsBadHygiene.CompProperties_Pipe">
+                                <mode>Sewage</mode>
+                            </li> 	
+						</value>
+				</li>
+				</operations>
+			</match>
+		</Operation>
 
     <!--Compat self-patches for SOS2-->
     <!--Arrival events-->

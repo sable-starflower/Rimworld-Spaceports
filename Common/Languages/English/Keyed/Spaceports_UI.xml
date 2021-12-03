@@ -18,8 +18,9 @@
 	<Spaceports_AutoEvac>Auto-evacuation in progress</Spaceports_AutoEvac>
 	<Spaceports_AutoEvacDesc>Due to the presence of hostiles, one or more of your colonies has initiated automatic evacuation of shuttle visitors. \n\nColonies currently performing auto-evacuation:\n</Spaceports_AutoEvacDesc>
 	
-	<Spaceports_NextPage>Next page (integrations, animations, events and reset)</Spaceports_NextPage>
-	<Spaceports_PrevPage>Previous page (traffic control, visitors, traders)</Spaceports_PrevPage>
+	<Spaceports_NextPageA>Next page (animations, events)</Spaceports_NextPageA>
+	<Spaceports_NextPageB>Next page (Integrations, reset)</Spaceports_NextPageB>
+	<Spaceports_PrevPage>Next page (traffic control, visitors, traders)</Spaceports_PrevPage>
 
 	<Spaceports_BeaconUnpowered>\nBeacon unpowered - spaceport offline.</Spaceports_BeaconUnpowered>
 	<Spaceports_BeaconNoPads>\nNo active landing pads detected - spaceport offline.</Spaceports_BeaconNoPads>

@@ -7,6 +7,8 @@ using RimWorld;
 using Verse;
 using SharpUtils;
 using UnityEngine;
+using System.Reflection;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace Spaceports.Buildings
 {
@@ -14,13 +16,32 @@ namespace Spaceports.Buildings
     {
         private int TotalProduced = 0;
         private int ProductionCache = 0;
-        private const int UnitsPerRareTick = 6;
+        private int ProductionMode = 0;
+        private int UnitsPerRareTick
+        {
+            get
+            {
+                if(GetProductionMode() == 0) { ProductionMode = 0; return 6; }
+                else { ProductionMode = 1; return 2; }
+            }
+
+        }
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref TotalProduced, "TotalProduced", 0);
             Scribe_Values.Look(ref ProductionCache, "ProductionCache", 0);
+            Scribe_Values.Look(ref ProductionMode, "ProductionMode", 0);
             base.ExposeData();
+        }
+
+        public override void SpawnSetup(Map map, bool respawningAfterLoad)
+        {
+            base.SpawnSetup(map, respawningAfterLoad);
+            if (!respawningAfterLoad)
+            {
+                if (!this.InWater()) { ProductionMode = 1; }
+            }
         }
 
         public override string GetInspectString()
@@ -28,6 +49,14 @@ namespace Spaceports.Buildings
             string str = base.GetInspectString();
             str += "\n" + "Spaceports_TotalFuelProduced".Translate(TotalProduced);
             str += "\n" + "Spaceports_ProductionCache".Translate(ProductionCache);
+            if(ProductionMode == 0)
+            {
+                str += "\n" + "Spaceports_ModeWet".Translate();
+            }
+            else
+            {
+                str += "\n" + "Spaceports_ModeDry".Translate();
+            }
             return str;
         }
 
@@ -47,18 +76,85 @@ namespace Spaceports.Buildings
             {
                 if (FuelComp.HasFuel && this.GetComp<CompPowerTrader>().PowerOn && !GetLinkedTanks().NullOrEmpty() && CanAnyTankAcceptFuelNow())
                 {
-                    TotalProduced += UnitsPerRareTick;
-                    TryDistributeFuel();
+                    int UPRT = UnitsPerRareTick; //Cache value from getter to avoid excessive calls to reflected DBH methods
+                    TotalProduced += UPRT;
+                    TryDistributeFuel(UPRT);
                 }
                 else if(GetLinkedTanks().NullOrEmpty() || !CanAnyTankAcceptFuelNow())
                 {
                     if(FuelComp.HasFuel && this.GetComp<CompPowerTrader>().PowerOn)
                     {
-                        TotalProduced += UnitsPerRareTick;
-                        ProductionCache += UnitsPerRareTick;
+                        int UPRT = UnitsPerRareTick; //Cache value from getter to avoid excessive calls to reflected DBH methods
+                        TotalProduced += UPRT;
+                        ProductionCache += UPRT;
                     }
                 }
             }
+        }
+
+        private int GetProductionMode()
+        {
+            if (!Verse.ModLister.HasActiveModWithName("Dubs Bad Hygiene"))
+            {
+                if (!this.InWater())
+                {
+                    return 1;
+                }
+
+                return 0;
+            }
+
+            else
+            {
+                if (this.InWater())
+                {
+                    return 0;
+                }
+
+                if (PullWater())
+                {
+                    return 0;
+                }
+                return 1;
+            }
+        }
+
+        private bool PullWater()
+        {
+            if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().dbhEnabled) { return false; }
+            try
+            {
+                var comp = SpaceportsMisc.CompPipeGetter.Invoke(this, null);
+
+                object[] parms = new object[] { 8f, null };
+                var PipeNet = SpaceportsMisc.PipeNet.GetValue(comp);
+
+                if(PipeNet == null)
+                {
+                    return false;
+                }
+
+                bool result = (bool)SpaceportsMisc.PullWater.Invoke(PipeNet, parms);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                Log.ErrorOnce("[Spaceports] Error when trying to pull water from DBH PlumbingNet via reflection! Exception: " + ex.ToString(), this.thingIDNumber ^ 0x4475CF1F);
+                return false;
+            }
+
+        }
+
+        private bool InWater()
+        {
+            foreach (IntVec3 cell in this.OccupiedRect())
+            {
+                if (!this.Map.terrainGrid.TerrainAt(cell).affordances.Contains(TerrainAffordanceDefOf.MovingFluid) && !this.Map.terrainGrid.TerrainAt(cell).affordances.Contains(SpaceportsDefOf.ShallowWater))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private List<Building_FuelTank> GetLinkedTanks()
@@ -88,9 +184,9 @@ namespace Spaceports.Buildings
             return result;
         }
 
-        private void TryDistributeFuel()
+        private void TryDistributeFuel(int drops)
         {
-            int DropsRemaining = UnitsPerRareTick;
+            int DropsRemaining = drops;
             DropsRemaining += ProductionCache;
             ProductionCache = 0;
             while(DropsRemaining > 0)
@@ -112,6 +208,62 @@ namespace Spaceports.Buildings
                     break; //Emergency breakout to prevent game lock
                 }
             }
+        }
+    }
+
+    public class PlaceWorker_FuelProcessor : PlaceWorker
+    {
+        public override AcceptanceReport AllowsPlacing(BuildableDef checkingDef, IntVec3 loc, Rot4 rot, Map map, Thing thingToIgnore = null, Thing thing = null)
+        {
+            foreach (IntVec3 item in PlaceCells(loc))
+            {
+                if (!map.terrainGrid.TerrainAt(item).affordances.Contains(TerrainAffordanceDefOf.Heavy) && !map.terrainGrid.TerrainAt(item).affordances.Contains(TerrainAffordanceDefOf.MovingFluid) && !map.terrainGrid.TerrainAt(item).affordances.Contains(SpaceportsDefOf.ShallowWater))
+                {
+                    return new AcceptanceReport("Spaceports_FFTerrain".Translate());
+                }
+            }
+            return true;
+        }
+
+        public override void PostPlace(Map map, BuildableDef def, IntVec3 loc, Rot4 rot)
+        {
+            foreach (IntVec3 item in PlaceCells(loc))
+            {
+                if (!map.terrainGrid.TerrainAt(item).affordances.Contains(TerrainAffordanceDefOf.MovingFluid) && !map.terrainGrid.TerrainAt(item).affordances.Contains(SpaceportsDefOf.ShallowWater))
+                {
+                    if (!Verse.ModLister.HasActiveModWithName("Dubs Bad Hygiene"))
+                    {
+                        Messages.Message("Spaceports_DryModeWarning".Translate(), MessageTypeDefOf.CautionInput);
+                    }
+                    else
+                    {
+                        Messages.Message("Spaceports_DryModeWarningDBH".Translate(), MessageTypeDefOf.CautionInput);
+                    }
+                }
+            }
+            base.PostPlace(map, def, loc, rot);
+        }
+
+        public static IEnumerable<IntVec3> PlaceCells(IntVec3 center)
+        {
+            yield return new IntVec3(center.x - 1, center.y, center.z - 1);
+            yield return new IntVec3(center.x, center.y, center.z - 1);
+            yield return new IntVec3(center.x + 1, center.y, center.z - 1);
+
+            yield return new IntVec3(center.x - 1, center.y, center.z);
+            yield return center;
+            yield return new IntVec3(center.x + 1, center.y, center.z);
+
+            yield return new IntVec3(center.x - 1, center.y, center.z + 1);
+            yield return new IntVec3(center.x, center.y, center.z + 1);
+            yield return new IntVec3(center.x + 1, center.y, center.z + 1);
+        }
+
+        public override IEnumerable<TerrainAffordanceDef> DisplayAffordances()
+        {
+            yield return TerrainAffordanceDefOf.Heavy;
+            yield return TerrainAffordanceDefOf.MovingFluid;
+            yield return SpaceportsDefOf.ShallowWater;
         }
     }
 
