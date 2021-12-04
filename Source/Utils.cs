@@ -351,7 +351,10 @@ namespace Spaceports
 
         public static bool HospitalityShuttleCheck(Map map, Faction faction)
         {
-            return (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) || Utils.IsMapInSpace(map)) && LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && faction.def.techLevel != TechLevel.Neolithic && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome);
+            return (Rand.Chance(LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityChance) || Utils.IsMapInSpace(map)) && 
+                LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().hospitalityEnabled && Utils.CheckIfClearForLanding(map, 3) && 
+                faction.def.techLevel != TechLevel.Neolithic 
+                && !map.gameConditionManager.ConditionIsActive(SpaceportsDefOf.Spaceports_KesslerSyndrome);
         }
 
         public static void StripPawn(Pawn p)

@@ -217,12 +217,15 @@ namespace Spaceports
         [HarmonyPostfix]//Hospitality patch, patches the StateGraphs of *new* Lords
         public static void LordMaker_MakeNewLordPostfix(Faction faction, LordJob lordJob, Map map, IEnumerable<Pawn> startingPawns = null)
         {
-            if (Utils.HospitalityShuttleCheck(map, faction))
+            if (lordJob.ToString() == "Hospitality.LordJob_VisitColony")
             {
-                PatchHospitalityGraph(lordJob, null, lordJob.lord.Graph, false, map, faction, startingPawns.ToList());
-                return;
+                if (Utils.HospitalityShuttleCheck(map, faction))
+                {
+                    PatchHospitalityGraph(lordJob, null, lordJob.lord.Graph, false, map, faction, startingPawns.ToList());
+                    return;
+                }
+                return; //Check failed, do not patch graph
             }
-            return; //Check failed, do not patch graph
         }
 
         [HarmonyPostfix]//Hospitality patch, patches the StateGraphs of Lords loaded from save
