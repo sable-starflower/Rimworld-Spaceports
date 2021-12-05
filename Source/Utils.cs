@@ -396,5 +396,16 @@ namespace Spaceports
             }
         }
 
+        [DebugAction("General", null, false, false, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        private static void DumpTrackers()
+        {
+            List<Tracker> trackers = Find.CurrentMap.GetComponent<SpaceportsMapComp>().trackers;
+            Log.Message("[Spaceports] Dumping trackers!");
+            foreach(Tracker t in trackers)
+            {
+                Log.Message(t.ToString());
+            }
+        }
+
     }
 }

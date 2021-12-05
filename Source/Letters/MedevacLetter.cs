@@ -10,6 +10,11 @@ namespace Spaceports.Letters
         private Pawn hurtPawn;
         private Thing shuttle;
 
+        public MedevacTracker()
+        {
+
+        }
+
         public MedevacTracker(Pawn pawn, Thing shuttle)
         {
             hurtPawn = pawn;

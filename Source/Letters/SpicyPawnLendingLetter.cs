@@ -14,6 +14,11 @@ namespace Spaceports.Letters
         private List<Thing> rewards;
         private bool WasInjured;
 
+        public LoanedPawnTracker()
+        {
+
+        }
+
         public LoanedPawnTracker(Pawn pawn, Map map, List<Thing> rewards, bool WasInjured)
         {
             LoanedPawn = pawn;

@@ -13,7 +13,7 @@ namespace Spaceports
         private float visitorInterval = 0f;
         private float traderInterval = 0f;
         private int nextQueueInspection;
-        private List<Utils.Tracker> trackers = new List<Utils.Tracker>();
+        public List<Utils.Tracker> trackers = new List<Utils.Tracker>();
         public bool ForcedLockdown = false;
 
         public SpaceportsMapComp(Map map) : base(map)
