@@ -45,7 +45,11 @@ namespace Spaceports
             List<Utils.Tracker> deadTrackers = new List<Utils.Tracker>();
             foreach (Utils.Tracker tracker in trackers)
             {
-                if (tracker.Check())
+                if(tracker == null)
+                {
+                    deadTrackers.Add(tracker);
+                }
+                else if (tracker.Check())
                 {
                     deadTrackers.Add(tracker);
                 }
