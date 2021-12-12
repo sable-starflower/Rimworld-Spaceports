@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using Spaceports.LordToils;
+using System.Collections.Generic;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -23,6 +24,12 @@ namespace Spaceports.LordJobs
             this.faction = faction;
             this.chillSpot = chillSpot;
             this.shuttle = shuttle;
+        }
+
+        public override void LordJobTick()
+        {
+            base.LordJobTick();
+            if (Find.TickManager.TicksGame % 250 == 0) { Utils.VerifyRequiredPawns(this.lord, this.shuttle); }
         }
 
         public override StateGraph CreateGraph()

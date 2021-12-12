@@ -90,7 +90,6 @@ namespace Spaceports
                 wait.loadID = Find.UniqueIDsManager.GetNextShipJobID();
                 wait.leaveImmediatelyWhenSatisfied = true;
                 wait.showGizmos = false;
-                wait.sendAwayIfAllDespawned = checkTargets;
                 shuttle.AddJob(wait);
             }
             else if (dropAndGo)
@@ -370,6 +369,20 @@ namespace Spaceports
             if (p.equipment != null)
             {
                 p.equipment.DestroyAllEquipment();
+            }
+        }
+
+        public static void VerifyRequiredPawns(Lord lord, Thing shuttle)
+        {
+            List<Pawn> pawns = lord.ownedPawns;
+            List<Pawn> requested = shuttle.TryGetComp<CompShuttle>().requiredPawns;
+
+            for (int i = 0; i < requested.Count; i++)
+            {
+                if (!pawns.Contains(requested[i]))
+                {
+                    requested.RemoveAt(i);
+                }
             }
         }
 

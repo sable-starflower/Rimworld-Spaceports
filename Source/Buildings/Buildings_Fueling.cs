@@ -188,7 +188,6 @@ namespace Spaceports.Buildings
         {
             int DropsRemaining = drops;
             DropsRemaining += ProductionCache;
-            ProductionCache = 0;
             while(DropsRemaining > 0)
             {
                 foreach (Building_FuelTank tank in GetLinkedTanks())
@@ -208,6 +207,7 @@ namespace Spaceports.Buildings
                     break; //Emergency breakout to prevent game lock
                 }
             }
+            ProductionCache = DropsRemaining;
         }
     }
 

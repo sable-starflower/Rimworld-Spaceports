@@ -137,6 +137,32 @@ namespace Spaceports
             }
         }
 
+        //Postfix to CompShuttle's Tick() that checks to see if any required pawns are despawned (e.g. left the map through alternate means) and removes them
+        //from the shuttle's required list accordingly
+        //This actually fixes a bug in the base game as well - ty Tynan very cool
+        [HarmonyPatch(typeof(CompShuttle), nameof(CompShuttle.CompTick))]
+        private static class Harmony_CompShuttle_CompTick
+        {
+            static void Postfix(List<Pawn> ___requiredPawns, TransportShip ___shipParent)
+            {
+                if(Find.TickManager.TicksGame % 500 == 0)
+                {
+                    List<Pawn> targetPawns = new List<Pawn>();
+                    foreach (Pawn pawn in ___requiredPawns)
+                    {
+                        if (!pawn.Spawned && !___shipParent.TransporterComp.innerContainer.Contains(pawn) && pawn.CarriedBy == null)
+                        {
+                            targetPawns.Add(pawn);
+                        }
+                    }
+                    foreach (Pawn pawn in targetPawns)
+                    {
+                        ___requiredPawns.Remove(pawn);
+                    }
+                }
+            }
+        }
+
         //aka "where the fuck is our shuttle?"
         public static Thing TryFindGroupShuttle(Map map, Pawn pawn)
         {
