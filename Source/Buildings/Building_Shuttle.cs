@@ -24,7 +24,7 @@ namespace Spaceports.Buildings
             base.Tick();
         }
 
-        public  void RareTick()
+        public void RareTick()
         {
             if (this.Map != null)
             {
@@ -72,6 +72,17 @@ namespace Spaceports.Buildings
         public void ForceImmediateDeparture()
         {
             CompShuttle shuttleComp = this.GetComp<CompShuttle>();
+
+            List<Pawn> pawnsToAbandon = new List<Pawn>();
+            foreach(Pawn p in shuttleComp.requiredPawns)
+            {
+                if (!shuttleComp.Transporter.innerContainer.Contains(p)) { pawnsToAbandon.Add(p); }
+            }
+            foreach(Pawn p in pawnsToAbandon)
+            {
+                shuttleComp.requiredPawns.Remove(p);
+            }
+
             ShipJob_FlyAway leave = new ShipJob_FlyAway();
             leave.loadID = Find.UniqueIDsManager.GetNextShipJobID();
             shuttleComp.shipParent.ForceJob(leave);

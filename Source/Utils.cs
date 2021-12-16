@@ -374,8 +374,11 @@ namespace Spaceports
 
         public static void VerifyRequiredPawns(Lord lord, Thing shuttle)
         {
+            if(lord == null) { return; }
             List<Pawn> pawns = lord.ownedPawns;
-            List<Pawn> requested = shuttle.TryGetComp<CompShuttle>().requiredPawns;
+            CompShuttle comp = shuttle.TryGetComp<CompShuttle>();
+            if(comp == null) { return; }
+            List<Pawn> requested = comp.requiredPawns;
 
             for (int i = 0; i < requested.Count; i++)
             {

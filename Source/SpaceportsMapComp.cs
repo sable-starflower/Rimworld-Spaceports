@@ -48,12 +48,14 @@ namespace Spaceports
                 if(tracker == null)
                 {
                     deadTrackers.Add(tracker);
+                    continue;
                 }
                 else if (tracker.Check())
                 {
                     deadTrackers.Add(tracker);
                 }
             }
+
             foreach (Utils.Tracker tracker in deadTrackers)
             {
                 trackers.Remove(tracker);
