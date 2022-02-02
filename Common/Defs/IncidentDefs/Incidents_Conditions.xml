@@ -22,8 +22,8 @@
         <gameCondition>Spaceports_KesslerSyndrome</gameCondition>
         <letterLabel>Kessler syndrome</letterLabel>
         <letterDef>NegativeEvent</letterDef>
-        <baseChance>0.8</baseChance>
-        <minRefireDays>180</minRefireDays>
+        <baseChance>0.5</baseChance>
+        <minRefireDays>240</minRefireDays>
         <durationDays>15~60</durationDays>
       </IncidentDef>
 

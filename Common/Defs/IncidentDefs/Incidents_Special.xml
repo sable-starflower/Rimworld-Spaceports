@@ -76,7 +76,7 @@
   <workerClass>Spaceports.Incidents.IncidentWorker_SpicyPawnLending</workerClass>
   <letterDef>Spaceports_SpicyPawnLending</letterDef>
   <letterLabel>Professional help needed</letterLabel>
-  <baseChance>1.0</baseChance>
+  <baseChance>0</baseChance>
   <minRefireDays>60</minRefireDays>
 </IncidentDef>
 </Defs>
