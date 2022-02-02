@@ -7,6 +7,7 @@ using Verse;
 using Verse.AI;
 using static Spaceports.Utils;
 using System;
+using HarmonyLib;
 
 namespace Spaceports
 {
@@ -43,9 +44,8 @@ namespace Spaceports
         public static List<AccessControlState> AccessStates = new List<AccessControlState>();
         public static Type CompPipe = null;
         public static Type PlumbingNet = null;
-        public static FieldInfo PipeNet = null;
-        public static MethodInfo PullWater = null;
-        public static MethodInfo CompPipeGetter = null;
+        public static AccessTools.FieldRef<object, object> PipeNet = null;
+        public static FastInvokeHandler PullWater = null;
         static SpaceportsMisc()
         {
             AccessStates.Add(new AccessControlState("Spaceports_None", -1));
@@ -61,11 +61,8 @@ namespace Spaceports
                 Log.Message("[Spaceports] Fucking around with reflection and DBH...");
                 CompPipe = Type.GetType("DubsBadHygiene.CompPipe, BadHygiene, Version=2.7.7273.33335, Culture=neutral, PublicKeyToken=null");
                 PlumbingNet = Type.GetType("DubsBadHygiene.PlumbingNet, BadHygiene, Version=2.7.7273.33335, Culture=neutral, PublicKeyToken=null");
-                PipeNet = CompPipe.GetField("pipeNetRef");
-                PullWater = PlumbingNet.GetMethod("PullWater");
-
-                MethodInfo method = typeof(ThingWithComps).GetMethod(nameof(ThingWithComps.GetComp));
-                CompPipeGetter = method.MakeGenericMethod(CompPipe);
+                PipeNet = AccessTools.FieldRefAccess<object>(CompPipe, "pipeNetRef");
+                PullWater = MethodInvoker.GetHandler(PlumbingNet.GetMethod("PullWater"));
             }
         }
     }

@@ -124,17 +124,16 @@ namespace Spaceports.Buildings
             if(!LoadedModManager.GetMod<SpaceportsMod>().GetSettings<SpaceportsSettings>().dbhEnabled) { return false; }
             try
             {
-                var comp = SpaceportsMisc.CompPipeGetter.Invoke(this, null);
+                var comp = AllComps.FirstOrDefault(x => x.GetType() == SpaceportsMisc.CompPipe);
+                var PipeNet = SpaceportsMisc.PipeNet(comp);
 
-                object[] parms = new object[] { 8f, null };
-                var PipeNet = SpaceportsMisc.PipeNet.GetValue(comp);
-
-                if(PipeNet == null)
+                if (PipeNet == null)
                 {
                     return false;
                 }
 
-                bool result = (bool)SpaceportsMisc.PullWater.Invoke(PipeNet, parms);
+                object[] parms = new object[] { 8f, 0 };
+                bool result = (bool)SpaceportsMisc.PullWater(PipeNet, parms);
                 return result;
             }
             catch(Exception ex)
