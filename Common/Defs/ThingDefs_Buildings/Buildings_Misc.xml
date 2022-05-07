@@ -71,7 +71,6 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>300</basePowerConsumption>
-        <soundAmbientPowered>Spaceports_BeaconAmbience</soundAmbientPowered>
       </li>
       <li Class="CompProperties_Flickable"/>
     </comps>
