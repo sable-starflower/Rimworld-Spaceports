@@ -71,7 +71,7 @@ namespace Spaceports.Buildings
 
         public void RareTick()
         {
-            if (this.getComp<CompPowerTrader>().PowerOn) {
+            if (this.GetComp<CompPowerTrader>().PowerOn) {
                 CompRefuelable FuelComp = this.GetComp<CompRefuelable>();
                 if (FuelComp != null && FuelComp.HasFuel)
                 {
